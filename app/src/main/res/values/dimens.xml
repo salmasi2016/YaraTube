@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="navigationViewMarginLeft">40dp</dimen>
+    <dimen name="textSize1">15sp</dimen>
+    <dimen name="textSize2">18sp</dimen>
+</resources>

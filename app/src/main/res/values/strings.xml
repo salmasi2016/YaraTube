@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">YaraTube</string>
+    <string name="userName">نام کاربر</string>
+    <string name="profile">پروفایل</string>
+    <string name="aboutUs">درباره ما</string>
+    <string name="contactUs">تماس با ما</string>
+    <string name="mainPage">صفحه اصلی</string>
+    <string name="categories">دسته بندی ها</string>
+    <string name="navigation">جهت یابی</string>
 </resources>

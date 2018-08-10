@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/hamburger_menu_gl_y1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/hamburger_menu_gl_y2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/hamburger_menu_gl_y3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/hamburger_menu_gl_y4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.4" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/hamburger_menu_gl_y5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/hamburger_menu_gl_y6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/hamburger_menu_gl_y7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.7" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/hamburger_menu_gl_x5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/hamburger_menu_gl_x9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/hamburger_menu_iv_profile"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@drawable/images_avatar_circular"
+        app:layout_constraintBottom_toBottomOf="@id/hamburger_menu_gl_y2"
+        app:layout_constraintRight_toRightOf="@id/hamburger_menu_gl_x9"
+        app:layout_constraintTop_toTopOf="@id/hamburger_menu_gl_y1" />
+
+    <TextView
+        android:id="@+id/hamburger_menu_tv_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/userName"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/textSize2"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/hamburger_menu_gl_y3"
+        app:layout_constraintRight_toRightOf="@id/hamburger_menu_gl_x9"
+        app:layout_constraintTop_toTopOf="@id/hamburger_menu_gl_y3" />
+
+    <TextView
+        android:id="@+id/hamburger_menu_tv_profile"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center|right"
+        android:text="@string/profile"
+        android:textSize="@dimen/textSize1"
+        app:layout_constraintBottom_toBottomOf="@id/hamburger_menu_gl_y5"
+        app:layout_constraintLeft_toLeftOf="@id/hamburger_menu_gl_x5"
+        app:layout_constraintRight_toRightOf="@id/hamburger_menu_gl_x9"
+        app:layout_constraintTop_toTopOf="@id/hamburger_menu_gl_y4" />
+
+    <TextView
+        android:id="@+id/hamburger_menu_tv_about_us"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center|right"
+        android:text="@string/aboutUs"
+        android:textSize="@dimen/textSize1"
+        app:layout_constraintBottom_toBottomOf="@id/hamburger_menu_gl_y6"
+        app:layout_constraintLeft_toLeftOf="@id/hamburger_menu_gl_x5"
+        app:layout_constraintRight_toRightOf="@id/hamburger_menu_gl_x9"
+        app:layout_constraintTop_toTopOf="@id/hamburger_menu_gl_y5" />
+
+    <TextView
+        android:id="@+id/hamburger_menu_tv_contact_us"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center|right"
+        android:text="@string/contactUs"
+        android:textSize="@dimen/textSize1"
+        app:layout_constraintBottom_toBottomOf="@id/hamburger_menu_gl_y7"
+        app:layout_constraintLeft_toLeftOf="@id/hamburger_menu_gl_x5"
+        app:layout_constraintRight_toRightOf="@id/hamburger_menu_gl_x9"
+        app:layout_constraintTop_toTopOf="@id/hamburger_menu_gl_y6" />
+
+</android.support.constraint.ConstraintLayout>
