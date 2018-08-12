@@ -5,25 +5,26 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
+import com.yaratech.yaratube.main.OnBackPressed;
 import com.yaratech.yaratube.R;
 
-public class HomeFragment extends Fragment implements View.OnClickListener {
+public class HomeFragment extends Fragment implements NavigationView.OnNavigationItemSelectedListener, OnBackPressed {
     private DrawerLayout drawerLayout;
-    private TextView tvProfile, tvAboutUs, tvContactUs;
+    private NavigationView navigationView;
     private BottomNavigationView bottomNavigationView;
     private Interaction.goTo iaGoTo;
+    private Toolbar toolbar;
 
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
@@ -55,45 +56,34 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         drawerLayout = view.findViewById(R.id.fragment_home_dl_layout);
+        toolbar = view.findViewById(R.id.home_toolbar);
         bottomNavigationView = view.findViewById(R.id.home_bottom_navigation);
-        tvProfile = view.findViewById(R.id.hamburger_menu_tv_profile);
-        tvAboutUs = view.findViewById(R.id.hamburger_menu_tv_about_us);
-        tvContactUs = view.findViewById(R.id.hamburger_menu_tv_contact_us);
-        tvProfile.setOnClickListener(this);
-        tvAboutUs.setOnClickListener(this);
-        tvContactUs.setOnClickListener(this);
+        navigationView = view.findViewById(R.id.fragment_home_nv_navigation);
+        navigationView.setNavigationItemSelectedListener(this);
         setValueBottomNavigation();
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.home_menu, menu);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        setToolbar();
+    }
+
+    private void setToolbar() {
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.icon_menu_rounded);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (drawerLayout.isDrawerOpen(Gravity.END))
-            drawerLayout.closeDrawer(Gravity.END);
-        else
-            drawerLayout.openDrawer(Gravity.END);
-        return super.onOptionsItemSelected(item);
-    }
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                drawerLayout.openDrawer(Gravity.RIGHT);
+                return true;
 
-    @Override
-    public void onClick(View view) {
-        drawerLayout.closeDrawer(Gravity.END);
-        switch (view.getId()) {
-            case R.id.hamburger_menu_tv_profile:
-                iaGoTo.goToProfile();
-                break;
-            case R.id.hamburger_menu_tv_about_us:
-                iaGoTo.goToAboutUs();
-                break;
-            case R.id.hamburger_menu_tv_contact_us:
-                iaGoTo.goToContactUs();
-                break;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     private void setValueBottomNavigation() {
@@ -114,6 +104,36 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         return true;
                     }
                 });
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.home_hamburger_profile:
+                iaGoTo.goToProfile();
+                drawerLayout.closeDrawer(Gravity.RIGHT);
+                return true;
+            case R.id.home_hamburger_aboutUs:
+                iaGoTo.goToAboutUs();
+                drawerLayout.closeDrawer(Gravity.RIGHT);
+                return true;
+            case R.id.home_hamburger_contactUs:
+                iaGoTo.goToContactUs();
+                drawerLayout.closeDrawer(Gravity.RIGHT);
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        if (drawerLayout.isDrawerOpen(Gravity.RIGHT)) {
+            drawerLayout.closeDrawer(Gravity.RIGHT);
+            return false;
+        } else {
+            getActivity().getSupportFragmentManager().popBackStack();
+            return true;
+        }
     }
 
     public interface Interaction {

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="navigationViewMarginLeft">40dp</dimen>
+    <dimen name="navigationViewMarginLeft">30dp</dimen>
+    <dimen name="navigationHeaderHeight">200dp</dimen>
     <dimen name="textSize1">15sp</dimen>
     <dimen name="textSize2">18sp</dimen>
+    <dimen name="imgSize1">20dp</dimen>
+    <dimen name="imgSize2">64dp</dimen>
+    <dimen name="margin1">8dp</dimen>
 </resources>
