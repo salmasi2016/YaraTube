@@ -1,4 +1,4 @@
-package com.yaratech.yaratube.main;
+package com.yaratech.yaratube.ui.main;
 
 public interface OnBackPressed {
     boolean onBackPressed();

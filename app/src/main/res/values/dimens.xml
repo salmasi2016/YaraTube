@@ -2,9 +2,17 @@
 <resources>
     <dimen name="navigationViewMarginLeft">30dp</dimen>
     <dimen name="navigationHeaderHeight">200dp</dimen>
+    <dimen name="adapterTypesHeaderHeight">250dp</dimen>
+    <dimen name="adapterTypesHomeHeight">150dp</dimen>
+    <dimen name="listItemCategoryHeight">60dp</dimen>
+    <dimen name="listItemCategoryCornerRadius">15dp</dimen>
+    <dimen name="listItemCategoryElevation">5dp</dimen>
     <dimen name="textSize1">15sp</dimen>
     <dimen name="textSize2">18sp</dimen>
     <dimen name="imgSize1">20dp</dimen>
+    <dimen name="imgSize3">32dp</dimen>
     <dimen name="imgSize2">64dp</dimen>
-    <dimen name="margin1">8dp</dimen>
+    <dimen name="margin1">5dp</dimen>
+    <dimen name="margin2">8dp</dimen>
+    <dimen name="margin3">10dp</dimen>
 </resources>

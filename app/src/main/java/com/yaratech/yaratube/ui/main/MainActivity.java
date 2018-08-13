@@ -1,16 +1,15 @@
-package com.yaratech.yaratube.main;
+package com.yaratech.yaratube.ui.main;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.WindowManager;
 
 import com.yaratech.yaratube.R;
-import com.yaratech.yaratube.aboutUs.AboutUsFragment;
-import com.yaratech.yaratube.contactUs.ContactUsFragment;
-import com.yaratech.yaratube.home.CategoriesFragment;
-import com.yaratech.yaratube.home.HomeFragment;
-import com.yaratech.yaratube.home.MainPageFragment;
-import com.yaratech.yaratube.profile.ProfileFragment;
+import com.yaratech.yaratube.ui.aboutUs.AboutUsFragment;
+import com.yaratech.yaratube.ui.contactUs.ContactUsFragment;
+import com.yaratech.yaratube.ui.home.CategoriesFragment;
+import com.yaratech.yaratube.ui.home.HomeFragment;
+import com.yaratech.yaratube.ui.home.MainPageFragment;
+import com.yaratech.yaratube.ui.profile.ProfileFragment;
 import com.yaratech.yaratube.util.Tool;
 
 public class MainActivity extends AppCompatActivity implements HomeFragment.Interaction.goTo {

@@ -1,4 +1,4 @@
-package com.yaratech.yaratube.home;
+package com.yaratech.yaratube.ui.home;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -16,7 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.yaratech.yaratube.main.OnBackPressed;
+import com.yaratech.yaratube.ui.main.OnBackPressed;
 import com.yaratech.yaratube.R;
 
 public class HomeFragment extends Fragment implements NavigationView.OnNavigationItemSelectedListener, OnBackPressed {
