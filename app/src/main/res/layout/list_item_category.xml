@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layoutDirection="rtl"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -9,8 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/listItemCategoryHeight"
         android:layout_marginBottom="@dimen/margin1"
-        android:layout_marginLeft="@dimen/margin2"
-        android:layout_marginRight="@dimen/margin2"
+        android:layout_marginLeft="@dimen/margin4"
+        android:layout_marginRight="@dimen/margin4"
         android:layout_marginTop="@dimen/margin1"
         app:cardCornerRadius="@dimen/listItemCategoryCornerRadius"
         app:cardElevation="@dimen/listItemCategoryElevation">
@@ -34,9 +34,10 @@
                 app:layout_constraintGuide_percent="0.2" />
 
             <ImageView
-                android:id="@+id/list_item_category_iv_img"
+                android:id="@+id/list_item_category_iv_category"
                 android:layout_width="@dimen/imgSize3"
                 android:layout_height="@dimen/imgSize3"
+                android:src="@drawable/images_avatar_circular"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="@id/list_item_category_gl_x05"/>
@@ -44,7 +45,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/list_item_category_tv_category"
+                android:id="@+id/list_item_category_tv_title"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="@id/list_item_category_gl_x2"/>

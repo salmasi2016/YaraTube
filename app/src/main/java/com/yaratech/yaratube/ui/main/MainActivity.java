@@ -4,11 +4,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.yaratech.yaratube.R;
-import com.yaratech.yaratube.ui.aboutUs.AboutUsFragment;
-import com.yaratech.yaratube.ui.contactUs.ContactUsFragment;
-import com.yaratech.yaratube.ui.home.CategoriesFragment;
-import com.yaratech.yaratube.ui.home.HomeFragment;
-import com.yaratech.yaratube.ui.home.MainPageFragment;
+import com.yaratech.yaratube.ui.about_us.AboutUsFragment;
+import com.yaratech.yaratube.ui.contact_us.ContactUsFragment;
+import com.yaratech.yaratube.ui.home.category.FragmentCategory;
+import com.yaratech.yaratube.ui.home.home.HomeFragment;
+import com.yaratech.yaratube.ui.home.main_page.main_page.FragmentMainPage;
 import com.yaratech.yaratube.ui.profile.ProfileFragment;
 import com.yaratech.yaratube.util.Tool;
 
@@ -45,11 +45,11 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Inte
 
     @Override
     public void goToMainPage() {
-        Tool.setFragment(getSupportFragmentManager(), MainPageFragment.newInstance(), R.id.home_fl_layout);
+        Tool.setFragment(getSupportFragmentManager(), FragmentMainPage.newInstance(), R.id.home_fl_layout);
     }
 
     @Override
     public void goToCategories() {
-        Tool.setFragment(getSupportFragmentManager(), CategoriesFragment.newInstance(), R.id.home_fl_layout);
+        Tool.setFragment(getSupportFragmentManager(), FragmentCategory.newInstance(), R.id.home_fl_layout);
     }
 }
