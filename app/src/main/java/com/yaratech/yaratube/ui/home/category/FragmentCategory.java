@@ -1,5 +1,6 @@
 package com.yaratech.yaratube.ui.home.category;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,10 +17,11 @@ import com.yaratech.yaratube.data.model.Category;
 
 import java.util.ArrayList;
 
-public class FragmentCategory extends Fragment implements ContractCategory.View {
+public class FragmentCategory extends Fragment implements ContractCategory.View,AdapterCategory.Interaction {
     private ContractCategory.Presenter iaPresenter;
     private RecyclerView rvCategory;
     private AdapterCategory adapterCategory;
+    private Interaction interaction;
 
     public static FragmentCategory newInstance() {
         FragmentCategory fragment = new FragmentCategory();
@@ -29,10 +31,16 @@ public class FragmentCategory extends Fragment implements ContractCategory.View 
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        interaction = (Interaction) context;
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         iaPresenter = new PresenterCategory(this);
-        adapterCategory = new AdapterCategory();
+        adapterCategory = new AdapterCategory(FragmentCategory.this);
     }
 
     @Nullable
@@ -51,25 +59,6 @@ public class FragmentCategory extends Fragment implements ContractCategory.View 
         iaPresenter.loadData();
     }
 
-//    private void categoryRequest() {
-//        APIInterface apiInterface = APIClient.getClient().create(APIInterface.class);
-//        Call<ArrayList<Category>> call = apiInterface.getCategories();
-//        call.enqueue(new LoadCallback<ArrayList<Category>>() {
-//            @Override
-//            public void onResponse(Call<ArrayList<Category>> call, Response<ArrayList<Category>> response) {
-//                if (response.isSuccessful()) {
-//                    adapterCategory.setCategories(response.body());
-//                    Log.i("sina","category : "+adapterCategory.getCategories().size());
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ArrayList<Category>> call, Throwable t) {
-//                Log.i("sina","NO !");
-//            }
-//        });
-//    }
-
     @Override
     public void showProgress() {
 
@@ -83,5 +72,15 @@ public class FragmentCategory extends Fragment implements ContractCategory.View 
     @Override
     public void showCategories(ArrayList<Category> categories) {
         adapterCategory.setCategories(categories);
+    }
+
+    @Override
+    public void setCategoryToFragmentCategory(Category category) {
+        interaction.goToFragmentCategoryGrid(category);
+    }
+
+    public interface Interaction {
+
+        void goToFragmentCategoryGrid(Category category);
     }
 }

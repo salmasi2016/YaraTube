@@ -12,6 +12,8 @@ import java.util.List;
 
 public class Tool {
     public static final String BASE_URL = "https://api.vasapi.click/";
+    public static final String STORE_ID = "16";
+    public static final String FRAGMENT_CATEGORY_GRID_CATEGORY = "category";
 
     public static void setFragment(FragmentManager fragmentManager, Fragment fragment, int idLayout) {
         android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

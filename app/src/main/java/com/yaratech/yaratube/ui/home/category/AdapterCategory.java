@@ -16,6 +16,11 @@ import java.util.ArrayList;
 
 public class AdapterCategory extends RecyclerView.Adapter<AdapterCategory.viewHolder> {
     private ArrayList<Category> categories;
+    private Interaction interaction;
+
+    public AdapterCategory(Interaction interaction) {
+        this.interaction = interaction;
+    }
 
     @Override
     public AdapterCategory.viewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
@@ -43,10 +48,16 @@ public class AdapterCategory extends RecyclerView.Adapter<AdapterCategory.viewHo
         TextView tvTitle;
         ImageView ivCategory;
 
-        viewHolder(View itemView) {
+        viewHolder(final View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.list_item_category_tv_title);
             ivCategory = itemView.findViewById(R.id.list_item_category_iv_category);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    interaction.setCategoryToFragmentCategory(getCategories().get(getAdapterPosition()));
+                }
+            });
         }
     }
 
@@ -57,5 +68,9 @@ public class AdapterCategory extends RecyclerView.Adapter<AdapterCategory.viewHo
     public void setCategories(ArrayList<Category> categories) {
         this.categories = categories;
         notifyDataSetChanged();
+    }
+
+    public interface Interaction {
+        void setCategoryToFragmentCategory(Category category);
     }
 }

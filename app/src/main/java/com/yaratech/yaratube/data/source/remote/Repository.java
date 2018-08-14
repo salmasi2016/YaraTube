@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.yaratech.yaratube.data.model.Category;
 import com.yaratech.yaratube.data.model.Home;
+import com.yaratech.yaratube.data.model.Product;
 
 import java.util.ArrayList;
 
@@ -49,6 +50,26 @@ public class Repository {
             public void onFailure(Call<Home> call, Throwable t) {
                 Log.i("sina","mainPage failured.");
                 Log.i("sina","*"+t.getLocalizedMessage());
+            }
+        });
+    }
+
+    public void loadCategoryGrid(final LoadCallback.CategoryGrid callback,Category category) {
+        APIInterface apiInterface = APIClient.getClient().create(APIInterface.class);
+        Call<ArrayList<Product>> call = apiInterface.getCategoryGrid(category.getId());
+        call.enqueue(new Callback<ArrayList<Product>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Product>> call, Response<ArrayList<Product>> response) {
+                Log.i("sina","code : "+response.code());
+                if (response.isSuccessful()) {
+                    callback.onLoadedData(response.body());
+                    Log.i("sina","categoryGrid loaded.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Product>> call, Throwable t) {
+                Log.i("sina","categoryGrid failured.");
             }
         });
     }
