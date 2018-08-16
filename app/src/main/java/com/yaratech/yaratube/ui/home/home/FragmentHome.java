@@ -19,15 +19,15 @@ import android.view.ViewGroup;
 import com.yaratech.yaratube.ui.main.OnBackPressed;
 import com.yaratech.yaratube.R;
 
-public class HomeFragment extends Fragment implements NavigationView.OnNavigationItemSelectedListener, OnBackPressed {
+public class FragmentHome extends Fragment implements NavigationView.OnNavigationItemSelectedListener, OnBackPressed {
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private BottomNavigationView bottomNavigationView;
     private Interaction.goTo iaGoTo;
     private Toolbar toolbar;
 
-    public static HomeFragment newInstance() {
-        HomeFragment fragment = new HomeFragment();
+    public static FragmentHome newInstance() {
+        FragmentHome fragment = new FragmentHome();
         Bundle bundle = new Bundle();
         fragment.setArguments(bundle);
         return fragment;

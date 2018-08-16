@@ -8,9 +8,11 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.yaratech.yaratube.R;
 import com.yaratech.yaratube.data.model.Category;
@@ -24,6 +26,8 @@ public class FragmentCategoryGrid extends Fragment implements ContractCategoryGr
     private RecyclerView rvCategoryGrid;
     private AdapterCategoryGrid adapterCategoryGrid;
     private Category category;
+    private Toolbar toolbar;
+    private ProgressBar pbLoad;
 
     public static FragmentCategoryGrid newInstance(Category category) {
         FragmentCategoryGrid fragment = new FragmentCategoryGrid();
@@ -52,7 +56,10 @@ public class FragmentCategoryGrid extends Fragment implements ContractCategoryGr
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        toolbar=view.findViewById(R.id.fragment_category_grid_toolbar);
+        toolbar.setTitle(getCategory().getTitle());
         rvCategoryGrid = view.findViewById(R.id.fragment_category_grid_rv_product);
+        pbLoad=view.findViewById(R.id.fragment_category_grid_pb_load);
         rvCategoryGrid.setLayoutManager(new GridLayoutManager(getContext(), 2, LinearLayoutManager.VERTICAL, false));
         rvCategoryGrid.setItemAnimator(new DefaultItemAnimator());
         rvCategoryGrid.setAdapter(adapterCategoryGrid);
@@ -61,12 +68,12 @@ public class FragmentCategoryGrid extends Fragment implements ContractCategoryGr
 
     @Override
     public void showProgress() {
-
+        pbLoad.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-
+        pbLoad.setVisibility(View.GONE);
     }
 
     @Override

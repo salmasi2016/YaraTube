@@ -12,12 +12,12 @@ import android.widget.RadioGroup;
 
 import com.yaratech.yaratube.R;
 
-public class ProfileFragment extends Fragment {
+public class FragmentProfile extends Fragment {
     private RadioGroup rgSex;
     private EditText etFullName,etDateBirth;
 
-    public static ProfileFragment newInstance() {
-        ProfileFragment fragment = new ProfileFragment();
+    public static FragmentProfile newInstance() {
+        FragmentProfile fragment = new FragmentProfile();
         Bundle bundle = new Bundle();
         fragment.setArguments(bundle);
         return fragment;

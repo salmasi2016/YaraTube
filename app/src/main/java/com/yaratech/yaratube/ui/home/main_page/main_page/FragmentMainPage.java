@@ -7,9 +7,11 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.yaratech.yaratube.R;
 import com.yaratech.yaratube.data.model.Category;
@@ -18,10 +20,13 @@ import com.yaratech.yaratube.data.model.HomeItem;
 
 import java.util.ArrayList;
 
+import static android.support.constraint.Constraints.TAG;
+
 public class FragmentMainPage extends Fragment implements ContractMainPage.View {
     private ContractMainPage.Presenter iaPresenter;
     private RecyclerView rvType;
     private AdapterMainPage adapterMainPage;
+    private ProgressBar pbLoad;
 
     public static FragmentMainPage newInstance() {
         FragmentMainPage fragment = new FragmentMainPage();
@@ -33,8 +38,8 @@ public class FragmentMainPage extends Fragment implements ContractMainPage.View 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        iaPresenter=new PresenterMainPage(this);
-        adapterMainPage = new AdapterMainPage();
+        iaPresenter = new PresenterMainPage(this);
+        adapterMainPage = new AdapterMainPage(getFragmentManager());
     }
 
     @Nullable
@@ -46,7 +51,8 @@ public class FragmentMainPage extends Fragment implements ContractMainPage.View 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        rvType=view.findViewById(R.id.fragment_main_page_rv_type);
+        pbLoad = view.findViewById(R.id.fragment_main_page_pb_load);
+        rvType = view.findViewById(R.id.fragment_main_page_rv_type);
         rvType.setLayoutManager(new LinearLayoutManager(getContext()));
         rvType.setItemAnimator(new DefaultItemAnimator());
         rvType.setAdapter(adapterMainPage);
@@ -55,12 +61,12 @@ public class FragmentMainPage extends Fragment implements ContractMainPage.View 
 
     @Override
     public void showProgress() {
-
+        pbLoad.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-
+        pbLoad.setVisibility(View.GONE);
     }
 
     @Override

@@ -5,59 +5,104 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.yaratech.yaratube.R;
 import com.yaratech.yaratube.data.model.Category;
-import com.yaratech.yaratube.ui.about_us.AboutUsFragment;
-import com.yaratech.yaratube.ui.contact_us.ContactUsFragment;
-import com.yaratech.yaratube.ui.home.category.FragmentCategory;
+import com.yaratech.yaratube.ui.about_us.FragmentAboutUs;
 import com.yaratech.yaratube.ui.category_grid.FragmentCategoryGrid;
-import com.yaratech.yaratube.ui.home.home.HomeFragment;
+import com.yaratech.yaratube.ui.contact_us.FragmentContactUs;
+import com.yaratech.yaratube.ui.home.category.FragmentCategory;
+import com.yaratech.yaratube.ui.home.home.FragmentHome;
 import com.yaratech.yaratube.ui.home.main_page.main_page.FragmentMainPage;
-import com.yaratech.yaratube.ui.profile.ProfileFragment;
+import com.yaratech.yaratube.ui.profile.FragmentProfile;
 import com.yaratech.yaratube.util.Tool;
 
-public class MainActivity extends AppCompatActivity implements HomeFragment.Interaction.goTo
-        ,FragmentCategory.Interaction {
+public class MainActivity extends AppCompatActivity implements FragmentHome.Interaction.goTo, FragmentCategory.Interaction {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Tool.setFragment(getSupportFragmentManager(), HomeFragment.newInstance(), R.id.main_fl_layout);
+        FragmentHome fragmentHome = (FragmentHome) getSupportFragmentManager().findFragmentByTag("FragmentHome");
+        if (fragmentHome == null) {
+            fragmentHome = FragmentHome.newInstance();
+            Tool.setFragment(getSupportFragmentManager(), fragmentHome, R.id.main_fl_layout, "FragmentHome");
+        }
     }
 
+//    @Override
+//    public void onBackPressed() {
+//        if (Tool.isDrawerClose(getSupportFragmentManager())) {
+//            super.onBackPressed();
+//        }
+//    }
+
     @Override
-    public void onBackPressed() {
-        if (Tool.isDrawerClose(getSupportFragmentManager())) {
-            super.onBackPressed();
+    public void goToProfile() {
+        FragmentProfile fragmentProfile = (FragmentProfile) getSupportFragmentManager().findFragmentByTag("FragmentProfile");
+        if (fragmentProfile == null) {
+            fragmentProfile = FragmentProfile.newInstance();
+            Tool.setFragment(getSupportFragmentManager(), fragmentProfile, R.id.main_fl_layout, "FragmentProfile");
         }
     }
 
     @Override
-    public void goToProfile() {
-        Tool.setFragment(getSupportFragmentManager(), ProfileFragment.newInstance(), R.id.main_fl_layout);
-    }
-
-    @Override
     public void goToAboutUs() {
-        Tool.setFragment(getSupportFragmentManager(), AboutUsFragment.newInstance(), R.id.main_fl_layout);
+        FragmentAboutUs fragmentAboutUs = (FragmentAboutUs) getSupportFragmentManager().findFragmentByTag("FragmentAboutUs");
+        if (fragmentAboutUs == null) {
+            fragmentAboutUs = FragmentAboutUs.newInstance();
+            Tool.setFragment(getSupportFragmentManager(), fragmentAboutUs, R.id.main_fl_layout, "FragmentAboutUs");
+        }
     }
 
     @Override
     public void goToContactUs() {
-        Tool.setFragment(getSupportFragmentManager(), ContactUsFragment.newInstance(), R.id.main_fl_layout);
+        FragmentContactUs fragmentContactUs = (FragmentContactUs) getSupportFragmentManager().findFragmentByTag("FragmentContactUs");
+        if (fragmentContactUs == null) {
+            fragmentContactUs = FragmentContactUs.newInstance();
+            Tool.setFragment(getSupportFragmentManager(), fragmentContactUs, R.id.main_fl_layout, "FragmentContactUs");
+        }
     }
 
     @Override
     public void goToMainPage() {
-        Tool.setFragment(getSupportFragmentManager(), FragmentMainPage.newInstance(), R.id.home_fl_layout);
+        FragmentMainPage fragmentMainPage = (FragmentMainPage) getSupportFragmentManager().findFragmentByTag("FragmentMainPage");
+        if (fragmentMainPage == null) {
+            fragmentMainPage = FragmentMainPage.newInstance();
+            Tool.setFragment(getSupportFragmentManager(), fragmentMainPage, R.id.home_fl_layout, "FragmentMainPage");
+        } else {
+            FragmentCategory fragmentCategory = (FragmentCategory) getSupportFragmentManager().findFragmentByTag("FragmentCategory");
+            if (fragmentCategory != null) {
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .hide(getSupportFragmentManager().findFragmentByTag("FragmentCategory"))
+                        .show(getSupportFragmentManager().findFragmentByTag("FragmentMainPage"))
+                        .commit();
+            }
+        }
     }
 
     @Override
     public void goToCategories() {
-        Tool.setFragment(getSupportFragmentManager(), FragmentCategory.newInstance(), R.id.home_fl_layout);
+        FragmentCategory fragmentCategory = (FragmentCategory) getSupportFragmentManager().findFragmentByTag("FragmentCategory");
+        if (fragmentCategory == null) {
+            fragmentCategory = FragmentCategory.newInstance();
+            Tool.setFragment(getSupportFragmentManager(), fragmentCategory, R.id.home_fl_layout, "FragmentCategory");
+        } else {
+            FragmentMainPage fragmentMainPage = (FragmentMainPage) getSupportFragmentManager().findFragmentByTag("FragmentMainPage");
+            if (fragmentMainPage != null) {
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .hide(getSupportFragmentManager().findFragmentByTag("FragmentMainPage"))
+                        .show(getSupportFragmentManager().findFragmentByTag("FragmentCategory"))
+                        .commit();
+            }
+        }
     }
 
     @Override
     public void goToFragmentCategoryGrid(Category category) {
-        Tool.setFragment(getSupportFragmentManager(), FragmentCategoryGrid.newInstance(category),R.id.main_fl_layout);
+        FragmentCategoryGrid fragmentCategoryGrid = (FragmentCategoryGrid) getSupportFragmentManager().findFragmentByTag("FragmentCategoryGrid");
+        if (fragmentCategoryGrid == null) {
+            fragmentCategoryGrid = FragmentCategoryGrid.newInstance(category);
+            Tool.setFragment(getSupportFragmentManager(), fragmentCategoryGrid, R.id.main_fl_layout, "FragmentCategoryGrid");
+        }
     }
 }

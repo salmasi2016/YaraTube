@@ -10,16 +10,17 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface APIInterface {
 
-    @GET("store/"+ Tool.STORE_ID)
+    @GET("store/16")
     Call<Home> getHome();
 
-    @GET("category/"+Tool.STORE_ID+"/463")
+    @GET("category/16/463")
     Call<ArrayList<Category>> getCategories();
 
     @GET("listproducts/{category_id}")
-    Call<ArrayList<Product>> getCategoryGrid(@Query("category_id") int categoryId);
+    Call<ArrayList<Product>> getCategoryGrid(@Path("category_id") int categoryId);
 }

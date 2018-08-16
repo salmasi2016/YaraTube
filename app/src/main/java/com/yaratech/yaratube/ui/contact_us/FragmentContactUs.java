@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 
 import com.yaratech.yaratube.R;
 
-public class ContactUsFragment extends Fragment {
+public class FragmentContactUs extends Fragment {
 
-    public static ContactUsFragment newInstance() {
-        ContactUsFragment fragment = new ContactUsFragment();
+    public static FragmentContactUs newInstance() {
+        FragmentContactUs fragment = new FragmentContactUs();
         Bundle bundle = new Bundle();
         fragment.setArguments(bundle);
         return fragment;

@@ -1,6 +1,8 @@
 package com.yaratech.yaratube.ui.home.main_page.main_page;
 
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +24,11 @@ class AdapterMainPage extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<HomeItem> homeItems;
     private static final int VIEW_TYPE_HEADER = 1;
     private static final int VIEW_TYPE_HOME = 2;
+    private FragmentManager fragmentManager;
+
+    public AdapterMainPage(FragmentManager fragmentManager) {
+        this.fragmentManager=fragmentManager;
+    }
 
     @Override
     public int getItemViewType(int position) {
@@ -54,7 +61,7 @@ class AdapterMainPage extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof AdapterMainPage.HeaderViewHolder) {
             AdapterMainPage.HeaderViewHolder viewHolder = (AdapterMainPage.HeaderViewHolder) holder;
-            viewHolder.onBindHeaderView();
+            viewHolder.onBindHeaderView(fragmentManager);
         } else if (holder instanceof AdapterMainPage.HomeViewHolder) {
             AdapterMainPage.HomeViewHolder viewHolder = (AdapterMainPage.HomeViewHolder) holder;
             viewHolder.onBindHomeView(homeItems.get(position - 1));
@@ -70,19 +77,17 @@ class AdapterMainPage extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
-        RecyclerView rvHeader;
+        ViewPager vpHeader;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
-            rvHeader = itemView.findViewById(R.id.adapter_main_page_header_rv_header);
+            vpHeader = itemView.findViewById(R.id.adapter_main_page_header_vp_header);
         }
 
-        public void onBindHeaderView() {
-            AdapterHeaderItem adapterHeaderItem = new AdapterHeaderItem();
-            rvHeader.setLayoutManager(new LinearLayoutManager(itemView.getContext(), LinearLayoutManager.HORIZONTAL, false));
-            rvHeader.setItemAnimator(new DefaultItemAnimator());
-            rvHeader.setAdapter(adapterHeaderItem);
+        public void onBindHeaderView(FragmentManager fragmentManager) {
+            AdapterHeaderItem adapterHeaderItem=new AdapterHeaderItem(fragmentManager);
             adapterHeaderItem.setHeaderItems(headerItems);
+            vpHeader.setAdapter(adapterHeaderItem);
         }
     }
 

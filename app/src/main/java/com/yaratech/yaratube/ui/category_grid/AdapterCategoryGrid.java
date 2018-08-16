@@ -46,9 +46,9 @@ public class AdapterCategoryGrid extends RecyclerView.Adapter<AdapterCategoryGri
 
         viewHolder(final View itemView) {
             super(itemView);
-            tvName = itemView.findViewById(R.id.list_item_home_item_tv_name);
-            tvShortDescription = itemView.findViewById(R.id.list_item_home_item_tv_short_description);
-            ivVideo=itemView.findViewById(R.id.list_item_home_item_iv_video);
+            tvName = itemView.findViewById(R.id.list_item_category_grid_tv_name);
+            tvShortDescription = itemView.findViewById(R.id.list_item_category_grid_tv_short_description);
+            ivVideo=itemView.findViewById(R.id.list_item_category_grid_iv_video);
         }
     }
 

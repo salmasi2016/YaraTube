@@ -8,9 +8,11 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.yaratech.yaratube.R;
 import com.yaratech.yaratube.data.model.Category;
@@ -22,6 +24,7 @@ public class FragmentCategory extends Fragment implements ContractCategory.View,
     private RecyclerView rvCategory;
     private AdapterCategory adapterCategory;
     private Interaction interaction;
+    private ProgressBar pbLoad;
 
     public static FragmentCategory newInstance() {
         FragmentCategory fragment = new FragmentCategory();
@@ -52,6 +55,7 @@ public class FragmentCategory extends Fragment implements ContractCategory.View,
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        pbLoad=view.findViewById(R.id.fragment_category_pb_load);
         rvCategory = view.findViewById(R.id.fragment_category_rv_category);
         rvCategory.setLayoutManager(new LinearLayoutManager(getContext()));
         rvCategory.setItemAnimator(new DefaultItemAnimator());
@@ -61,12 +65,12 @@ public class FragmentCategory extends Fragment implements ContractCategory.View,
 
     @Override
     public void showProgress() {
-
+        pbLoad.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-
+        pbLoad.setVisibility(View.GONE);
     }
 
     @Override

@@ -2,6 +2,8 @@ package com.yaratech.yaratube.data.source.remote;
 
 import com.yaratech.yaratube.util.Tool;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -10,8 +12,14 @@ public class APIClient {
 
     public static Retrofit getClient() {
         if (retrofit == null) {
-            retrofit = new Retrofit.Builder().baseUrl(Tool.BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create()).build();
+            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+            retrofit = new Retrofit.Builder()
+                    .client(client)
+                    .baseUrl(Tool.BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
         }
         return retrofit;
     }
