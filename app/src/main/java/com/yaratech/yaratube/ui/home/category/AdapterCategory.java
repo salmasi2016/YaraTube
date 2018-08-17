@@ -71,6 +71,7 @@ public class AdapterCategory extends RecyclerView.Adapter<AdapterCategory.viewHo
     }
 
     public interface Interaction {
+
         void setCategoryToFragmentCategory(Category category);
     }
 }

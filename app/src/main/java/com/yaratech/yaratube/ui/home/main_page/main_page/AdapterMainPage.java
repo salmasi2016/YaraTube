@@ -1,5 +1,6 @@
 package com.yaratech.yaratube.ui.home.main_page.main_page;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
@@ -25,9 +26,11 @@ class AdapterMainPage extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int VIEW_TYPE_HEADER = 1;
     private static final int VIEW_TYPE_HOME = 2;
     private FragmentManager fragmentManager;
+    private FragmentMainPage fragmentMainPage;
 
-    public AdapterMainPage(FragmentManager fragmentManager) {
+    public AdapterMainPage(FragmentManager fragmentManager, FragmentMainPage fragmentMainPage) {
         this.fragmentManager=fragmentManager;
+        this.fragmentMainPage=fragmentMainPage;
     }
 
     @Override
@@ -102,7 +105,7 @@ class AdapterMainPage extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         public void onBindHomeView(HomeItem homeItem) {
-            AdapterHomeItem adapterHomeItem = new AdapterHomeItem();
+            AdapterHomeItem adapterHomeItem = new AdapterHomeItem(fragmentMainPage);
             tvTitle.setText(homeItem.getTitle());
             rvHome.setLayoutManager(new LinearLayoutManager(itemView.getContext(), LinearLayoutManager.HORIZONTAL, false));
             rvHome.setItemAnimator(new DefaultItemAnimator());

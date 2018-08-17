@@ -14,4 +14,8 @@
     <string name="dateOfBirth">تاریخ تولد</string>
     <string name="man">مرد</string>
     <string name="woman">زن</string>
+    <string name="product_detail">جزییات محصول</string>
+    <string name="description">توضیحات</string>
+    <string name="comments">نظرات کاربران</string>
+    <string name="comment">نظر دهید</string>
 </resources>

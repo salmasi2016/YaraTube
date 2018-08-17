@@ -9,13 +9,20 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.yaratech.yaratube.R;
+import com.yaratech.yaratube.data.model.Category;
 import com.yaratech.yaratube.data.model.Product;
+import com.yaratech.yaratube.ui.home.category.AdapterCategory;
 import com.yaratech.yaratube.util.Tool;
 
 import java.util.ArrayList;
 
 public class AdapterCategoryGrid extends RecyclerView.Adapter<AdapterCategoryGrid.viewHolder> {
     private ArrayList<Product> products;
+    private Interaction interaction;
+
+    public AdapterCategoryGrid(Interaction interaction) {
+        this.interaction = interaction;
+    }
 
     @Override
     public AdapterCategoryGrid.viewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
@@ -49,6 +56,12 @@ public class AdapterCategoryGrid extends RecyclerView.Adapter<AdapterCategoryGri
             tvName = itemView.findViewById(R.id.list_item_category_grid_tv_name);
             tvShortDescription = itemView.findViewById(R.id.list_item_category_grid_tv_short_description);
             ivVideo=itemView.findViewById(R.id.list_item_category_grid_iv_video);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    interaction.setProductToFragmentProductDetail(getProducts().get(getAdapterPosition()));
+                }
+            });
         }
     }
 
@@ -59,5 +72,9 @@ public class AdapterCategoryGrid extends RecyclerView.Adapter<AdapterCategoryGri
     public void setProducts(ArrayList<Product> products) {
         this.products = products;
         notifyDataSetChanged();
+    }
+
+    public interface Interaction {
+        void setProductToFragmentProductDetail(Product product);
     }
 }

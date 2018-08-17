@@ -1,5 +1,6 @@
 package com.yaratech.yaratube.ui.home.main_page.main_page;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -7,26 +8,26 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.yaratech.yaratube.R;
-import com.yaratech.yaratube.data.model.Category;
 import com.yaratech.yaratube.data.model.HeaderItem;
 import com.yaratech.yaratube.data.model.HomeItem;
+import com.yaratech.yaratube.data.model.Product;
+import com.yaratech.yaratube.ui.home.main_page.home_item.AdapterHomeItem;
 
 import java.util.ArrayList;
 
-import static android.support.constraint.Constraints.TAG;
-
-public class FragmentMainPage extends Fragment implements ContractMainPage.View {
+public class FragmentMainPage extends Fragment implements ContractMainPage.View
+        , AdapterHomeItem.Interaction {
     private ContractMainPage.Presenter iaPresenter;
     private RecyclerView rvType;
     private AdapterMainPage adapterMainPage;
     private ProgressBar pbLoad;
+    private Interaction interaction;
 
     public static FragmentMainPage newInstance() {
         FragmentMainPage fragment = new FragmentMainPage();
@@ -36,10 +37,16 @@ public class FragmentMainPage extends Fragment implements ContractMainPage.View 
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        interaction = (FragmentMainPage.Interaction) context;
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         iaPresenter = new PresenterMainPage(this);
-        adapterMainPage = new AdapterMainPage(getFragmentManager());
+        adapterMainPage = new AdapterMainPage(getFragmentManager(),FragmentMainPage.this);
     }
 
     @Nullable
@@ -73,5 +80,15 @@ public class FragmentMainPage extends Fragment implements ContractMainPage.View 
     public void showMainPage(ArrayList<HeaderItem> headerItems, ArrayList<HomeItem> homeItems) {
         adapterMainPage.setHeaderItems(headerItems);
         adapterMainPage.setHomeItems(homeItems);
+    }
+
+    @Override
+    public void setProductToFragmentProductDetail(Product product) {
+        interaction.goToFragmentProductDetail(product);
+    }
+
+    public interface Interaction {
+
+        void goToFragmentProductDetail(Product product);
     }
 }

@@ -1,5 +1,6 @@
 package com.yaratech.yaratube.ui.category_grid;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,15 +18,18 @@ import android.widget.ProgressBar;
 import com.yaratech.yaratube.R;
 import com.yaratech.yaratube.data.model.Category;
 import com.yaratech.yaratube.data.model.Product;
+import com.yaratech.yaratube.ui.home.category.FragmentCategory;
 import com.yaratech.yaratube.util.Tool;
 
 import java.util.ArrayList;
 
-public class FragmentCategoryGrid extends Fragment implements ContractCategoryGrid.View {
+public class FragmentCategoryGrid extends Fragment implements ContractCategoryGrid.View
+        , AdapterCategoryGrid.Interaction {
     private ContractCategoryGrid.Presenter iaPresenter;
     private RecyclerView rvCategoryGrid;
     private AdapterCategoryGrid adapterCategoryGrid;
     private Category category;
+    private Interaction interaction;
     private Toolbar toolbar;
     private ProgressBar pbLoad;
 
@@ -38,10 +42,16 @@ public class FragmentCategoryGrid extends Fragment implements ContractCategoryGr
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        interaction = (FragmentCategoryGrid.Interaction) context;
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         iaPresenter = new PresenterCategoryGrid(this);
-        adapterCategoryGrid = new AdapterCategoryGrid();
+        adapterCategoryGrid = new AdapterCategoryGrid(FragmentCategoryGrid.this);
         Bundle bundle = getArguments();
         if (bundle == null) return;
         setCategory((Category) bundle.getParcelable(Tool.FRAGMENT_CATEGORY_GRID_CATEGORY));
@@ -56,10 +66,10 @@ public class FragmentCategoryGrid extends Fragment implements ContractCategoryGr
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        toolbar=view.findViewById(R.id.fragment_category_grid_toolbar);
+        toolbar = view.findViewById(R.id.fragment_category_grid_toolbar);
         toolbar.setTitle(getCategory().getTitle());
         rvCategoryGrid = view.findViewById(R.id.fragment_category_grid_rv_product);
-        pbLoad=view.findViewById(R.id.fragment_category_grid_pb_load);
+        pbLoad = view.findViewById(R.id.fragment_category_grid_pb_load);
         rvCategoryGrid.setLayoutManager(new GridLayoutManager(getContext(), 2, LinearLayoutManager.VERTICAL, false));
         rvCategoryGrid.setItemAnimator(new DefaultItemAnimator());
         rvCategoryGrid.setAdapter(adapterCategoryGrid);
@@ -87,5 +97,15 @@ public class FragmentCategoryGrid extends Fragment implements ContractCategoryGr
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    @Override
+    public void setProductToFragmentProductDetail(Product product) {
+        interaction.goToFragmentProductDetail(product);
+    }
+
+    public interface Interaction {
+
+        void goToFragmentProductDetail(Product product);
     }
 }

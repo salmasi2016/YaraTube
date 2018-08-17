@@ -5,16 +5,20 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.yaratech.yaratube.R;
 import com.yaratech.yaratube.data.model.Category;
+import com.yaratech.yaratube.data.model.Product;
 import com.yaratech.yaratube.ui.about_us.FragmentAboutUs;
 import com.yaratech.yaratube.ui.category_grid.FragmentCategoryGrid;
 import com.yaratech.yaratube.ui.contact_us.FragmentContactUs;
 import com.yaratech.yaratube.ui.home.category.FragmentCategory;
 import com.yaratech.yaratube.ui.home.home.FragmentHome;
 import com.yaratech.yaratube.ui.home.main_page.main_page.FragmentMainPage;
+import com.yaratech.yaratube.ui.product_detail.FragmentProductDetail;
 import com.yaratech.yaratube.ui.profile.FragmentProfile;
 import com.yaratech.yaratube.util.Tool;
 
-public class MainActivity extends AppCompatActivity implements FragmentHome.Interaction.goTo, FragmentCategory.Interaction {
+public class MainActivity extends AppCompatActivity implements FragmentHome.Interaction.goTo,
+        FragmentCategory.Interaction, FragmentCategoryGrid.Interaction
+        , FragmentMainPage.Interaction {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +29,12 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.Inte
             fragmentHome = FragmentHome.newInstance();
             Tool.setFragment(getSupportFragmentManager(), fragmentHome, R.id.main_fl_layout, "FragmentHome");
         }
+        //  1)
+        //Tool.setFragment(getSupportFragmentManager(), FragmentHome.newInstance(), R.id.main_fl_layout, "FragmentHome");
+        //  2)
+        //final android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        //        fragmentTransaction.replace(R.id.main_fl_layout,FragmentHome.newInstance(), "FragmentHome");
+        //        fragmentTransaction.commit();
     }
 
 //    @Override
@@ -103,6 +113,15 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.Inte
         if (fragmentCategoryGrid == null) {
             fragmentCategoryGrid = FragmentCategoryGrid.newInstance(category);
             Tool.setFragment(getSupportFragmentManager(), fragmentCategoryGrid, R.id.main_fl_layout, "FragmentCategoryGrid");
+        }
+    }
+
+    @Override
+    public void goToFragmentProductDetail(Product product) {
+        FragmentProductDetail fragmentProductDetail = (FragmentProductDetail) getSupportFragmentManager().findFragmentByTag("FragmentProductDetail");
+        if (fragmentProductDetail == null) {
+            fragmentProductDetail = FragmentProductDetail.newInstance(product);
+            Tool.setFragment(getSupportFragmentManager(), fragmentProductDetail, R.id.main_fl_layout, "FragmentProductDetail");
         }
     }
 }
