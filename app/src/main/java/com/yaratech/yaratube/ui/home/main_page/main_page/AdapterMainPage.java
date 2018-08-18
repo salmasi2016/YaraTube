@@ -1,18 +1,19 @@
 package com.yaratech.yaratube.ui.home.main_page.main_page;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.yaratech.yaratube.R;
+import com.yaratech.yaratube.data.model.Category;
 import com.yaratech.yaratube.data.model.HeaderItem;
 import com.yaratech.yaratube.data.model.HomeItem;
 import com.yaratech.yaratube.ui.home.main_page.header_item.AdapterHeaderItem;
@@ -27,10 +28,12 @@ class AdapterMainPage extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int VIEW_TYPE_HOME = 2;
     private FragmentManager fragmentManager;
     private FragmentMainPage fragmentMainPage;
+    private Interaction interaction;
 
     public AdapterMainPage(FragmentManager fragmentManager, FragmentMainPage fragmentMainPage) {
         this.fragmentManager=fragmentManager;
         this.fragmentMainPage=fragmentMainPage;
+        this.interaction=fragmentMainPage;
     }
 
     @Override
@@ -85,6 +88,13 @@ class AdapterMainPage extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public HeaderViewHolder(View itemView) {
             super(itemView);
             vpHeader = itemView.findViewById(R.id.adapter_main_page_header_vp_header);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.i("sina", "onClick: "+getAdapterPosition());
+                    interaction.setHeaderItemToFragmentProductDetail(getHeaderItems().get(getAdapterPosition()));
+                }
+            });
         }
 
         public void onBindHeaderView(FragmentManager fragmentManager) {
@@ -130,5 +140,10 @@ class AdapterMainPage extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void setHomeItems(ArrayList<HomeItem> homeItems) {
         this.homeItems = homeItems;
         notifyDataSetChanged();
+    }
+
+    public interface Interaction {
+
+        void setHeaderItemToFragmentProductDetail(HeaderItem headerItem);
     }
 }

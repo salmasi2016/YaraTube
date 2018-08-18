@@ -131,7 +131,6 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
             drawerLayout.closeDrawer(Gravity.RIGHT);
             return false;
         } else {
-            getActivity().getSupportFragmentManager().popBackStack();
             return true;
         }
     }

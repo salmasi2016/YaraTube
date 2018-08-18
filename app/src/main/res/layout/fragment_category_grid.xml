@@ -25,8 +25,9 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/fragment_category_grid_rv_product"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:scrollbarSize="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:scrollbarThumbVertical="@color/colorPrimary"
         android:scrollbars="vertical"
         app:layout_constraintLeft_toLeftOf="parent"

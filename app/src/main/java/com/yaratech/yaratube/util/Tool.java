@@ -10,7 +10,8 @@ import java.util.List;
 public class Tool {
     public static final String BASE_URL = "https://api.vasapi.click/";
     public static final String FRAGMENT_CATEGORY_GRID_CATEGORY = "category";
-    public static final String FRAGMENT_PRODUCT_DETAIL_PRODUCT_DETAIL = "productDetail";
+    public static final String FRAGMENT_PRODUCT_DETAIL_PRODUCT_DETAIL_PRODUCT = "productDetailProduct";
+    public static final String FRAGMENT_PRODUCT_DETAIL_PRODUCT_DETAIL_HEADERITEM = "productDetailHeaderItem";
     public static final String FRAGMENT_HEADER_ITEM_HEADER_ITEM = "headerItem";
 
     public static void setFragment(final FragmentManager fragmentManager, final Fragment fragment, final int idLayout, String tag) {

@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.yaratech.yaratube.R;
 import com.yaratech.yaratube.data.model.Category;
+import com.yaratech.yaratube.data.model.HeaderItem;
 import com.yaratech.yaratube.data.model.Product;
 import com.yaratech.yaratube.ui.about_us.FragmentAboutUs;
 import com.yaratech.yaratube.ui.category_grid.FragmentCategoryGrid;
@@ -17,32 +18,24 @@ import com.yaratech.yaratube.ui.profile.FragmentProfile;
 import com.yaratech.yaratube.util.Tool;
 
 public class MainActivity extends AppCompatActivity implements FragmentHome.Interaction.goTo,
-        FragmentCategory.Interaction, FragmentCategoryGrid.Interaction
-        , FragmentMainPage.Interaction {
+        FragmentCategory.Interaction, FragmentCategoryGrid.Interaction ,
+FragmentMainPage.Interaction{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        FragmentHome fragmentHome = (FragmentHome) getSupportFragmentManager().findFragmentByTag("FragmentHome");
-        if (fragmentHome == null) {
-            fragmentHome = FragmentHome.newInstance();
-            Tool.setFragment(getSupportFragmentManager(), fragmentHome, R.id.main_fl_layout, "FragmentHome");
-        }
-        //  1)
-        //Tool.setFragment(getSupportFragmentManager(), FragmentHome.newInstance(), R.id.main_fl_layout, "FragmentHome");
-        //  2)
-        //final android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        //        fragmentTransaction.replace(R.id.main_fl_layout,FragmentHome.newInstance(), "FragmentHome");
-        //        fragmentTransaction.commit();
+        final android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.main_fl_layout, FragmentHome.newInstance());
+        fragmentTransaction.commit();
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        if (Tool.isDrawerClose(getSupportFragmentManager())) {
-//            super.onBackPressed();
-//        }
-//    }
+    @Override
+    public void onBackPressed() {
+        if (Tool.isDrawerClose(getSupportFragmentManager())) {
+            super.onBackPressed();
+        }
+    }
 
     @Override
     public void goToProfile() {
@@ -76,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.Inte
         FragmentMainPage fragmentMainPage = (FragmentMainPage) getSupportFragmentManager().findFragmentByTag("FragmentMainPage");
         if (fragmentMainPage == null) {
             fragmentMainPage = FragmentMainPage.newInstance();
-            Tool.setFragment(getSupportFragmentManager(), fragmentMainPage, R.id.home_fl_layout, "FragmentMainPage");
+            getSupportFragmentManager().beginTransaction().add(R.id.home_fl_layout, fragmentMainPage, "FragmentMainPage").commit();
         } else {
             FragmentCategory fragmentCategory = (FragmentCategory) getSupportFragmentManager().findFragmentByTag("FragmentCategory");
             if (fragmentCategory != null) {
@@ -94,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.Inte
         FragmentCategory fragmentCategory = (FragmentCategory) getSupportFragmentManager().findFragmentByTag("FragmentCategory");
         if (fragmentCategory == null) {
             fragmentCategory = FragmentCategory.newInstance();
-            Tool.setFragment(getSupportFragmentManager(), fragmentCategory, R.id.home_fl_layout, "FragmentCategory");
+            getSupportFragmentManager().beginTransaction().add(R.id.home_fl_layout, fragmentCategory, "FragmentCategory").commit();
         } else {
             FragmentMainPage fragmentMainPage = (FragmentMainPage) getSupportFragmentManager().findFragmentByTag("FragmentMainPage");
             if (fragmentMainPage != null) {
@@ -121,6 +114,15 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.Inte
         FragmentProductDetail fragmentProductDetail = (FragmentProductDetail) getSupportFragmentManager().findFragmentByTag("FragmentProductDetail");
         if (fragmentProductDetail == null) {
             fragmentProductDetail = FragmentProductDetail.newInstance(product);
+            Tool.setFragment(getSupportFragmentManager(), fragmentProductDetail, R.id.main_fl_layout, "FragmentProductDetail");
+        }
+    }
+
+    @Override
+    public void goToFragmentProductDetail(HeaderItem headerItem) {
+        FragmentProductDetail fragmentProductDetail = (FragmentProductDetail) getSupportFragmentManager().findFragmentByTag("FragmentProductDetail");
+        if (fragmentProductDetail == null) {
+            fragmentProductDetail = FragmentProductDetail.newInstance(headerItem);
             Tool.setFragment(getSupportFragmentManager(), fragmentProductDetail, R.id.main_fl_layout, "FragmentProductDetail");
         }
     }

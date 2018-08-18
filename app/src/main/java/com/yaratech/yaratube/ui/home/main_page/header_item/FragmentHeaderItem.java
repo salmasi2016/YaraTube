@@ -43,8 +43,8 @@ public class FragmentHeaderItem extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ivHeader=view.findViewById(R.id.fragment_header_item_iv_header);
-        Glide.with(FragmentHeaderItem.this).load(getHeaderItem().getFeatureAvatar().getXxxdpi()).into(ivHeader);
+        ivHeader = view.findViewById(R.id.fragment_header_item_iv_header);
+        Glide.with(this).load(Tool.BASE_URL+getHeaderItem().getFeatureAvatar().getXxxdpi()).into(ivHeader);
     }
 
     public HeaderItem getHeaderItem() {

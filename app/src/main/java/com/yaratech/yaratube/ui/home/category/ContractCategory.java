@@ -12,6 +12,8 @@ public interface ContractCategory {
         void hideProgress();
 
         void showCategories(ArrayList<Category> categories);
+
+        void showToast();
     }
 
     interface Presenter {

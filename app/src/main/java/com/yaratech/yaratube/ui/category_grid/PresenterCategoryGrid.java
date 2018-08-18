@@ -20,12 +20,24 @@ public class PresenterCategoryGrid implements ContractCategoryGrid.Presenter {
     @Override
     public void loadData(Category category) {
         iaView.showProgress();
-        repository.loadCategoryGrid(new LoadCallback.CategoryGrid() {
+        repository.loadCategoryGrid(new LoadCallback() {
             @Override
-            public void onLoadedData(ArrayList<Product> products) {
+            public void onLoadedData(Object data) {
                 iaView.hideProgress();
-                iaView.showProducts(products);
+                iaView.showProducts((ArrayList<Product>) data);
             }
-        },category);
+
+            @Override
+            public void noInternet() {
+                iaView.hideProgress();
+                iaView.showToast();
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                iaView.hideProgress();
+                iaView.showToast();
+            }
+        }, category);
     }
 }

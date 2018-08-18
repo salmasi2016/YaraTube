@@ -17,11 +17,23 @@ public class PresenterCategory implements ContractCategory.Presenter {
     @Override
     public void loadData() {
         iaView.showProgress();
-        repository.loadCategory(new LoadCallback.Categories() {
+        repository.loadCategory(new LoadCallback() {
             @Override
-            public void onLoadedData(ArrayList<Category> categories) {
+            public void onLoadedData(Object data) {
                 iaView.hideProgress();
-                iaView.showCategories(categories);
+                iaView.showCategories((ArrayList<Category>) data);
+            }
+
+            @Override
+            public void noInternet() {
+                iaView.hideProgress();
+                iaView.showToast();
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                iaView.hideProgress();
+                iaView.showToast();
             }
         });
     }

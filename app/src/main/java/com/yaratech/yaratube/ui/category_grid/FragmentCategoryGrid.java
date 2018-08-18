@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.yaratech.yaratube.R;
 import com.yaratech.yaratube.data.model.Category;
@@ -89,6 +90,11 @@ public class FragmentCategoryGrid extends Fragment implements ContractCategoryGr
     @Override
     public void showProducts(ArrayList<Product> products) {
         adapterCategoryGrid.setProducts(products);
+    }
+
+    @Override
+    public void showToast() {
+        Toast.makeText(getActivity(),"Data Not Available",Toast.LENGTH_SHORT).show();
     }
 
     public Category getCategory() {

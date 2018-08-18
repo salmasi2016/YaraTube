@@ -13,13 +13,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.yaratech.yaratube.R;
 import com.yaratech.yaratube.data.model.Category;
 
 import java.util.ArrayList;
 
-public class FragmentCategory extends Fragment implements ContractCategory.View,AdapterCategory.Interaction {
+public class FragmentCategory extends Fragment implements ContractCategory.View, AdapterCategory.Interaction {
     private ContractCategory.Presenter iaPresenter;
     private RecyclerView rvCategory;
     private AdapterCategory adapterCategory;
@@ -55,7 +56,7 @@ public class FragmentCategory extends Fragment implements ContractCategory.View,
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        pbLoad=view.findViewById(R.id.fragment_category_pb_load);
+        pbLoad = view.findViewById(R.id.fragment_category_pb_load);
         rvCategory = view.findViewById(R.id.fragment_category_rv_category);
         rvCategory.setLayoutManager(new LinearLayoutManager(getContext()));
         rvCategory.setItemAnimator(new DefaultItemAnimator());
@@ -76,6 +77,11 @@ public class FragmentCategory extends Fragment implements ContractCategory.View,
     @Override
     public void showCategories(ArrayList<Category> categories) {
         adapterCategory.setCategories(categories);
+    }
+
+    @Override
+    public void showToast() {
+        Toast.makeText(getActivity(), "Data Not Available", Toast.LENGTH_SHORT).show();
     }
 
     @Override

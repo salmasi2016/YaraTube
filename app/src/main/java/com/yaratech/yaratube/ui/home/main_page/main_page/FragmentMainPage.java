@@ -12,17 +12,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.yaratech.yaratube.R;
 import com.yaratech.yaratube.data.model.HeaderItem;
 import com.yaratech.yaratube.data.model.HomeItem;
 import com.yaratech.yaratube.data.model.Product;
+import com.yaratech.yaratube.ui.home.main_page.header_item.AdapterHeaderItem;
 import com.yaratech.yaratube.ui.home.main_page.home_item.AdapterHomeItem;
 
 import java.util.ArrayList;
 
 public class FragmentMainPage extends Fragment implements ContractMainPage.View
-        , AdapterHomeItem.Interaction {
+        , AdapterHomeItem.Interaction,AdapterMainPage.Interaction {
     private ContractMainPage.Presenter iaPresenter;
     private RecyclerView rvType;
     private AdapterMainPage adapterMainPage;
@@ -83,12 +85,24 @@ public class FragmentMainPage extends Fragment implements ContractMainPage.View
     }
 
     @Override
+    public void showToast() {
+        Toast.makeText(getActivity(),"Data Not Available",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void setProductToFragmentProductDetail(Product product) {
         interaction.goToFragmentProductDetail(product);
+    }
+
+    @Override
+    public void setHeaderItemToFragmentProductDetail(HeaderItem headerItem) {
+        interaction.goToFragmentProductDetail(headerItem);
     }
 
     public interface Interaction {
 
         void goToFragmentProductDetail(Product product);
+
+        void goToFragmentProductDetail(HeaderItem headerItem);
     }
 }

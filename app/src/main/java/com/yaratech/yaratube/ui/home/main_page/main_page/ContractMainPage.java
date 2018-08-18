@@ -13,6 +13,8 @@ public interface ContractMainPage {
         void hideProgress();
 
         void showMainPage(ArrayList<HeaderItem> headerItems, ArrayList<HomeItem> homeItems);
+
+        void showToast();
     }
 
     interface Presenter {

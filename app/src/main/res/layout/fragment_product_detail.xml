@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@android:color/white"
     android:layoutDirection="rtl">
 
@@ -22,246 +23,178 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.constraint.ConstraintLayout
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/fragment_product_detail_appBar">
 
-        <android.support.constraint.Guideline
-            android:id="@+id/fragment_product_detail_gl_y4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.4" />
-
-        <android.support.constraint.Guideline
-            android:id="@+id/fragment_product_detail_gl_y7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.7" />
-
-        <android.support.v7.widget.CardView
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginBottom="@dimen/margin1"
-            android:layout_marginLeft="@dimen/margin4"
-            android:layout_marginRight="@dimen/margin4"
-            android:layout_marginTop="@dimen/margin1"
-            app:cardCornerRadius="@dimen/listItemCategoryCornerRadius"
-            app:cardElevation="@dimen/listItemCategoryElevation"
-            app:layout_constraintBottom_toBottomOf="@id/fragment_product_detail_gl_y4"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="wrap_content">
 
-            <android.support.constraint.ConstraintLayout
+            <android.support.v7.widget.CardView
+                android:id="@+id/fragment_product_detail_cv1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="200dp"
+                android:layout_marginBottom="@dimen/margin1"
+                android:layout_marginLeft="@dimen/margin4"
+                android:layout_marginRight="@dimen/margin4"
+                android:layout_marginTop="@dimen/margin1"
+                app:cardCornerRadius="@dimen/listItemCategoryCornerRadius"
+                app:cardElevation="@dimen/listItemCategoryElevation"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <android.support.constraint.Guideline
-                    android:id="@+id/fragment_product_detail_cv1_gl_y8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.8" />
-
-                <android.support.constraint.Guideline
-                    android:id="@+id/fragment_product_detail_cv1_gl_x05"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.05" />
-
-                <android.support.constraint.Guideline
-                    android:id="@+id/fragment_product_detail_cv1_gl_x95"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.95" />
-
-                <ImageView
-                    android:id="@+id/fragment_product_detail_iv_video"
+                <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="@id/fragment_product_detail_cv1_gl_y8"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/fragment_product_detail_tv_title"
-                    android:textSize="@dimen/textSize2"
-                    android:layout_width="0dp"
-                    android:gravity="right"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toRightOf="@id/fragment_product_detail_ib_check"
-                    app:layout_constraintRight_toRightOf="@id/fragment_product_detail_cv1_gl_x05"
-                    app:layout_constraintTop_toTopOf="@id/fragment_product_detail_cv1_gl_y8" />
+                    <android.support.constraint.Guideline
+                        android:id="@+id/fragment_product_detail_cv1_gl_y8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_percent="0.8" />
 
-                <ImageButton
-                    android:id="@+id/fragment_product_detail_ib_check"
-                    android:layout_width="27dp"
-                    android:layout_height="27dp"
-                    android:src="@drawable/icon_check_circle_filled"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="@id/fragment_product_detail_cv1_gl_x95"
-                    app:layout_constraintTop_toTopOf="@id/fragment_product_detail_cv1_gl_y8" />
+                    <android.support.constraint.Guideline
+                        android:id="@+id/fragment_product_detail_cv1_gl_x05"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.05" />
 
-            </android.support.constraint.ConstraintLayout>
+                    <android.support.constraint.Guideline
+                        android:id="@+id/fragment_product_detail_cv1_gl_x95"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.95" />
 
-        </android.support.v7.widget.CardView>
+                    <ImageView
+                        android:id="@+id/fragment_product_detail_iv_video"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="@id/fragment_product_detail_cv1_gl_y8"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginBottom="@dimen/margin1"
-            android:layout_marginLeft="@dimen/margin4"
-            android:layout_marginRight="@dimen/margin4"
-            android:layout_marginTop="@dimen/margin1"
-            app:cardCornerRadius="@dimen/listItemCategoryCornerRadius"
-            app:cardElevation="@dimen/listItemCategoryElevation"
-            app:layout_constraintBottom_toBottomOf="@id/fragment_product_detail_gl_y7"
-            app:layout_constraintTop_toTopOf="@id/fragment_product_detail_gl_y4">
+                    <TextView
+                        android:id="@+id/fragment_product_detail_tv_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:textSize="@dimen/textSize2"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toRightOf="@id/fragment_product_detail_ib_check"
+                        app:layout_constraintRight_toRightOf="@id/fragment_product_detail_cv1_gl_x05"
+                        app:layout_constraintTop_toTopOf="@id/fragment_product_detail_cv1_gl_y8" />
 
-            <android.support.constraint.ConstraintLayout
+                    <ImageButton
+                        android:id="@+id/fragment_product_detail_ib_check"
+                        android:layout_width="27dp"
+                        android:layout_height="27dp"
+                        android:src="@drawable/icon_check_circle_filled"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="@id/fragment_product_detail_cv1_gl_x95"
+                        app:layout_constraintTop_toTopOf="@id/fragment_product_detail_cv1_gl_y8" />
+
+                </android.support.constraint.ConstraintLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/fragment_product_detail_cv2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="150dp"
+                android:layout_marginBottom="@dimen/margin1"
+                android:layout_marginLeft="@dimen/margin4"
+                android:layout_marginRight="@dimen/margin4"
+                android:layout_marginTop="@dimen/margin1"
+                app:cardCornerRadius="@dimen/listItemCategoryCornerRadius"
+                app:cardElevation="@dimen/listItemCategoryElevation"
+                app:layout_constraintTop_toBottomOf="@id/fragment_product_detail_cv1">
 
-                <android.support.constraint.Guideline
-                    android:id="@+id/fragment_product_detail_cv2_gl_y1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.1" />
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-                <android.support.constraint.Guideline
-                    android:id="@+id/fragment_product_detail_cv2_gl_y2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.2" />
+                    <android.support.constraint.Guideline
+                        android:id="@+id/fragment_product_detail_cv2_gl_y1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_percent="0.1" />
 
-                <android.support.constraint.Guideline
-                    android:id="@+id/fragment_product_detail_cv2_gl_x05"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.05" />
+                    <android.support.constraint.Guideline
+                        android:id="@+id/fragment_product_detail_cv2_gl_y2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_percent="0.2" />
 
-                <android.support.constraint.Guideline
-                    android:id="@+id/fragment_product_detail_cv2_gl_x95"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.95" />
+                    <android.support.constraint.Guideline
+                        android:id="@+id/fragment_product_detail_cv2_gl_x05"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.05" />
 
-                <TextView
-                    android:text="@string/description"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/textSize2"
-                    android:gravity="right"
-                    android:textColor="@android:color/black"
-                    app:layout_constraintRight_toRightOf="@id/fragment_product_detail_cv2_gl_x05"
-                    app:layout_constraintTop_toTopOf="@id/fragment_product_detail_cv2_gl_y1"
-                    app:layout_constraintBottom_toBottomOf="@id/fragment_product_detail_cv2_gl_y1"/>
+                    <android.support.constraint.Guideline
+                        android:id="@+id/fragment_product_detail_cv2_gl_x95"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.95" />
 
-                <TextView
-                    android:id="@+id/fragment_product_detail_tv_description"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/textSize1"
-                    android:gravity="right"
-                    app:layout_constraintLeft_toLeftOf="@id/fragment_product_detail_cv2_gl_x95"
-                    app:layout_constraintRight_toRightOf="@id/fragment_product_detail_cv2_gl_x05"
-                    app:layout_constraintTop_toTopOf="@id/fragment_product_detail_cv2_gl_y2"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="@string/description"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/textSize2"
+                        app:layout_constraintBottom_toBottomOf="@id/fragment_product_detail_cv2_gl_y1"
+                        app:layout_constraintRight_toRightOf="@id/fragment_product_detail_cv2_gl_x05"
+                        app:layout_constraintTop_toTopOf="@id/fragment_product_detail_cv2_gl_y1" />
 
-            </android.support.constraint.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/fragment_product_detail_tv_shortDescription"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:textSize="@dimen/textSize1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="@id/fragment_product_detail_cv2_gl_x95"
+                        app:layout_constraintRight_toRightOf="@id/fragment_product_detail_cv2_gl_x05"
+                        app:layout_constraintTop_toTopOf="@id/fragment_product_detail_cv2_gl_y2" />
 
-        </android.support.v7.widget.CardView>
+                </android.support.constraint.ConstraintLayout>
 
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginBottom="@dimen/margin1"
-            android:layout_marginLeft="@dimen/margin4"
-            android:layout_marginRight="@dimen/margin4"
-            android:layout_marginTop="@dimen/margin1"
-            app:cardCornerRadius="@dimen/listItemCategoryCornerRadius"
-            app:cardElevation="@dimen/listItemCategoryElevation"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="@id/fragment_product_detail_gl_y7">
+            </android.support.v7.widget.CardView>
 
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/fragment_product_detail_rv_comment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/fragment_product_detail_cv2" />
 
-                <android.support.constraint.Guideline
-                    android:id="@+id/fragment_product_detail_cv3_gl_y1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.1" />
+            <ProgressBar
+                android:id="@+id/fragment_product_detail_pb_load"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <android.support.constraint.Guideline
-                    android:id="@+id/fragment_product_detail_cv3_gl_y3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.3" />
+        </android.support.constraint.ConstraintLayout>
 
-                <android.support.constraint.Guideline
-                    android:id="@+id/fragment_product_detail_cv3_gl_x05"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.05" />
-
-                <android.support.constraint.Guideline
-                    android:id="@+id/fragment_product_detail_cv3_gl_x95"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.95" />
-
-                <TextView
-                    android:text="@string/comments"
-                    android:textColor="@android:color/black"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/textSize2"
-                    android:gravity="right"
-                    app:layout_constraintRight_toRightOf="@id/fragment_product_detail_cv3_gl_x05"
-                    app:layout_constraintTop_toTopOf="@id/fragment_product_detail_cv3_gl_y1"
-                    app:layout_constraintBottom_toBottomOf="@id/fragment_product_detail_cv3_gl_y1"/>
-
-                <Button
-                    android:id="@+id/fragment_product_detail_btn_comment"
-                    android:layout_width="wrap_content"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/textSize1"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:text="@string/comment"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="@id/fragment_product_detail_cv3_gl_y3"
-                    app:layout_constraintLeft_toLeftOf="@id/fragment_product_detail_cv3_gl_x95"/>
-                
-                <TextView
-                    android:id="@+id/fragment_product_detail_tv_comment"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/textSize1"
-                    android:gravity="right"
-                    app:layout_constraintLeft_toLeftOf="@id/fragment_product_detail_cv3_gl_x95"
-                    app:layout_constraintRight_toRightOf="@id/fragment_product_detail_cv3_gl_x05"
-                    app:layout_constraintTop_toTopOf="@id/fragment_product_detail_cv3_gl_y3"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
-
-            </android.support.constraint.ConstraintLayout>
-
-        </android.support.v7.widget.CardView>
-
-    </android.support.constraint.ConstraintLayout>
+    </android.support.v4.widget.NestedScrollView>
 
 </android.support.constraint.ConstraintLayout>

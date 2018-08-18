@@ -7,17 +7,11 @@ import com.yaratech.yaratube.data.model.Product;
 
 import java.util.ArrayList;
 
-public interface LoadCallback {
+public interface LoadCallback<T> {
 
-    interface Categories {
-        void onLoadedData(ArrayList<Category> categories);
-    }
+    void onLoadedData(T data);
 
-    interface MainPage {
-        void onLoadedData(ArrayList<HeaderItem> headerItems, ArrayList<HomeItem> homeItems);
-    }
+    void noInternet();
 
-    interface CategoryGrid {
-        void onLoadedData(ArrayList<Product> products);
-    }
+    void onDataNotAvailable();
 }

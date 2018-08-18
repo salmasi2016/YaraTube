@@ -13,6 +13,8 @@ public interface ContractCategoryGrid {
         void hideProgress();
 
         void showProducts(ArrayList<Product> products);
+
+        void showToast();
     }
 
     interface Presenter {

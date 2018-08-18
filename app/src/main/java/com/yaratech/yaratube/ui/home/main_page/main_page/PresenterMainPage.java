@@ -1,13 +1,8 @@
 package com.yaratech.yaratube.ui.home.main_page.main_page;
 
-import com.yaratech.yaratube.data.model.Category;
-import com.yaratech.yaratube.data.model.HeaderItem;
-import com.yaratech.yaratube.data.model.HomeItem;
+import com.yaratech.yaratube.data.model.Home;
 import com.yaratech.yaratube.data.source.remote.LoadCallback;
 import com.yaratech.yaratube.data.source.remote.Repository;
-import com.yaratech.yaratube.ui.home.category.ContractCategory;
-
-import java.util.ArrayList;
 
 public class PresenterMainPage implements ContractMainPage.Presenter {
     private ContractMainPage.View iaView;
@@ -20,11 +15,24 @@ public class PresenterMainPage implements ContractMainPage.Presenter {
     @Override
     public void loadData() {
         iaView.showProgress();
-        repository.loadMainPage(new LoadCallback.MainPage() {
+        repository.loadMainPage(new LoadCallback() {
             @Override
-            public void onLoadedData(ArrayList<HeaderItem> headerItems, ArrayList<HomeItem> homeItems) {
+            public void onLoadedData(Object data) {
+                Home home = (Home) data;
                 iaView.hideProgress();
-                iaView.showMainPage(headerItems,homeItems);
+                iaView.showMainPage(home.getHeaderItems(), home.getHomeItems());
+            }
+
+            @Override
+            public void noInternet() {
+                iaView.hideProgress();
+                iaView.showToast();
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                iaView.hideProgress();
+                iaView.showToast();
             }
         });
     }
