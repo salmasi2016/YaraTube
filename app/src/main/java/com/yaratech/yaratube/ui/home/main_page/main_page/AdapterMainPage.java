@@ -28,12 +28,10 @@ class AdapterMainPage extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int VIEW_TYPE_HOME = 2;
     private FragmentManager fragmentManager;
     private FragmentMainPage fragmentMainPage;
-    private Interaction interaction;
 
     public AdapterMainPage(FragmentManager fragmentManager, FragmentMainPage fragmentMainPage) {
         this.fragmentManager=fragmentManager;
         this.fragmentMainPage=fragmentMainPage;
-        this.interaction=fragmentMainPage;
     }
 
     @Override
@@ -88,13 +86,6 @@ class AdapterMainPage extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public HeaderViewHolder(View itemView) {
             super(itemView);
             vpHeader = itemView.findViewById(R.id.adapter_main_page_header_vp_header);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Log.i("sina", "onClick: "+getAdapterPosition());
-                    interaction.setHeaderItemToFragmentProductDetail(getHeaderItems().get(getAdapterPosition()));
-                }
-            });
         }
 
         public void onBindHeaderView(FragmentManager fragmentManager) {
@@ -140,10 +131,5 @@ class AdapterMainPage extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void setHomeItems(ArrayList<HomeItem> homeItems) {
         this.homeItems = homeItems;
         notifyDataSetChanged();
-    }
-
-    public interface Interaction {
-
-        void setHeaderItemToFragmentProductDetail(HeaderItem headerItem);
     }
 }

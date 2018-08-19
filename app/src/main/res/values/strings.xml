@@ -18,4 +18,5 @@
     <string name="description">توضیحات</string>
     <string name="comments">نظرات کاربران</string>
     <string name="comment">نظر دهید</string>
+    <string name="clickAgain">برای خروج مجددا کلیک نمایید</string>
 </resources>

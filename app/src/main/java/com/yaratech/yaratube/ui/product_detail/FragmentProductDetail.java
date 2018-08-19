@@ -27,26 +27,19 @@ import java.util.ArrayList;
 
 public class FragmentProductDetail extends Fragment implements ContractProductDetail.View {
     private Product product;
-    private HeaderItem headerItem;
+    private int productId;
     private ImageView ivVideo;
-    private TextView tvName, tvShortDescription;
+    private TextView tvName, tvDescription;
     private RecyclerView rvComment;
     private ProgressBar pbLoad;
     private ContractProductDetail.Presenter iaPresenter;
     private AdapterProductDetail adapterProductDetail;
+    private boolean isProductLoaded,isCommentLoaded;
 
-    public static FragmentProductDetail newInstance(Product product) {
+    public static FragmentProductDetail newInstance(int productId) {
         FragmentProductDetail fragment = new FragmentProductDetail();
         Bundle bundle = new Bundle();
-        bundle.putParcelable(Tool.FRAGMENT_PRODUCT_DETAIL_PRODUCT_DETAIL_PRODUCT, product);
-        fragment.setArguments(bundle);
-        return fragment;
-    }
-
-    public static FragmentProductDetail newInstance(HeaderItem headerItem) {
-        FragmentProductDetail fragment = new FragmentProductDetail();
-        Bundle bundle = new Bundle();
-        bundle.putParcelable(Tool.FRAGMENT_PRODUCT_DETAIL_PRODUCT_DETAIL_HEADERITEM, headerItem);
+        bundle.putInt(Tool.FRAGMENT_PRODUCT_DETAIL_PRODUCT_ID, productId);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -58,8 +51,7 @@ public class FragmentProductDetail extends Fragment implements ContractProductDe
         adapterProductDetail = new AdapterProductDetail();
         Bundle bundle = getArguments();
         if (bundle == null) return;
-        setProduct((Product) bundle.getParcelable(Tool.FRAGMENT_PRODUCT_DETAIL_PRODUCT_DETAIL_PRODUCT));
-        setHeaderItem((HeaderItem) bundle.getParcelable(Tool.FRAGMENT_PRODUCT_DETAIL_PRODUCT_DETAIL_HEADERITEM));
+        setProductId(bundle.getInt(Tool.FRAGMENT_PRODUCT_DETAIL_PRODUCT_ID));
     }
 
     @Nullable
@@ -73,21 +65,23 @@ public class FragmentProductDetail extends Fragment implements ContractProductDe
         super.onViewCreated(view, savedInstanceState);
         ivVideo = view.findViewById(R.id.fragment_product_detail_iv_video);
         tvName = view.findViewById(R.id.fragment_product_detail_tv_name);
-        tvShortDescription = view.findViewById(R.id.fragment_product_detail_tv_shortDescription);
+        tvDescription = view.findViewById(R.id.fragment_product_detail_tv_description);
         rvComment = view.findViewById(R.id.fragment_product_detail_rv_comment);
         pbLoad = view.findViewById(R.id.fragment_product_detail_pb_load);
-        Glide.with(view.getContext()).load(Tool.BASE_URL + getProduct().getAvatar().getXxxdpi()).into(ivVideo);
-        tvName.setText(getProduct().getName());
-        tvShortDescription.setText(getProduct().getShortDescription());
         rvComment = view.findViewById(R.id.fragment_product_detail_rv_comment);
         rvComment.setLayoutManager(new LinearLayoutManager(getContext()));
         rvComment.setItemAnimator(new DefaultItemAnimator());
         rvComment.setAdapter(adapterProductDetail);
-        if (getHeaderItem() == null) {
-            iaPresenter.loadDataByProduct(getProduct());
-        } else {
-            iaPresenter.loadDataByHeaderItem(getHeaderItem());
-        }
+        iaPresenter.loadProduct(getProductId());
+        iaPresenter.loadComment(getProductId());
+    }
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
     public Product getProduct() {
@@ -98,27 +92,40 @@ public class FragmentProductDetail extends Fragment implements ContractProductDe
         this.product = product;
     }
 
-    public HeaderItem getHeaderItem() {
-        return headerItem;
-    }
-
-    public void setHeaderItem(HeaderItem headerItem) {
-        this.headerItem = headerItem;
-    }
-
     @Override
     public void showProgress() {
         pbLoad.setVisibility(View.VISIBLE);
+        isProductLoaded=false;
+        isCommentLoaded=false;
     }
 
     @Override
-    public void hideProgress() {
-        pbLoad.setVisibility(View.GONE);
+    public void isProductLoaded() {
+        isProductLoaded=true;
+        if (isCommentLoaded){
+            pbLoad.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void isCommentLoaded() {
+        isCommentLoaded=true;
+        if (isProductLoaded){
+            pbLoad.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public void showComments(ArrayList<Comment> comments) {
         adapterProductDetail.setComments(comments);
+    }
+
+    @Override
+    public void showProduct(Product product) {
+        setProduct(product);
+        Glide.with(getContext()).load(Tool.BASE_URL + getProduct().getFeatureAvatar().getXxxdpi()).into(ivVideo);
+        tvName.setText(getProduct().getName());
+        tvDescription.setText(getProduct().getDescription());
     }
 
     @Override

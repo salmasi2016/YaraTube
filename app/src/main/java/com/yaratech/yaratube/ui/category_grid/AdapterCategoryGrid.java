@@ -36,7 +36,7 @@ public class AdapterCategoryGrid extends RecyclerView.Adapter<AdapterCategoryGri
         Product product = products.get(position);
         holder.tvName.setText(product.getName());
         holder.tvShortDescription.setText(product.getShortDescription());
-        Glide.with(holder.itemView.getContext()).load(Tool.BASE_URL+product.getAvatar().getXxxdpi()).into(holder.ivVideo);
+        Glide.with(holder.itemView.getContext()).load(Tool.BASE_URL+product.getFeatureAvatar().getXxxdpi()).into(holder.ivVideo);
     }
 
     @Override

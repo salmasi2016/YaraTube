@@ -1,9 +1,11 @@
 package com.yaratech.yaratube.ui.home.main_page.header_item;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +14,13 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.yaratech.yaratube.R;
 import com.yaratech.yaratube.data.model.HeaderItem;
+import com.yaratech.yaratube.ui.home.main_page.main_page.FragmentMainPage;
 import com.yaratech.yaratube.util.Tool;
 
 public class FragmentHeaderItem extends Fragment {
     private ImageView ivHeader;
     private HeaderItem headerItem;
+    private Interaction interaction;
 
     public static FragmentHeaderItem newInstance(HeaderItem headerItem) {
         FragmentHeaderItem fragment = new FragmentHeaderItem();
@@ -24,6 +28,12 @@ public class FragmentHeaderItem extends Fragment {
         bundle.putParcelable(Tool.FRAGMENT_HEADER_ITEM_HEADER_ITEM, headerItem);
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        interaction = (Interaction) context;
     }
 
     @Override
@@ -45,6 +55,12 @@ public class FragmentHeaderItem extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ivHeader = view.findViewById(R.id.fragment_header_item_iv_header);
         Glide.with(this).load(Tool.BASE_URL+getHeaderItem().getFeatureAvatar().getXxxdpi()).into(ivHeader);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                interaction.goToFragmentProductDetail(getHeaderItem().getId());
+            }
+        });
     }
 
     public HeaderItem getHeaderItem() {
@@ -53,5 +69,10 @@ public class FragmentHeaderItem extends Fragment {
 
     public void setHeaderItem(HeaderItem headerItem) {
         this.headerItem = headerItem;
+    }
+
+    public interface Interaction {
+
+        void goToFragmentProductDetail(int productId);
     }
 }

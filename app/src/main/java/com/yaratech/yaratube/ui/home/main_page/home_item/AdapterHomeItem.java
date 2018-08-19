@@ -35,7 +35,7 @@ public class AdapterHomeItem extends RecyclerView.Adapter<AdapterHomeItem.viewHo
         Product product = products.get(position);
         holder.tvName.setText(product.getName());
         holder.tvShortDescription.setText(product.getShortDescription());
-        Glide.with(holder.itemView.getContext()).load(Tool.BASE_URL + product.getAvatar().getXxxdpi()).into(holder.ivVideo);
+        Glide.with(holder.itemView.getContext()).load(Tool.BASE_URL + product.getFeatureAvatar().getXxxdpi()).into(holder.ivVideo);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class AdapterHomeItem extends RecyclerView.Adapter<AdapterHomeItem.viewHo
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    interaction.setProductToFragmentProductDetail(getProducts().get(getAdapterPosition()));
+                    interaction.setProductToFragmentProductDetail(getProducts().get(getAdapterPosition()).getId());
                 }
             });
         }
@@ -74,6 +74,6 @@ public class AdapterHomeItem extends RecyclerView.Adapter<AdapterHomeItem.viewHo
     }
 
     public interface Interaction {
-        void setProductToFragmentProductDetail(Product product);
+        void setProductToFragmentProductDetail(int productId);
     }
 }

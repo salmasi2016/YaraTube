@@ -1,14 +1,10 @@
 package com.yaratech.yaratube.data.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
+import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
-public class Product implements Parcelable {
+public class Product {
 
     @SerializedName("id")
     @Expose
@@ -22,12 +18,18 @@ public class Product implements Parcelable {
     @SerializedName("product_type")
     @Expose
     private int productType;
+    @SerializedName("producer")
+    @Expose
+    private Producer producer;
     @SerializedName("producer_name")
     @Expose
     private String producerName;
     @SerializedName("payment_type")
     @Expose
-    private List<Object> paymentType = null;
+    private List<Integer> paymentType = null;
+    @SerializedName("category")
+    @Expose
+    private List<Integer> category = null;
     @SerializedName("price")
     @Expose
     private int price;
@@ -40,9 +42,21 @@ public class Product implements Parcelable {
     @SerializedName("rank")
     @Expose
     private double rank;
+    @SerializedName("is_enable")
+    @Expose
+    private boolean isEnable;
+    @SerializedName("totalInstalled")
+    @Expose
+    private int totalInstalled;
     @SerializedName("short_description")
     @Expose
     private String shortDescription;
+    @SerializedName("description")
+    @Expose
+    private String description;
+    @SerializedName("promotionalContainers")
+    @Expose
+    private List<PromotionalContainer> promotionalContainers = null;
     @SerializedName("is_purchased")
     @Expose
     private boolean isPurchased;
@@ -55,12 +69,30 @@ public class Product implements Parcelable {
     @SerializedName("sku")
     @Expose
     private String sku;
+    @SerializedName("files")
+    @Expose
+    private List<Object> files = null;
+    @SerializedName("tags")
+    @Expose
+    private List<Object> tags = null;
+    @SerializedName("category_model")
+    @Expose
+    private List<Object> categoryModel = null;
+    @SerializedName("comments_summery")
+    @Expose
+    private List<CommentsSummery> commentsSummery = null;
     @SerializedName("price_unit")
     @Expose
     private String priceUnit;
     @SerializedName("total_view")
     @Expose
     private int totalView;
+    @SerializedName("custom_json")
+    @Expose
+    private Object customJson;
+    @SerializedName("polls")
+    @Expose
+    private List<Object> polls = null;
     @SerializedName("date_added")
     @Expose
     private String dateAdded;
@@ -85,38 +117,9 @@ public class Product implements Parcelable {
     @SerializedName("customjson")
     @Expose
     private Object customjson;
-
-    protected Product(Parcel in) {
-        id = in.readInt();
-        name = in.readString();
-        nameEnglish = in.readString();
-        productType = in.readInt();
-        producerName = in.readString();
-        price = in.readInt();
-        rank = in.readDouble();
-        shortDescription = in.readString();
-        isPurchased = in.readByte() != 0;
-        comments = in.readInt();
-        isBookmarked = in.readByte() != 0;
-        sku = in.readString();
-        priceUnit = in.readString();
-        totalView = in.readInt();
-        dateAdded = in.readString();
-        isSpecial = in.readByte() != 0;
-        datePublished = in.readString();
-    }
-
-    public static final Creator<Product> CREATOR = new Creator<Product>() {
-        @Override
-        public Product createFromParcel(Parcel in) {
-            return new Product(in);
-        }
-
-        @Override
-        public Product[] newArray(int size) {
-            return new Product[size];
-        }
-    };
+    @SerializedName("last_checked_file")
+    @Expose
+    private Object lastCheckedFile;
 
     public int getId() {
         return id;
@@ -150,6 +153,14 @@ public class Product implements Parcelable {
         this.productType = productType;
     }
 
+    public Producer getProducer() {
+        return producer;
+    }
+
+    public void setProducer(Producer producer) {
+        this.producer = producer;
+    }
+
     public String getProducerName() {
         return producerName;
     }
@@ -158,12 +169,20 @@ public class Product implements Parcelable {
         this.producerName = producerName;
     }
 
-    public List<Object> getPaymentType() {
+    public List<Integer> getPaymentType() {
         return paymentType;
     }
 
-    public void setPaymentType(List<Object> paymentType) {
+    public void setPaymentType(List<Integer> paymentType) {
         this.paymentType = paymentType;
+    }
+
+    public List<Integer> getCategory() {
+        return category;
+    }
+
+    public void setCategory(List<Integer> category) {
+        this.category = category;
     }
 
     public int getPrice() {
@@ -198,12 +217,44 @@ public class Product implements Parcelable {
         this.rank = rank;
     }
 
+    public boolean isIsEnable() {
+        return isEnable;
+    }
+
+    public void setIsEnable(boolean isEnable) {
+        this.isEnable = isEnable;
+    }
+
+    public int getTotalInstalled() {
+        return totalInstalled;
+    }
+
+    public void setTotalInstalled(int totalInstalled) {
+        this.totalInstalled = totalInstalled;
+    }
+
     public String getShortDescription() {
         return shortDescription;
     }
 
     public void setShortDescription(String shortDescription) {
         this.shortDescription = shortDescription;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<PromotionalContainer> getPromotionalContainers() {
+        return promotionalContainers;
+    }
+
+    public void setPromotionalContainers(List<PromotionalContainer> promotionalContainers) {
+        this.promotionalContainers = promotionalContainers;
     }
 
     public boolean isIsPurchased() {
@@ -238,6 +289,38 @@ public class Product implements Parcelable {
         this.sku = sku;
     }
 
+    public List<Object> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<Object> files) {
+        this.files = files;
+    }
+
+    public List<Object> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Object> tags) {
+        this.tags = tags;
+    }
+
+    public List<Object> getCategoryModel() {
+        return categoryModel;
+    }
+
+    public void setCategoryModel(List<Object> categoryModel) {
+        this.categoryModel = categoryModel;
+    }
+
+    public List<CommentsSummery> getCommentsSummery() {
+        return commentsSummery;
+    }
+
+    public void setCommentsSummery(List<CommentsSummery> commentsSummery) {
+        this.commentsSummery = commentsSummery;
+    }
+
     public String getPriceUnit() {
         return priceUnit;
     }
@@ -252,6 +335,22 @@ public class Product implements Parcelable {
 
     public void setTotalView(int totalView) {
         this.totalView = totalView;
+    }
+
+    public Object getCustomJson() {
+        return customJson;
+    }
+
+    public void setCustomJson(Object customJson) {
+        this.customJson = customJson;
+    }
+
+    public List<Object> getPolls() {
+        return polls;
+    }
+
+    public void setPolls(List<Object> polls) {
+        this.polls = polls;
     }
 
     public String getDateAdded() {
@@ -318,29 +417,12 @@ public class Product implements Parcelable {
         this.customjson = customjson;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public Object getLastCheckedFile() {
+        return lastCheckedFile;
     }
 
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(id);
-        parcel.writeString(name);
-        parcel.writeString(nameEnglish);
-        parcel.writeInt(productType);
-        parcel.writeString(producerName);
-        parcel.writeInt(price);
-        parcel.writeDouble(rank);
-        parcel.writeString(shortDescription);
-        parcel.writeByte((byte) (isPurchased ? 1 : 0));
-        parcel.writeInt(comments);
-        parcel.writeByte((byte) (isBookmarked ? 1 : 0));
-        parcel.writeString(sku);
-        parcel.writeString(priceUnit);
-        parcel.writeInt(totalView);
-        parcel.writeString(dateAdded);
-        parcel.writeByte((byte) (isSpecial ? 1 : 0));
-        parcel.writeString(datePublished);
+    public void setLastCheckedFile(Object lastCheckedFile) {
+        this.lastCheckedFile = lastCheckedFile;
     }
+
 }

@@ -17,50 +17,50 @@ public class PresenterProductDetail implements ContractProductDetail.Presenter {
     }
 
     @Override
-    public void loadDataByProduct(Product product) {
+    public void loadProduct(int productId) {
         iaView.showProgress();
-        repository.loadComment(new LoadCallback() {
+        repository.loadProduct(new LoadCallback() {
+
             @Override
             public void onLoadedData(Object data) {
-                iaView.hideProgress();
-                iaView.showComments((ArrayList<Comment>) data);
+                iaView.isProductLoaded();
+                iaView.showProduct((Product) data);
             }
 
             @Override
             public void noInternet() {
-                iaView.hideProgress();
+                iaView.isProductLoaded();
                 iaView.showToast();
             }
 
             @Override
             public void onDataNotAvailable() {
-                iaView.hideProgress();
+                iaView.isProductLoaded();
                 iaView.showToast();
             }
-        }, product);
+        }, productId);
     }
 
     @Override
-    public void loadDataByHeaderItem(HeaderItem headerItem) {
-        iaView.showProgress();
+    public void loadComment(int productId) {
         repository.loadComment(new LoadCallback() {
             @Override
             public void onLoadedData(Object data) {
-                iaView.hideProgress();
+                iaView.isCommentLoaded();
                 iaView.showComments((ArrayList<Comment>) data);
             }
 
             @Override
             public void noInternet() {
-                iaView.hideProgress();
+                iaView.isCommentLoaded();
                 iaView.showToast();
             }
 
             @Override
             public void onDataNotAvailable() {
-                iaView.hideProgress();
+                iaView.isCommentLoaded();
                 iaView.showToast();
             }
-        }, headerItem);
+        }, productId);
     }
 }

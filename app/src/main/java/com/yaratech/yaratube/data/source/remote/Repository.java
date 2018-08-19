@@ -14,26 +14,6 @@ import retrofit2.Response;
 
 public class Repository {
 
-    public void loadCategory(final LoadCallback callback) {
-        APIInterface apiInterface = APIClient.getClient().create(APIInterface.class);
-        Call<ArrayList<Category>> call = apiInterface.getCategories();
-        call.enqueue(new Callback<ArrayList<Category>>() {
-            @Override
-            public void onResponse(Call<ArrayList<Category>> call, Response<ArrayList<Category>> response) {
-                if (response.isSuccessful()) {
-                    callback.onLoadedData(response.body());
-                }else {
-                    callback.onDataNotAvailable();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ArrayList<Category>> call, Throwable t) {
-                callback.onDataNotAvailable();
-            }
-        });
-    }
-
     public void loadMainPage(final LoadCallback callback) {
         APIInterface apiInterface = APIClient.getClient().create(APIInterface.class);
         Call<Home> call = apiInterface.getHome();
@@ -49,6 +29,26 @@ public class Repository {
 
             @Override
             public void onFailure(Call<Home> call, Throwable t) {
+                callback.onDataNotAvailable();
+            }
+        });
+    }
+
+    public void loadCategory(final LoadCallback callback) {
+        APIInterface apiInterface = APIClient.getClient().create(APIInterface.class);
+        Call<ArrayList<Category>> call = apiInterface.getCategories();
+        call.enqueue(new Callback<ArrayList<Category>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Category>> call, Response<ArrayList<Category>> response) {
+                if (response.isSuccessful()) {
+                    callback.onLoadedData(response.body());
+                }else {
+                    callback.onDataNotAvailable();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Category>> call, Throwable t) {
                 callback.onDataNotAvailable();
             }
         });
@@ -74,9 +74,9 @@ public class Repository {
         });
     }
 
-    public void loadComment(final LoadCallback callback,Product product) {
+    public void loadComment(final LoadCallback callback,int productId) {
         APIInterface apiInterface = APIClient.getClient().create(APIInterface.class);
-        Call<ArrayList<Comment>> call = apiInterface.getComment(product.getId());
+        Call<ArrayList<Comment>> call = apiInterface.getComment(productId);
         call.enqueue(new Callback<ArrayList<Comment>>() {
             @Override
             public void onResponse(Call<ArrayList<Comment>> call, Response<ArrayList<Comment>> response) {
@@ -94,12 +94,12 @@ public class Repository {
         });
     }
 
-    public void loadComment(final LoadCallback callback, HeaderItem headerItem) {
+    public void loadProduct(final LoadCallback callback,int productId) {
         APIInterface apiInterface = APIClient.getClient().create(APIInterface.class);
-        Call<ArrayList<Comment>> call = apiInterface.getComment(headerItem.getId());
-        call.enqueue(new Callback<ArrayList<Comment>>() {
+        Call<Product> call = apiInterface.getProduct(productId);
+        call.enqueue(new Callback<Product>() {
             @Override
-            public void onResponse(Call<ArrayList<Comment>> call, Response<ArrayList<Comment>> response) {
+            public void onResponse(Call<Product> call, Response<Product> response) {
                 if (response.isSuccessful()) {
                     callback.onLoadedData(response.body());
                 }else {
@@ -108,7 +108,7 @@ public class Repository {
             }
 
             @Override
-            public void onFailure(Call<ArrayList<Comment>> call, Throwable t) {
+            public void onFailure(Call<Product> call, Throwable t) {
                 callback.onDataNotAvailable();
             }
         });

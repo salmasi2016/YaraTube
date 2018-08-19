@@ -20,18 +20,18 @@
             android:layout_height="match_parent">
 
             <android.support.constraint.Guideline
-                android:id="@+id/list_item_home_item_gl_y5"
+                android:id="@+id/list_item_home_item_gl_y6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.5" />
+                app:layout_constraintGuide_percent="0.6" />
 
             <android.support.constraint.Guideline
-                android:id="@+id/list_item_home_item_gl_y7"
+                android:id="@+id/list_item_home_item_gl_y8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.7" />
+                app:layout_constraintGuide_percent="0.8" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/list_item_home_item_gl_x05"
@@ -51,7 +51,8 @@
                 android:id="@+id/list_item_home_item_iv_video"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="@id/list_item_home_item_gl_y5"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="@id/list_item_home_item_gl_y6"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -61,10 +62,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right|center"
-                app:layout_constraintBottom_toBottomOf="@id/list_item_home_item_gl_y7"
+                app:layout_constraintBottom_toBottomOf="@id/list_item_home_item_gl_y8"
                 app:layout_constraintLeft_toLeftOf="@id/list_item_home_item_gl_x95"
                 app:layout_constraintRight_toRightOf="@id/list_item_home_item_gl_x05"
-                app:layout_constraintTop_toTopOf="@id/list_item_home_item_gl_y5" />
+                app:layout_constraintTop_toTopOf="@id/list_item_home_item_gl_y6" />
 
             <TextView
                 android:id="@+id/list_item_home_item_tv_short_description"
@@ -74,7 +75,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="@id/list_item_home_item_gl_x95"
                 app:layout_constraintRight_toRightOf="@id/list_item_home_item_gl_x05"
-                app:layout_constraintTop_toTopOf="@id/list_item_home_item_gl_y7" />
+                app:layout_constraintTop_toTopOf="@id/list_item_home_item_gl_y8" />
 
         </android.support.constraint.ConstraintLayout>
 

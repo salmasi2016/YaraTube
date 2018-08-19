@@ -107,11 +107,11 @@ public class FragmentCategoryGrid extends Fragment implements ContractCategoryGr
 
     @Override
     public void setProductToFragmentProductDetail(Product product) {
-        interaction.goToFragmentProductDetail(product);
+        interaction.goToFragmentProductDetail(product.getId());
     }
 
     public interface Interaction {
 
-        void goToFragmentProductDetail(Product product);
+        void goToFragmentProductDetail(int productId);
     }
 }

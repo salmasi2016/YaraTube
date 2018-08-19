@@ -1,25 +1,28 @@
 package com.yaratech.yaratube.ui.main;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.yaratech.yaratube.R;
 import com.yaratech.yaratube.data.model.Category;
-import com.yaratech.yaratube.data.model.HeaderItem;
-import com.yaratech.yaratube.data.model.Product;
 import com.yaratech.yaratube.ui.about_us.FragmentAboutUs;
 import com.yaratech.yaratube.ui.category_grid.FragmentCategoryGrid;
 import com.yaratech.yaratube.ui.contact_us.FragmentContactUs;
 import com.yaratech.yaratube.ui.home.category.FragmentCategory;
 import com.yaratech.yaratube.ui.home.home.FragmentHome;
+import com.yaratech.yaratube.ui.home.main_page.header_item.FragmentHeaderItem;
 import com.yaratech.yaratube.ui.home.main_page.main_page.FragmentMainPage;
 import com.yaratech.yaratube.ui.product_detail.FragmentProductDetail;
 import com.yaratech.yaratube.ui.profile.FragmentProfile;
 import com.yaratech.yaratube.util.Tool;
 
 public class MainActivity extends AppCompatActivity implements FragmentHome.Interaction.goTo,
-        FragmentCategory.Interaction, FragmentCategoryGrid.Interaction ,
-FragmentMainPage.Interaction{
+        FragmentCategory.Interaction, FragmentCategoryGrid.Interaction,
+        FragmentMainPage.Interaction, FragmentHeaderItem.Interaction {
+    private Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +31,23 @@ FragmentMainPage.Interaction{
         final android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_fl_layout, FragmentHome.newInstance());
         fragmentTransaction.commit();
+        toast = Toast.makeText(this, R.string.clickAgain, Toast.LENGTH_SHORT);
     }
 
     @Override
     public void onBackPressed() {
         if (Tool.isDrawerClose(getSupportFragmentManager())) {
-            super.onBackPressed();
+            if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+                if (toast.getView().isShown()) {
+                    toast.cancel();
+                    super.onBackPressed();
+                    return;
+                } else {
+                    toast.show();
+                }
+            } else {
+                super.onBackPressed();
+            }
         }
     }
 
@@ -110,19 +124,10 @@ FragmentMainPage.Interaction{
     }
 
     @Override
-    public void goToFragmentProductDetail(Product product) {
+    public void goToFragmentProductDetail(int productId) {
         FragmentProductDetail fragmentProductDetail = (FragmentProductDetail) getSupportFragmentManager().findFragmentByTag("FragmentProductDetail");
         if (fragmentProductDetail == null) {
-            fragmentProductDetail = FragmentProductDetail.newInstance(product);
-            Tool.setFragment(getSupportFragmentManager(), fragmentProductDetail, R.id.main_fl_layout, "FragmentProductDetail");
-        }
-    }
-
-    @Override
-    public void goToFragmentProductDetail(HeaderItem headerItem) {
-        FragmentProductDetail fragmentProductDetail = (FragmentProductDetail) getSupportFragmentManager().findFragmentByTag("FragmentProductDetail");
-        if (fragmentProductDetail == null) {
-            fragmentProductDetail = FragmentProductDetail.newInstance(headerItem);
+            fragmentProductDetail = FragmentProductDetail.newInstance(productId);
             Tool.setFragment(getSupportFragmentManager(), fragmentProductDetail, R.id.main_fl_layout, "FragmentProductDetail");
         }
     }

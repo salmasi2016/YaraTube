@@ -37,6 +37,7 @@
                 android:id="@+id/list_item_category_iv_category"
                 android:layout_width="@dimen/imgSize3"
                 android:layout_height="@dimen/imgSize3"
+                android:scaleType="centerCrop"
                 android:src="@drawable/images_avatar_circular"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
