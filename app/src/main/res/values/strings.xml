@@ -19,4 +19,14 @@
     <string name="comments">نظرات کاربران</string>
     <string name="comment">نظر دهید</string>
     <string name="clickAgain">برای خروج مجددا کلیک نمایید</string>
+    <string name="via_mobile_number">از طریق شماره موبایل</string>
+    <string name="via_google_account">از طریق حساب گوگل</string>
+    <string name="enter_via_mobile_number">ورود از طریق شماره موبایل</string>
+    <string name="enter_your_mobile_number">شماره تلفن همراه خود را وارد کنید</string>
+    <string name="enter_activation_code">کد فعال سازی را وارد کنید</string>
+    <string name="activation_code">کد فعال سازی</string>
+    <string name="did_not_you_receive_code">کد را دریافت نکردید؟</string>
+    <string name="enter">ورود</string>
+    <string name="record">ثبت</string>
+    <string name="number_correction">تصحیح شماره</string>
 </resources>

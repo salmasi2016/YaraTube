@@ -1,34 +1,36 @@
 package com.yaratech.yaratube.ui.main;
 
 import android.os.Bundle;
-import android.os.Handler;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.yaratech.yaratube.R;
 import com.yaratech.yaratube.data.model.Category;
-import com.yaratech.yaratube.ui.about_us.FragmentAboutUs;
-import com.yaratech.yaratube.ui.category_grid.FragmentCategoryGrid;
-import com.yaratech.yaratube.ui.contact_us.FragmentContactUs;
+import com.yaratech.yaratube.ui.aboutus.FragmentAboutUs;
+import com.yaratech.yaratube.ui.categorygrid.FragmentCategoryGrid;
+import com.yaratech.yaratube.ui.contactus.FragmentContactUs;
 import com.yaratech.yaratube.ui.home.category.FragmentCategory;
 import com.yaratech.yaratube.ui.home.home.FragmentHome;
-import com.yaratech.yaratube.ui.home.main_page.header_item.FragmentHeaderItem;
-import com.yaratech.yaratube.ui.home.main_page.main_page.FragmentMainPage;
-import com.yaratech.yaratube.ui.product_detail.FragmentProductDetail;
+import com.yaratech.yaratube.ui.home.mainpage.headeritem.FragmentHeaderItem;
+import com.yaratech.yaratube.ui.home.mainpage.mainpage.FragmentMainPage;
+import com.yaratech.yaratube.ui.login.dialog.DialogFragmentLogin;
+import com.yaratech.yaratube.ui.productdetail.FragmentProductDetail;
 import com.yaratech.yaratube.ui.profile.FragmentProfile;
 import com.yaratech.yaratube.util.Tool;
 
 public class MainActivity extends AppCompatActivity implements FragmentHome.Interaction.goTo,
         FragmentCategory.Interaction, FragmentCategoryGrid.Interaction,
         FragmentMainPage.Interaction, FragmentHeaderItem.Interaction {
+
     private Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_fl_layout, FragmentHome.newInstance());
         fragmentTransaction.commit();
         toast = Toast.makeText(this, R.string.clickAgain, Toast.LENGTH_SHORT);
@@ -49,6 +51,12 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.Inte
                 super.onBackPressed();
             }
         }
+    }
+
+    @Override
+    public void goToLogin() {
+        DialogFragment dialogFragment = DialogFragmentLogin.newInstance();
+        dialogFragment.show(getSupportFragmentManager().beginTransaction(), "DialogFragmentLogin");
     }
 
     @Override

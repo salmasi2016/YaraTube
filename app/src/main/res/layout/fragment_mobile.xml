@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="rtl">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/fragment_mobile_gl_y2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/fragment_mobile_gl_y5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/fragment_mobile_gl_y6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/fragment_mobile_gl_y9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/fragment_mobile_gl_x1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/fragment_mobile_gl_x9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/enter_via_mobile_number"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/textSize2"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/fragment_mobile_gl_y2"
+        app:layout_constraintRight_toRightOf="@id/fragment_mobile_gl_x1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/fragment_mobile_et_mobile"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:hint="@string/enter_your_mobile_number"
+        android:inputType="numberDecimal"
+        android:textSize="@dimen/textSize2"
+        app:layout_constraintBottom_toBottomOf="@id/fragment_mobile_gl_y5"
+        app:layout_constraintLeft_toLeftOf="@id/fragment_mobile_gl_x9"
+        app:layout_constraintRight_toRightOf="@id/fragment_mobile_gl_x1"
+        app:layout_constraintTop_toTopOf="@id/fragment_mobile_gl_y2" />
+
+    <Button
+        android:id="@+id/fragment_mobile_btn_record"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="@string/record"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/textSize2"
+        app:layout_constraintBottom_toBottomOf="@id/fragment_mobile_gl_y9"
+        app:layout_constraintLeft_toLeftOf="@id/fragment_mobile_gl_x9"
+        app:layout_constraintRight_toRightOf="@id/fragment_mobile_gl_x1"
+        app:layout_constraintTop_toTopOf="@id/fragment_mobile_gl_y6" />
+
+</android.support.constraint.ConstraintLayout>

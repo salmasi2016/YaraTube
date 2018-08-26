@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.yaratech.yaratube.data.source.local.db.database.AppDataBase;
 import com.yaratech.yaratube.ui.main.OnBackPressed;
 import com.yaratech.yaratube.R;
 
@@ -25,6 +26,7 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
     private BottomNavigationView bottomNavigationView;
     private Interaction.goTo iaGoTo;
     private Toolbar toolbar;
+    private AppDataBase appDataBase;
 
     public static FragmentHome newInstance() {
         FragmentHome fragment = new FragmentHome();
@@ -37,6 +39,7 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
     public void onAttach(Context context) {
         super.onAttach(context);
         iaGoTo = (Interaction.goTo) context;
+        appDataBase = AppDataBase.newInstance(context);
     }
 
     @Override
@@ -81,7 +84,6 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
             case android.R.id.home:
                 drawerLayout.openDrawer(Gravity.RIGHT);
                 return true;
-
         }
         return super.onOptionsItemSelected(item);
     }
@@ -110,8 +112,13 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.home_hamburger_profile:
-                iaGoTo.goToProfile();
-                drawerLayout.closeDrawer(Gravity.RIGHT);
+//                if (appDataBase.daoUser().isLogin() == 1) {
+//                    iaGoTo.goToProfile();
+//                    drawerLayout.closeDrawer(Gravity.RIGHT);
+//                }else {
+                    drawerLayout.closeDrawer(Gravity.RIGHT);
+                    iaGoTo.goToLogin();
+                //}
                 return true;
             case R.id.home_hamburger_aboutUs:
                 iaGoTo.goToAboutUs();
@@ -138,6 +145,8 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
     public interface Interaction {
 
         interface goTo {
+
+            void goToLogin();
 
             void goToProfile();
 
