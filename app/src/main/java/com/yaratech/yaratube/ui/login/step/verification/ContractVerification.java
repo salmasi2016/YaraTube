@@ -6,11 +6,13 @@ public interface ContractVerification {
 
         void saveUser();
 
+        void showErrorMessage(String message);
+
         void dismissDialog();
     }
 
     interface Presenter {
 
-        void loginInApp();
+        void sendVerificationCode(String phoneNumber, String deviceId, int verificationCode);
     }
 }

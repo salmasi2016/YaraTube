@@ -2,14 +2,17 @@ package com.yaratech.yaratube.data.source.remote;
 
 import com.yaratech.yaratube.data.model.Category;
 import com.yaratech.yaratube.data.model.Comment;
-import com.yaratech.yaratube.data.model.HeaderItem;
 import com.yaratech.yaratube.data.model.Home;
 import com.yaratech.yaratube.data.model.Product;
 
 import java.util.ArrayList;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.HttpException;
 import retrofit2.Response;
 
 public class Repository {

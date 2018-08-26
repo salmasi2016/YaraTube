@@ -37,16 +37,14 @@ public class DialogFragmentLogin extends DialogFragment implements FragmentLogin
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getChildFragmentManager().beginTransaction()
-        .add(R.id.dialog_fragment_login_fl_layout, FragmentLogin.newInstance(), "FragmentLogin")
-        .addToBackStack("FragmentLogin")
+        .replace(R.id.dialog_fragment_login_fl_layout, FragmentLogin.newInstance(), "FragmentLogin")
         .commit();
     }
 
     @Override
     public void goToLoginByMobile() {
         getChildFragmentManager().beginTransaction()
-                .add(R.id.dialog_fragment_login_fl_layout, FragmentMobile.newInstance(), "FragmentMobile")
-                .addToBackStack("FragmentMobile")
+                .replace(R.id.dialog_fragment_login_fl_layout, FragmentMobile.newInstance(), "FragmentMobile")
                 .commit();
     }
 
@@ -56,10 +54,9 @@ public class DialogFragmentLogin extends DialogFragment implements FragmentLogin
     }
 
     @Override
-    public void goToLoginVerification() {
+    public void goToLoginVerification(String phoneNumber) {
         getChildFragmentManager().beginTransaction()
-                .add(R.id.dialog_fragment_login_fl_layout, FragmentVerification.newInstance(), "FragmentVerification")
-                .addToBackStack("FragmentVerification")
+                .replace(R.id.dialog_fragment_login_fl_layout, FragmentVerification.newInstance(phoneNumber), "FragmentVerification")
                 .commit();
     }
 

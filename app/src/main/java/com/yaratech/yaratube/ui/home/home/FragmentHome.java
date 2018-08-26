@@ -112,7 +112,7 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.home_hamburger_profile:
-//                if (appDataBase.daoUser().isLogin() == 1) {
+//                if (appDataBase.DaoUser().isLogin() == 1) {
 //                    iaGoTo.goToProfile();
 //                    drawerLayout.closeDrawer(Gravity.RIGHT);
 //                }else {

@@ -8,7 +8,12 @@ import android.arch.persistence.room.PrimaryKey;
 public class User {
 
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
     private int id;
+    @ColumnInfo(name = "nick_name")
+    private String nickName;
+    @ColumnInfo(name = "token")
+    private String token;
     @ColumnInfo(name = "isLogin")
     private int isLogin;
 
@@ -18,6 +23,22 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public int getIsLogin() {

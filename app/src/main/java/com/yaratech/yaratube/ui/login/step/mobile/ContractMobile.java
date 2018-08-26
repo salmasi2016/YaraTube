@@ -4,11 +4,13 @@ public interface ContractMobile {
 
     interface View {
 
-        void showDialogVerification();
+        void showDialogVerification(String phoneNumber);
+
+        void showErrorMessage(String message);
     }
 
     interface Presenter {
 
-        void dialogVerification();
+        void sendPhoneNumber(String phoneNumber, String deviceId, String deviceModel, String deviceOs);
     }
 }

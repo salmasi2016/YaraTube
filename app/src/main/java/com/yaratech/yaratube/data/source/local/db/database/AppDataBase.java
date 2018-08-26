@@ -5,14 +5,14 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
-import com.yaratech.yaratube.data.source.local.db.dao.daoUser;
+import com.yaratech.yaratube.data.source.local.db.dao.DaoUser;
 import com.yaratech.yaratube.data.source.local.db.entity.User;
 
 @Database(entities = User.class,version = 1,exportSchema = false)
 public abstract class AppDataBase extends RoomDatabase {
     private static AppDataBase appDatabase;
 
-    public abstract daoUser daoUser();
+    public abstract DaoUser daoUser();
 
     public static AppDataBase newInstance(Context context){
         if (appDatabase == null) {

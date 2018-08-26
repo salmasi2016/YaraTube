@@ -19,9 +19,9 @@ public class FragmentLogin extends Fragment implements ContractLogin.View, View.
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        try{
-            interaction = (Interaction) context;
-        } catch (ClassCastException e){
+        try {
+            interaction = (Interaction) getParentFragment();
+        } catch (ClassCastException e) {
             throw new ClassCastException("Context Is Not Instance Of Interaction");
         }
     }
@@ -57,7 +57,7 @@ public class FragmentLogin extends Fragment implements ContractLogin.View, View.
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.fragment_login_btn_mobile:
                 iaPresenter.dialogMobile();
                 break;
