@@ -1,5 +1,6 @@
 package com.yaratech.yaratube.data.source.remote;
 
+import com.yaratech.yaratube.util.Constant;
 import com.yaratech.yaratube.util.Tool;
 
 import okhttp3.OkHttpClient;
@@ -17,7 +18,7 @@ public class APIClient {
             OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
             retrofit = new Retrofit.Builder()
                     .client(client)
-                    .baseUrl(Tool.BASE_URL)
+                    .baseUrl(Constant.BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }

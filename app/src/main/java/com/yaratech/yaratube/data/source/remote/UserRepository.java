@@ -5,6 +5,10 @@ import android.widget.Toast;
 
 import com.yaratech.yaratube.data.model.Activation;
 import com.yaratech.yaratube.data.model.SmsResponse;
+import com.yaratech.yaratube.data.source.local.pref.AppPreferences;
+import com.yaratech.yaratube.util.Constant;
+import com.yaratech.yaratube.util.Device;
+import com.yaratech.yaratube.util.Function;
 import com.yaratech.yaratube.util.Tool;
 
 import retrofit2.Call;
@@ -14,17 +18,20 @@ import retrofit2.Response;
 public class UserRepository {
     private APIInterface apiInterface;
     private Context context;
+    private AppPreferences pref;
 
     public UserRepository(Context context) {
-        apiInterface = APIClient.getClient().create(APIInterface.class);
         this.context = context;
+        apiInterface = APIClient.getClient().create(APIInterface.class);
+        pref=new AppPreferences(context);
     }
 
-    public void sendPhoneNumber(final ApiResult<SmsResponse> callback, String phoneNumber, String deviceId, String deviceModel, String deviceOs) {
+    public void sendPhoneNumber(final ApiResult<SmsResponse> callback) {
 
-        Call<SmsResponse> call = apiInterface.activateStep1(phoneNumber, deviceId, deviceModel, deviceOs);
+        Call<SmsResponse> call = apiInterface.activateStep1(pref.getPhoneNumber(),
+                Device.getDeviceId(context), Device.getDeviceModel(), Device.getDeviceOs());
 
-        if(Tool.isNetworkAvailable(context)) {
+        if(Function.isNetworkAvailable(context)) {
             call.enqueue(new Callback<SmsResponse>() {
                 @Override
                 public void onResponse(Call<SmsResponse> call, Response<SmsResponse> response) {
@@ -46,12 +53,14 @@ public class UserRepository {
         }
     }
 
-    public void sendVerificationCode(final ApiResult<Activation> callback, String phoneNumber, String deviceId, int verificationCode) {
+    public void sendVerificationCode(final ApiResult<Activation> callback, int verificationCode) {
 
-        Call<Activation> call = apiInterface.activateStep2(phoneNumber, deviceId, verificationCode);
+        Call<Activation> call = apiInterface.activateStep2(pref.getPhoneNumber(),
+                Device.getDeviceId(context), verificationCode);
 
-        if(Tool.isNetworkAvailable(context)) {
+        if(Function.isNetworkAvailable(context)) {
             call.enqueue(new Callback<Activation>() {
+
                 @Override
                 public void onResponse(Call<Activation> call, Response<Activation> response) {
                     if(response.isSuccessful()) {
@@ -63,7 +72,6 @@ public class UserRepository {
 
                 @Override
                 public void onFailure(Call<Activation> call, Throwable t) {
-
                     callback.onFail(t.getMessage());
                 }
             });
@@ -71,7 +79,6 @@ public class UserRepository {
     }
 
     private void toastNetworkNotAvailable(Context context) {
-
-        Toast.makeText(context, Tool.INTERNET_ERROR_MESSAGE, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, Constant.INTERNET_ERROR_MESSAGE, Toast.LENGTH_SHORT).show();
     }
 }

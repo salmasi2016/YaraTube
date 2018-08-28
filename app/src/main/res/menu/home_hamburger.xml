@@ -7,13 +7,13 @@
         android:title="@string/profile"
         app:showAsAction="always" />
     <item
-        android:id="@+id/home_hamburger_aboutUs"
+        android:id="@+id/home_hamburger_about_us"
         android:enabled="true"
-        android:title="@string/aboutUs"
+        android:title="@string/about_us"
         app:showAsAction="always" />
     <item
-        android:id="@+id/home_hamburger_contactUs"
+        android:id="@+id/home_hamburger_contact_us"
         android:enabled="true"
-        android:title="@string/contactUs"
+        android:title="@string/contact_us"
         app:showAsAction="always" />
 </menu>

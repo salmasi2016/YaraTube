@@ -14,8 +14,6 @@ public class User {
     private String nickName;
     @ColumnInfo(name = "token")
     private String token;
-    @ColumnInfo(name = "isLogin")
-    private int isLogin;
 
     public int getId() {
         return id;
@@ -39,13 +37,5 @@ public class User {
 
     public void setToken(String token) {
         this.token = token;
-    }
-
-    public int getIsLogin() {
-        return isLogin;
-    }
-
-    public void setIsLogin(int isLogin) {
-        this.isLogin = isLogin;
     }
 }

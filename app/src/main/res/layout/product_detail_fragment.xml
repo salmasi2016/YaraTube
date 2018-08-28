@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:layoutDirection="rtl">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/product_detail_fragment_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="@string/product_detail"
+            app:titleTextColor="@android:color/white" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/product_detail_fragment_app_bar">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/product_detail_fragment_cv1"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/product_detail_fragment_cv1_height"
+                    android:layout_marginBottom="@dimen/margin_5"
+                    android:layout_marginLeft="@dimen/margin_16"
+                    android:layout_marginRight="@dimen/margin_16"
+                    android:layout_marginTop="@dimen/margin_5"
+                    app:cardCornerRadius="@dimen/list_item_category_corner_radius"
+                    app:cardElevation="@dimen/list_item_category_elevation"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/product_detail_fragment_cv1_gl_y8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.8" />
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/product_detail_fragment_cv1_gl_x05"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.05" />
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/product_detail_fragment_cv1_gl_x95"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.95" />
+
+                        <ImageView
+                            android:id="@+id/product_detail_fragment_iv_video"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:scaleType="centerCrop"
+                            app:layout_constraintBottom_toBottomOf="@id/product_detail_fragment_cv1_gl_y8"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/product_detail_fragment_tv_name"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:textSize="@dimen/text_size_18"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toRightOf="@id/product_detail_fragment_ib_check"
+                            app:layout_constraintRight_toRightOf="@id/product_detail_fragment_cv1_gl_x05"
+                            app:layout_constraintTop_toTopOf="@id/product_detail_fragment_cv1_gl_y8" />
+
+                        <ImageButton
+                            android:id="@+id/product_detail_fragment_ib_check"
+                            android:layout_width="@dimen/img_size_32"
+                            android:layout_height="@dimen/img_size_32"
+                            android:src="@drawable/icon_check_circle_filled"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="@id/product_detail_fragment_cv1_gl_x95"
+                            app:layout_constraintTop_toTopOf="@id/product_detail_fragment_cv1_gl_y8" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/product_detail_fragment_cv2"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/product_detail_fragment_cv1_height"
+                    android:layout_marginBottom="@dimen/margin_5"
+                    android:layout_marginLeft="@dimen/margin_16"
+                    android:layout_marginRight="@dimen/margin_16"
+                    android:layout_marginTop="@dimen/margin_5"
+                    app:cardCornerRadius="@dimen/list_item_category_corner_radius"
+                    app:cardElevation="@dimen/list_item_category_elevation"
+                    app:layout_constraintTop_toBottomOf="@id/product_detail_fragment_cv1">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/product_detail_fragment_cv2_gl_y1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.1" />
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/product_detail_fragment_cv2_gl_y2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.2" />
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/product_detail_fragment_cv2_gl_x05"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.05" />
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/product_detail_fragment_cv2_gl_x95"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.95" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="@string/description"
+                            android:textColor="@android:color/black"
+                            android:textSize="@dimen/text_size_18"
+                            app:layout_constraintBottom_toBottomOf="@id/product_detail_fragment_cv2_gl_y1"
+                            app:layout_constraintRight_toRightOf="@id/product_detail_fragment_cv2_gl_x05"
+                            app:layout_constraintTop_toTopOf="@id/product_detail_fragment_cv2_gl_y1" />
+
+                        <TextView
+                            android:id="@+id/product_detail_fragment_tv_description"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:textSize="@dimen/text_size_15"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="@id/product_detail_fragment_cv2_gl_x95"
+                            app:layout_constraintRight_toRightOf="@id/product_detail_fragment_cv2_gl_x05"
+                            app:layout_constraintTop_toTopOf="@id/product_detail_fragment_cv2_gl_y2" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/product_detail_fragment_cv3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_5"
+                    android:layout_marginLeft="@dimen/margin_16"
+                    android:layout_marginRight="@dimen/margin_16"
+                    android:layout_marginTop="@dimen/margin_5"
+                    app:cardCornerRadius="@dimen/list_item_category_corner_radius"
+                    app:cardElevation="@dimen/list_item_category_elevation"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/product_detail_fragment_cv2">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/product_detail_fragment_cv3_gl_x95"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.95" />
+
+                        <Button
+                            android:id="@+id/product_detail_fragment_btn_comment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_5"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:text="@string/comment"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/text_size_15"
+                            android:textStyle="bold"
+                            app:layout_constraintLeft_toLeftOf="@id/product_detail_fragment_cv3_gl_x95"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <android.support.constraint.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toBottomOf="@id/product_detail_fragment_btn_comment">
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/product_detail_fragment_rv_comment"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_5"
+                                android:nestedScrollingEnabled="false" />
+
+                        </android.support.constraint.ConstraintLayout>
+
+                    </android.support.constraint.ConstraintLayout>
+
+                </android.support.v7.widget.CardView>
+
+            </android.support.constraint.ConstraintLayout>
+
+            <ProgressBar
+                android:id="@+id/product_detail_fragment_pb_load"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.constraint.ConstraintLayout>

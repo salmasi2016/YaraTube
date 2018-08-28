@@ -8,37 +8,38 @@ import android.widget.Toast;
 
 import com.yaratech.yaratube.R;
 import com.yaratech.yaratube.data.model.Category;
-import com.yaratech.yaratube.ui.aboutus.FragmentAboutUs;
-import com.yaratech.yaratube.ui.categorygrid.FragmentCategoryGrid;
-import com.yaratech.yaratube.ui.contactus.FragmentContactUs;
-import com.yaratech.yaratube.ui.home.category.FragmentCategory;
-import com.yaratech.yaratube.ui.home.home.FragmentHome;
-import com.yaratech.yaratube.ui.home.mainpage.headeritem.FragmentHeaderItem;
-import com.yaratech.yaratube.ui.home.mainpage.mainpage.FragmentMainPage;
-import com.yaratech.yaratube.ui.login.dialog.DialogFragmentLogin;
-import com.yaratech.yaratube.ui.productdetail.FragmentProductDetail;
-import com.yaratech.yaratube.ui.profile.FragmentProfile;
-import com.yaratech.yaratube.util.Tool;
+import com.yaratech.yaratube.ui.aboutus.AboutUsFragment;
+import com.yaratech.yaratube.ui.categorygrid.CategoryGridFragment;
+import com.yaratech.yaratube.ui.contactus.ContactUsFragment;
+import com.yaratech.yaratube.ui.home.HomeFragment;
+import com.yaratech.yaratube.ui.home.category.CategoryFragment;
+import com.yaratech.yaratube.ui.home.mainpage.headeritem.HeaderItemFragment;
+import com.yaratech.yaratube.ui.home.mainpage.mainpage.MainPageFragment;
+import com.yaratech.yaratube.ui.login.LoginDialogFragment;
+import com.yaratech.yaratube.ui.productdetail.ProductDetailFragment;
+import com.yaratech.yaratube.ui.profile.ProfileFragment;
+import com.yaratech.yaratube.util.Function;
 
-public class MainActivity extends AppCompatActivity implements FragmentHome.Interaction.goTo,
-        FragmentCategory.Interaction, FragmentCategoryGrid.Interaction,
-        FragmentMainPage.Interaction, FragmentHeaderItem.Interaction {
+public class MainActivity extends AppCompatActivity
+        implements HomeFragment.Interaction,
+        CategoryFragment.Interaction, CategoryGridFragment.Interaction,
+        MainPageFragment.Interaction, HeaderItemFragment.Interaction {
 
     private Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main_activity);
         final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.main_fl_layout, FragmentHome.newInstance());
+        fragmentTransaction.replace(R.id.main_activity_fl_layout, HomeFragment.newInstance());
         fragmentTransaction.commit();
-        toast = Toast.makeText(this, R.string.clickAgain, Toast.LENGTH_SHORT);
+        toast = Toast.makeText(this, R.string.toast_click_again_to_exit, Toast.LENGTH_SHORT);
     }
 
     @Override
     public void onBackPressed() {
-        if (Tool.isDrawerClose(getSupportFragmentManager())) {
+        if (Function.isDrawerClose(getSupportFragmentManager())) {
             if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
                 if (toast.getView().isShown()) {
                     toast.cancel();
@@ -55,50 +56,59 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.Inte
 
     @Override
     public void goToLogin() {
-        DialogFragment dialogFragment = DialogFragmentLogin.newInstance();
-        dialogFragment.show(getSupportFragmentManager().beginTransaction(), "DialogFragmentLogin");
+        DialogFragment dialogFragment = LoginDialogFragment.newInstance();
+        dialogFragment.show(getSupportFragmentManager().beginTransaction(), LoginDialogFragment.class.getName());
     }
 
     @Override
     public void goToProfile() {
-        FragmentProfile fragmentProfile = (FragmentProfile) getSupportFragmentManager().findFragmentByTag("FragmentProfile");
-        if (fragmentProfile == null) {
-            fragmentProfile = FragmentProfile.newInstance();
-            Tool.setFragment(getSupportFragmentManager(), fragmentProfile, R.id.main_fl_layout, "FragmentProfile");
+        ProfileFragment profileFragment = (ProfileFragment) getSupportFragmentManager()
+                .findFragmentByTag(ProfileFragment.class.getName());
+        if (profileFragment == null) {
+            profileFragment = ProfileFragment.newInstance();
+            Function.setFragment(getSupportFragmentManager(),
+                    profileFragment, R.id.main_activity_fl_layout, ProfileFragment.class.getName());
         }
     }
 
     @Override
     public void goToAboutUs() {
-        FragmentAboutUs fragmentAboutUs = (FragmentAboutUs) getSupportFragmentManager().findFragmentByTag("FragmentAboutUs");
-        if (fragmentAboutUs == null) {
-            fragmentAboutUs = FragmentAboutUs.newInstance();
-            Tool.setFragment(getSupportFragmentManager(), fragmentAboutUs, R.id.main_fl_layout, "FragmentAboutUs");
+        AboutUsFragment aboutUsFragment = (AboutUsFragment) getSupportFragmentManager()
+                .findFragmentByTag(AboutUsFragment.class.getName());
+        if (aboutUsFragment == null) {
+            aboutUsFragment = AboutUsFragment.newInstance();
+            Function.setFragment(getSupportFragmentManager(),
+                    aboutUsFragment, R.id.main_activity_fl_layout, AboutUsFragment.class.getName());
         }
     }
 
     @Override
     public void goToContactUs() {
-        FragmentContactUs fragmentContactUs = (FragmentContactUs) getSupportFragmentManager().findFragmentByTag("FragmentContactUs");
-        if (fragmentContactUs == null) {
-            fragmentContactUs = FragmentContactUs.newInstance();
-            Tool.setFragment(getSupportFragmentManager(), fragmentContactUs, R.id.main_fl_layout, "FragmentContactUs");
+        ContactUsFragment contactUsFragment = (ContactUsFragment) getSupportFragmentManager()
+                .findFragmentByTag(ContactUsFragment.class.getName());
+        if (contactUsFragment == null) {
+            contactUsFragment = ContactUsFragment.newInstance();
+            Function.setFragment(getSupportFragmentManager(),
+                    contactUsFragment, R.id.main_activity_fl_layout, ContactUsFragment.class.getName());
         }
     }
 
     @Override
     public void goToMainPage() {
-        FragmentMainPage fragmentMainPage = (FragmentMainPage) getSupportFragmentManager().findFragmentByTag("FragmentMainPage");
-        if (fragmentMainPage == null) {
-            fragmentMainPage = FragmentMainPage.newInstance();
-            getSupportFragmentManager().beginTransaction().add(R.id.home_fl_layout, fragmentMainPage, "FragmentMainPage").commit();
+        MainPageFragment mainPageFragment = (MainPageFragment) getSupportFragmentManager()
+                .findFragmentByTag(MainPageFragment.class.getName());
+        if (mainPageFragment == null) {
+            mainPageFragment = MainPageFragment.newInstance();
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.home_fl_layout, mainPageFragment, MainPageFragment.class.getName())
+                    .commit();
         } else {
-            FragmentCategory fragmentCategory = (FragmentCategory) getSupportFragmentManager().findFragmentByTag("FragmentCategory");
-            if (fragmentCategory != null) {
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .hide(getSupportFragmentManager().findFragmentByTag("FragmentCategory"))
-                        .show(getSupportFragmentManager().findFragmentByTag("FragmentMainPage"))
+            CategoryFragment categoryFragment = (CategoryFragment) getSupportFragmentManager()
+                    .findFragmentByTag(CategoryFragment.class.getName());
+            if (categoryFragment != null) {
+                getSupportFragmentManager().beginTransaction()
+                        .hide(getSupportFragmentManager().findFragmentByTag(CategoryFragment.class.getName()))
+                        .show(getSupportFragmentManager().findFragmentByTag(MainPageFragment.class.getName()))
                         .commit();
             }
         }
@@ -106,17 +116,20 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.Inte
 
     @Override
     public void goToCategories() {
-        FragmentCategory fragmentCategory = (FragmentCategory) getSupportFragmentManager().findFragmentByTag("FragmentCategory");
-        if (fragmentCategory == null) {
-            fragmentCategory = FragmentCategory.newInstance();
-            getSupportFragmentManager().beginTransaction().add(R.id.home_fl_layout, fragmentCategory, "FragmentCategory").commit();
+        CategoryFragment categoryFragment = (CategoryFragment) getSupportFragmentManager()
+                .findFragmentByTag(CategoryFragment.class.getName());
+        if (categoryFragment == null) {
+            categoryFragment = CategoryFragment.newInstance();
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.home_fl_layout, categoryFragment, CategoryFragment.class.getName())
+                    .commit();
         } else {
-            FragmentMainPage fragmentMainPage = (FragmentMainPage) getSupportFragmentManager().findFragmentByTag("FragmentMainPage");
-            if (fragmentMainPage != null) {
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .hide(getSupportFragmentManager().findFragmentByTag("FragmentMainPage"))
-                        .show(getSupportFragmentManager().findFragmentByTag("FragmentCategory"))
+            MainPageFragment mainPageFragment = (MainPageFragment) getSupportFragmentManager()
+                    .findFragmentByTag(MainPageFragment.class.getName());
+            if (mainPageFragment != null) {
+                getSupportFragmentManager().beginTransaction()
+                        .hide(getSupportFragmentManager().findFragmentByTag(MainPageFragment.class.getName()))
+                        .show(getSupportFragmentManager().findFragmentByTag(CategoryFragment.class.getName()))
                         .commit();
             }
         }
@@ -124,19 +137,23 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.Inte
 
     @Override
     public void goToFragmentCategoryGrid(Category category) {
-        FragmentCategoryGrid fragmentCategoryGrid = (FragmentCategoryGrid) getSupportFragmentManager().findFragmentByTag("FragmentCategoryGrid");
-        if (fragmentCategoryGrid == null) {
-            fragmentCategoryGrid = FragmentCategoryGrid.newInstance(category);
-            Tool.setFragment(getSupportFragmentManager(), fragmentCategoryGrid, R.id.main_fl_layout, "FragmentCategoryGrid");
+        CategoryGridFragment categoryGridFragment = (CategoryGridFragment) getSupportFragmentManager()
+                .findFragmentByTag(CategoryGridFragment.class.getName());
+        if (categoryGridFragment == null) {
+            categoryGridFragment = CategoryGridFragment.newInstance(category);
+            Function.setFragment(getSupportFragmentManager(),
+                    categoryGridFragment, R.id.main_activity_fl_layout, CategoryGridFragment.class.getName());
         }
     }
 
     @Override
     public void goToFragmentProductDetail(int productId) {
-        FragmentProductDetail fragmentProductDetail = (FragmentProductDetail) getSupportFragmentManager().findFragmentByTag("FragmentProductDetail");
-        if (fragmentProductDetail == null) {
-            fragmentProductDetail = FragmentProductDetail.newInstance(productId);
-            Tool.setFragment(getSupportFragmentManager(), fragmentProductDetail, R.id.main_fl_layout, "FragmentProductDetail");
+        ProductDetailFragment productDetailFragment = (ProductDetailFragment) getSupportFragmentManager()
+                .findFragmentByTag(ProductDetailFragment.class.getName());
+        if (productDetailFragment == null) {
+            productDetailFragment = ProductDetailFragment.newInstance(productId);
+            Function.setFragment(getSupportFragmentManager(),
+                    productDetailFragment, R.id.main_activity_fl_layout, ProductDetailFragment.class.getName());
         }
     }
 }
