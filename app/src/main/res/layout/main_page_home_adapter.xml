@@ -30,6 +30,8 @@
         android:id="@+id/main_page_home_adapter_tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_18"
+        android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="@id/main_page_home_adapter_gl_y1"
         app:layout_constraintRight_toRightOf="@id/main_page_home_adapter_gl_x05"
         app:layout_constraintTop_toTopOf="@id/main_page_home_adapter_gl_y1" />

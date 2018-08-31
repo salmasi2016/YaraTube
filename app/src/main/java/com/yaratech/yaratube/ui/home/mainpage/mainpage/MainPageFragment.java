@@ -26,7 +26,7 @@ public class MainPageFragment extends Fragment implements MainPageContract.View
     private MainPageContract.Presenter iaPresenter;
     private RecyclerView rvMain;
     private MainPageAdapter mainPageAdapter;
-    private ProgressBar pbLoad;
+    private ProgressBar pbProgress;
     private Interaction interaction;
 
     public static MainPageFragment newInstance() {
@@ -58,7 +58,7 @@ public class MainPageFragment extends Fragment implements MainPageContract.View
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        pbLoad = view.findViewById(R.id.main_page_fragment_pb_load);
+        pbProgress = view.findViewById(R.id.main_page_fragment_pb_progress);
         rvMain = view.findViewById(R.id.main_page_fragment_rv_main);
         rvMain.setLayoutManager(new LinearLayoutManager(getContext()));
         rvMain.setItemAnimator(new DefaultItemAnimator());
@@ -68,12 +68,12 @@ public class MainPageFragment extends Fragment implements MainPageContract.View
 
     @Override
     public void showProgress() {
-        pbLoad.setVisibility(View.VISIBLE);
+        pbProgress.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-        pbLoad.setVisibility(View.GONE);
+        pbProgress.setVisibility(View.GONE);
     }
 
     @Override

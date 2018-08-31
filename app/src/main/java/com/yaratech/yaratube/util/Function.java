@@ -11,6 +11,10 @@ import java.util.List;
 
 public class Function {
 
+    private Function() {
+        //no instance
+    }
+
     public static void setFragment(final FragmentManager fragmentManager, final Fragment fragment, final int idLayout, String tag) {
         final android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(idLayout, fragment, tag);

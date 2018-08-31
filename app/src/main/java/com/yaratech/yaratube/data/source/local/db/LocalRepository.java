@@ -18,4 +18,8 @@ public class LocalRepository {
     public void updateUser(User user) {
         database.userDao().update(user);
     }
+
+    public String getToken() {
+        return database.userDao().getToken();
+    }
 }

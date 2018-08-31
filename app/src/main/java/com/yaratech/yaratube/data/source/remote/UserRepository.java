@@ -1,15 +1,18 @@
 package com.yaratech.yaratube.data.source.remote;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.yaratech.yaratube.R;
 import com.yaratech.yaratube.data.model.Activation;
+import com.yaratech.yaratube.data.model.Comment;
+import com.yaratech.yaratube.data.model.CommentResponse;
 import com.yaratech.yaratube.data.model.SmsResponse;
 import com.yaratech.yaratube.data.source.local.pref.AppPreferences;
 import com.yaratech.yaratube.util.Constant;
 import com.yaratech.yaratube.util.Device;
 import com.yaratech.yaratube.util.Function;
-import com.yaratech.yaratube.util.Tool;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,7 +26,7 @@ public class UserRepository {
     public UserRepository(Context context) {
         this.context = context;
         apiInterface = APIClient.getClient().create(APIInterface.class);
-        pref=new AppPreferences(context);
+        pref = new AppPreferences(context);
     }
 
     public void sendPhoneNumber(final ApiResult<SmsResponse> callback) {
@@ -31,11 +34,11 @@ public class UserRepository {
         Call<SmsResponse> call = apiInterface.activateStep1(pref.getPhoneNumber(),
                 Device.getDeviceId(context), Device.getDeviceModel(), Device.getDeviceOs());
 
-        if(Function.isNetworkAvailable(context)) {
+        if (Function.isNetworkAvailable(context)) {
             call.enqueue(new Callback<SmsResponse>() {
                 @Override
                 public void onResponse(Call<SmsResponse> call, Response<SmsResponse> response) {
-                    if(response.isSuccessful()) {
+                    if (response.isSuccessful()) {
                         callback.onSuccess(response.body());
                     } else {
                         callback.onFail(response.message());
@@ -58,12 +61,12 @@ public class UserRepository {
         Call<Activation> call = apiInterface.activateStep2(pref.getPhoneNumber(),
                 Device.getDeviceId(context), verificationCode);
 
-        if(Function.isNetworkAvailable(context)) {
+        if (Function.isNetworkAvailable(context)) {
             call.enqueue(new Callback<Activation>() {
 
                 @Override
                 public void onResponse(Call<Activation> call, Response<Activation> response) {
-                    if(response.isSuccessful()) {
+                    if (response.isSuccessful()) {
                         callback.onSuccess(response.body());
                     } else {
                         callback.onFail(response.message());
@@ -78,7 +81,34 @@ public class UserRepository {
         }
     }
 
+    public void sendComment(final ApiResult<CommentResponse> callback,
+                            int productId, Comment comment,String token) {
+
+        Call<CommentResponse> call = apiInterface.setComment (productId,
+                comment.getScore(), comment.getCommentText(),comment.getTitle(),token);
+
+        if (Function.isNetworkAvailable(context)) {
+            call.enqueue(new Callback<CommentResponse>() {
+
+                @Override
+                public void onResponse(Call<CommentResponse> call, Response<CommentResponse> response) {
+                    if (response.isSuccessful()) {
+                        callback.onSuccess(response.body());
+                    } else {
+                        Log.i("sina","code: "+response.code());
+                        callback.onFail(response.message());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<CommentResponse> call, Throwable t) {
+                    callback.onFail(t.getMessage());
+                }
+            });
+        }
+    }
+
     private void toastNetworkNotAvailable(Context context) {
-        Toast.makeText(context, Constant.INTERNET_ERROR_MESSAGE, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, R.string.internet_error_message, Toast.LENGTH_SHORT).show();
     }
 }

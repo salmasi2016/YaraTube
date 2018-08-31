@@ -19,7 +19,6 @@ import android.widget.Toast;
 import com.yaratech.yaratube.R;
 import com.yaratech.yaratube.data.model.Category;
 import com.yaratech.yaratube.data.model.Product;
-import com.yaratech.yaratube.util.Constant;
 
 import java.util.ArrayList;
 
@@ -31,12 +30,13 @@ public class CategoryGridFragment extends Fragment implements CategoryGridContra
     private Category category;
     private Interaction interaction;
     private Toolbar toolbar;
-    private ProgressBar pbLoad;
+    private ProgressBar pbProgress;
+    public static final String KEY_CATEGORY = "category";
 
     public static CategoryGridFragment newInstance(Category category) {
         CategoryGridFragment fragment = new CategoryGridFragment();
         Bundle bundle = new Bundle();
-        bundle.putParcelable(Constant.CATEGORY_GRID_FRAGMENT_CATEGORY, category);
+        bundle.putParcelable(KEY_CATEGORY, category);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -54,7 +54,7 @@ public class CategoryGridFragment extends Fragment implements CategoryGridContra
         categoryGridAdapter = new CategoryGridAdapter(CategoryGridFragment.this);
         Bundle bundle = getArguments();
         if (bundle == null) return;
-        setCategory((Category) bundle.getParcelable(Constant.CATEGORY_GRID_FRAGMENT_CATEGORY));
+        setCategory((Category) bundle.getParcelable(KEY_CATEGORY));
     }
 
     @Nullable
@@ -66,10 +66,10 @@ public class CategoryGridFragment extends Fragment implements CategoryGridContra
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        toolbar = view.findViewById(R.id.category_grid_fragment_tool_bar);
+        toolbar = view.findViewById(R.id.category_grid_fragment_toolbar);
         toolbar.setTitle(getCategory().getTitle());
         rvCategoryGrid = view.findViewById(R.id.category_grid_fragment_rv_product);
-        pbLoad = view.findViewById(R.id.category_grid_fragment_pb_load);
+        pbProgress = view.findViewById(R.id.category_grid_fragment_pb_progress);
         rvCategoryGrid.setLayoutManager(new GridLayoutManager(getContext(), 2, LinearLayoutManager.VERTICAL, false));
         rvCategoryGrid.setItemAnimator(new DefaultItemAnimator());
         rvCategoryGrid.setAdapter(categoryGridAdapter);
@@ -78,12 +78,12 @@ public class CategoryGridFragment extends Fragment implements CategoryGridContra
 
     @Override
     public void showProgress() {
-        pbLoad.setVisibility(View.VISIBLE);
+        pbProgress.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-        pbLoad.setVisibility(View.GONE);
+        pbProgress.setVisibility(View.GONE);
     }
 
     @Override

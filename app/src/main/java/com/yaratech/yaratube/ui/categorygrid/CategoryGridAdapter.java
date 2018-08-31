@@ -11,7 +11,6 @@ import com.bumptech.glide.Glide;
 import com.yaratech.yaratube.R;
 import com.yaratech.yaratube.data.model.Product;
 import com.yaratech.yaratube.util.Constant;
-import com.yaratech.yaratube.util.Tool;
 
 import java.util.ArrayList;
 

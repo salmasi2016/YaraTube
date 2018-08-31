@@ -1,7 +1,6 @@
 package com.yaratech.yaratube.data.source.remote;
 
 import com.yaratech.yaratube.util.Constant;
-import com.yaratech.yaratube.util.Tool;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

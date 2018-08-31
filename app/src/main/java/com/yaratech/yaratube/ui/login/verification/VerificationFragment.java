@@ -89,7 +89,7 @@ public class VerificationFragment extends Fragment implements View.OnClickListen
 
     @Override
     public void saveUser() {
-        Toast.makeText(this.getContext(), R.string.your_login_is_successfully, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this.getContext(), R.string.your_login_did_successfully, Toast.LENGTH_SHORT).show();
     }
 
     @Override

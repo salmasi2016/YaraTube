@@ -24,7 +24,7 @@ public class CategoryFragment extends Fragment implements CategoryContract.View,
     private RecyclerView rvCategory;
     private CategoryAdapter categoryAdapter;
     private Interaction interaction;
-    private ProgressBar pbLoad;
+    private ProgressBar pbProgress;
 
     public static CategoryFragment newInstance() {
         CategoryFragment fragment = new CategoryFragment();
@@ -55,7 +55,7 @@ public class CategoryFragment extends Fragment implements CategoryContract.View,
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        pbLoad = view.findViewById(R.id.category_fragment_pb_load);
+        pbProgress = view.findViewById(R.id.category_fragment_pb_progress);
         rvCategory = view.findViewById(R.id.category_fragment_rv_category);
         rvCategory.setLayoutManager(new LinearLayoutManager(getContext()));
         rvCategory.setItemAnimator(new DefaultItemAnimator());
@@ -65,12 +65,12 @@ public class CategoryFragment extends Fragment implements CategoryContract.View,
 
     @Override
     public void showProgress() {
-        pbLoad.setVisibility(View.VISIBLE);
+        pbProgress.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-        pbLoad.setVisibility(View.GONE);
+        pbProgress.setVisibility(View.GONE);
     }
 
     @Override

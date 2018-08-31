@@ -19,11 +19,12 @@ public class HeaderItemFragment extends Fragment {
     private ImageView ivHeader;
     private HeaderItem headerItem;
     private Interaction interaction;
+    public static final String KEY_HEADER_ITEM = "headerItem";
 
     public static HeaderItemFragment newInstance(HeaderItem headerItem) {
         HeaderItemFragment fragment = new HeaderItemFragment();
         Bundle bundle = new Bundle();
-        bundle.putParcelable(Constant.HEADER_ITEM_FRAGMENT_HEADER_ITEM, headerItem);
+        bundle.putParcelable(KEY_HEADER_ITEM, headerItem);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -39,7 +40,7 @@ public class HeaderItemFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
         if (bundle == null) return;
-        setHeaderItem((HeaderItem) bundle.getParcelable(Constant.HEADER_ITEM_FRAGMENT_HEADER_ITEM));
+        setHeaderItem((HeaderItem) bundle.getParcelable(KEY_HEADER_ITEM));
     }
 
     @Nullable

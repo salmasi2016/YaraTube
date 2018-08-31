@@ -67,7 +67,7 @@ public class HomeFragment extends Fragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         drawerLayout = view.findViewById(R.id.home_fragment_dl_layout);
-        toolbar = view.findViewById(R.id.home_tool_bar);
+        toolbar = view.findViewById(R.id.home_toolbar);
         bottomNavigationView = view.findViewById(R.id.home_bottom_navigation);
         navigationView = view.findViewById(R.id.home_fragment_nv_navigation);
         navigationView.setNavigationItemSelectedListener(this);
@@ -124,23 +124,20 @@ public class HomeFragment extends Fragment
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.home_hamburger_profile:
-                if (appDataBase.userDao().getToken() != null) {
-                    interaction.goToProfile();
-                    drawerLayout.closeDrawer(Gravity.RIGHT);
-                } else {
-                    drawerLayout.closeDrawer(Gravity.RIGHT);
+                if (appDataBase.userDao().getToken() == null) {
                     interaction.goToLogin();
+                } else {
+                    interaction.goToProfile();
                 }
-                return true;
+                break;
             case R.id.home_hamburger_about_us:
                 interaction.goToAboutUs();
-                drawerLayout.closeDrawer(Gravity.RIGHT);
-                return true;
+                break;
             case R.id.home_hamburger_contact_us:
                 interaction.goToContactUs();
-                drawerLayout.closeDrawer(Gravity.RIGHT);
-                return true;
+                break;
         }
+        drawerLayout.closeDrawer(Gravity.RIGHT);
         return false;
     }
 
