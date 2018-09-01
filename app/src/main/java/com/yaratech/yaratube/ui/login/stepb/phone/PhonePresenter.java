@@ -1,4 +1,4 @@
-package com.yaratech.yaratube.ui.login.phone;
+package com.yaratech.yaratube.ui.login.stepb.phone;
 
 import android.content.Context;
 

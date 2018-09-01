@@ -1,10 +1,10 @@
-package com.yaratech.yaratube.ui.productdetail.productdetail;
+package com.yaratech.yaratube.ui.productdetail;
 
 import com.yaratech.yaratube.data.model.Comment;
 import com.yaratech.yaratube.data.model.Product;
 import com.yaratech.yaratube.data.source.remote.LoadCallback;
 import com.yaratech.yaratube.data.source.remote.Repository;
-import com.yaratech.yaratube.ui.productdetail.productdetail.ProductDetailContract;
+import com.yaratech.yaratube.ui.productdetail.ProductDetailContract;
 
 import java.util.ArrayList;
 

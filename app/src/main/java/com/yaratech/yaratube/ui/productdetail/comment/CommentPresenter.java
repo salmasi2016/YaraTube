@@ -22,17 +22,18 @@ public class CommentPresenter implements CommentContract.Presenter {
 
     @Override
     public void sendComment(int productId, Comment comment) {
-        repository.sendComment(new ApiResult<CommentResponse>() {
-            @Override
-            public void onSuccess(CommentResponse result) {
-                iaView.showToast();
-                iaView.dismissDialog();
-            }
+        repository.sendComment(productId, comment, "Token "+localRepository.getToken(),
+                new ApiResult<CommentResponse>() {
+                    @Override
+                    public void onSuccess(CommentResponse result) {
+                        iaView.showToast();
+                        iaView.dismissDialog();
+                    }
 
-            @Override
-            public void onFail(String errorMessage) {
-                iaView.showErrorMessage(errorMessage);
-            }
-        }, productId, comment, localRepository.getToken());
+                    @Override
+                    public void onFail(String errorMessage) {
+                        iaView.showErrorMessage(errorMessage);
+                    }
+                });
     }
 }

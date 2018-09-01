@@ -1,4 +1,4 @@
-package com.yaratech.yaratube.ui.home.mainpage.mainpage;
+package com.yaratech.yaratube.ui.home.mainpage;
 
 import com.yaratech.yaratube.data.model.HeaderItem;
 import com.yaratech.yaratube.data.model.HomeItem;

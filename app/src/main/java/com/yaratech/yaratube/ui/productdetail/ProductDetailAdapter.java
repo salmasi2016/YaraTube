@@ -1,4 +1,4 @@
-package com.yaratech.yaratube.ui.productdetail.productdetail;
+package com.yaratech.yaratube.ui.productdetail;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

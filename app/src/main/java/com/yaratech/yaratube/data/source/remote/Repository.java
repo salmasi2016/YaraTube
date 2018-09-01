@@ -7,18 +7,18 @@ import com.yaratech.yaratube.data.model.Product;
 
 import java.util.ArrayList;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.HttpException;
 import retrofit2.Response;
 
 public class Repository {
+    private ApiInterface apiInterface;
+
+    public Repository() {
+        apiInterface = ApiClient.getClient().create(ApiInterface.class);
+    }
 
     public void loadMainPage(final LoadCallback callback) {
-        APIInterface apiInterface = APIClient.getClient().create(APIInterface.class);
         Call<Home> call = apiInterface.getHome();
         call.enqueue(new Callback<Home>() {
             @Override
@@ -38,7 +38,6 @@ public class Repository {
     }
 
     public void loadCategory(final LoadCallback callback) {
-        APIInterface apiInterface = APIClient.getClient().create(APIInterface.class);
         Call<ArrayList<Category>> call = apiInterface.getCategories();
         call.enqueue(new Callback<ArrayList<Category>>() {
             @Override
@@ -58,7 +57,6 @@ public class Repository {
     }
 
     public void loadCategoryGrid(final LoadCallback callback,Category category) {
-        APIInterface apiInterface = APIClient.getClient().create(APIInterface.class);
         Call<ArrayList<Product>> call = apiInterface.getCategoryGrid(category.getId());
         call.enqueue(new Callback<ArrayList<Product>>() {
             @Override
@@ -78,7 +76,6 @@ public class Repository {
     }
 
     public void loadComment(final LoadCallback callback,int productId) {
-        APIInterface apiInterface = APIClient.getClient().create(APIInterface.class);
         Call<ArrayList<Comment>> call = apiInterface.getComment(productId);
         call.enqueue(new Callback<ArrayList<Comment>>() {
             @Override
@@ -98,7 +95,6 @@ public class Repository {
     }
 
     public void loadProduct(final LoadCallback callback,int productId) {
-        APIInterface apiInterface = APIClient.getClient().create(APIInterface.class);
         Call<Product> call = apiInterface.getProduct(productId);
         call.enqueue(new Callback<Product>() {
             @Override

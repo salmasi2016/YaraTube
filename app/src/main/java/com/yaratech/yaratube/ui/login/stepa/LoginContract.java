@@ -1,4 +1,4 @@
-package com.yaratech.yaratube.ui.login.login;
+package com.yaratech.yaratube.ui.login.stepa;
 
 public interface LoginContract {
 

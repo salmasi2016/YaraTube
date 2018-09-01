@@ -29,7 +29,7 @@ public class CommentDialogFragment extends DialogFragment
     public static CommentDialogFragment newInstance(int productId) {
         CommentDialogFragment fragment = new CommentDialogFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(KEY_PRODUCT_ID,productId);
+        bundle.putInt(KEY_PRODUCT_ID, productId);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -38,7 +38,7 @@ public class CommentDialogFragment extends DialogFragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final AppDataBase database = AppDataBase.newInstance(getActivity());
-        iaPresenter = new CommentPresenter(this, getContext(),database);
+        iaPresenter = new CommentPresenter(this, getContext(), database);
         Bundle bundle = getArguments();
         if (bundle == null) return;
         setProductId(bundle.getInt(KEY_PRODUCT_ID));
@@ -68,7 +68,6 @@ public class CommentDialogFragment extends DialogFragment
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-
             case R.id.comment_dialog_fragment_btn_record:
                 String commentText = etComment.getText().toString();
                 if (!(commentText.isEmpty())) {
@@ -77,7 +76,7 @@ public class CommentDialogFragment extends DialogFragment
                     comment.setScore((int) rbRate.getRating());
                     comment.setCommentText(commentText);
                     comment.setTitle("");
-                    iaPresenter.sendComment(productId,comment);
+                    iaPresenter.sendComment(productId, comment);
                 }
                 break;
         }

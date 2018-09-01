@@ -20,7 +20,7 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
-public interface APIInterface {
+public interface ApiInterface {
 
     @GET("store/16")
     Call<Home> getHome();

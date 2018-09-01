@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 
 import com.yaratech.yaratube.R;
 import com.yaratech.yaratube.data.source.local.pref.AppPreferences;
-import com.yaratech.yaratube.ui.login.login.LoginFragment;
-import com.yaratech.yaratube.ui.login.phone.PhoneFragment;
-import com.yaratech.yaratube.ui.login.verification.VerificationFragment;
+import com.yaratech.yaratube.ui.login.stepa.LoginFragment;
+import com.yaratech.yaratube.ui.login.stepb.phone.PhoneFragment;
+import com.yaratech.yaratube.ui.login.stepc.VerificationFragment;
 
 public class LoginDialogFragment extends DialogFragment
         implements LoginFragment.Interaction, PhoneFragment.Interaction,

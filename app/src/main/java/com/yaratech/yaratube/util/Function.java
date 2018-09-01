@@ -4,7 +4,9 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.widget.Toast;
 
+import com.yaratech.yaratube.R;
 import com.yaratech.yaratube.ui.home.HomeFragment;
 
 import java.util.List;
@@ -36,5 +38,9 @@ public class Function {
         final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
         assert connectivityManager != null;
         return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
+    }
+
+    public static void toastNetworkNotAvailable(Context context) {
+        Toast.makeText(context, R.string.internet_error_message, Toast.LENGTH_SHORT).show();
     }
 }

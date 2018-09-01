@@ -1,4 +1,4 @@
-package com.yaratech.yaratube.ui.login.phone;
+package com.yaratech.yaratube.ui.login.stepb.phone;
 
 public interface PhoneContract {
 

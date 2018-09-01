@@ -1,8 +1,9 @@
-package com.yaratech.yaratube.ui.home.mainpage.mainpage;
+package com.yaratech.yaratube.ui.home.mainpage;
 
 import com.yaratech.yaratube.data.model.Home;
 import com.yaratech.yaratube.data.source.remote.LoadCallback;
 import com.yaratech.yaratube.data.source.remote.Repository;
+import com.yaratech.yaratube.ui.home.mainpage.MainPageContract;
 
 public class MainPagePresenter implements MainPageContract.Presenter {
     private MainPageContract.View iaView;

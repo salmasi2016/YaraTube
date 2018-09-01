@@ -1,4 +1,4 @@
-package com.yaratech.yaratube.ui.home.mainpage.mainpage;
+package com.yaratech.yaratube.ui.home.mainpage;
 
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;

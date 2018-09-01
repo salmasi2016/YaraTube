@@ -1,4 +1,4 @@
-package com.yaratech.yaratube.ui.login.login;
+package com.yaratech.yaratube.ui.login.stepb.phone;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -8,13 +8,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.yaratech.yaratube.R;
+import com.yaratech.yaratube.data.source.local.pref.AppPreferences;
 
-public class LoginFragment extends Fragment implements LoginContract.View, View.OnClickListener {
-    private Button btnPhone, btnGoogle;
+public class PhoneFragment extends Fragment implements PhoneContract.View, View.OnClickListener {
+    private Button btnRecord;
+    private EditText etPhoneNumber;
     private Interaction interaction;
-    private LoginContract.Presenter iaPresenter;
+    private PhoneContract.Presenter iaPresenter;
+    private AppPreferences pref;
 
     @Override
     public void onAttach(Context context) {
@@ -26,10 +31,9 @@ public class LoginFragment extends Fragment implements LoginContract.View, View.
         }
     }
 
-
-    public static LoginFragment newInstance() {
+    public static PhoneFragment newInstance() {
         Bundle bundle = new Bundle();
-        LoginFragment fragment = new LoginFragment();
+        PhoneFragment fragment = new PhoneFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -37,7 +41,8 @@ public class LoginFragment extends Fragment implements LoginContract.View, View.
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        iaPresenter = new LoginPresenter(this);
+        iaPresenter = new PhonePresenter(this, getContext());
+        pref = new AppPreferences(getContext());
     }
 
     @Nullable
@@ -45,44 +50,35 @@ public class LoginFragment extends Fragment implements LoginContract.View, View.
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container, Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.login_fragment, container, false);
+        return inflater.inflate(R.layout.phone_fragment, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        btnPhone = view.findViewById(R.id.login_fragment_btn_phone);
-        btnGoogle = view.findViewById(R.id.login_fragment_btn_google);
-        btnPhone.setOnClickListener(this);
-        btnGoogle.setOnClickListener(this);
+        etPhoneNumber = view.findViewById(R.id.phone_fragment_et_phone_number);
+        btnRecord = view.findViewById(R.id.phone_fragment_btn_record);
+        btnRecord.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.login_fragment_btn_phone:
-                iaPresenter.dialogPhone();
-                break;
-            case R.id.login_fragment_btn_google:
-                //iaPresenter.dialogGoogle();
-                break;
-        }
+        pref.setPhoneNumber(etPhoneNumber.getText().toString());
+        iaPresenter.sendPhoneNumber();
     }
 
     @Override
-    public void showDialogPhone() {
-        interaction.goToLoginByPhone();
+    public void showDialogVerification() {
+        interaction.goToLoginVerification();
     }
 
     @Override
-    public void showDialogGoogle() {
-        interaction.goToLoginByGoogle();
+    public void showErrorMessage(String message) {
+        Toast.makeText(this.getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     public interface Interaction {
 
-        void goToLoginByPhone();
-
-        void goToLoginByGoogle();
+        void goToLoginVerification();
     }
 }

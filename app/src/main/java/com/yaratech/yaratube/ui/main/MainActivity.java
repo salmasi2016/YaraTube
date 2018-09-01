@@ -15,9 +15,9 @@ import com.yaratech.yaratube.ui.contactus.ContactUsFragment;
 import com.yaratech.yaratube.ui.home.HomeFragment;
 import com.yaratech.yaratube.ui.home.category.CategoryFragment;
 import com.yaratech.yaratube.ui.home.mainpage.headeritem.HeaderItemFragment;
-import com.yaratech.yaratube.ui.home.mainpage.mainpage.MainPageFragment;
+import com.yaratech.yaratube.ui.home.mainpage.MainPageFragment;
 import com.yaratech.yaratube.ui.login.LoginDialogFragment;
-import com.yaratech.yaratube.ui.productdetail.productdetail.ProductDetailFragment;
+import com.yaratech.yaratube.ui.productdetail.ProductDetailFragment;
 import com.yaratech.yaratube.ui.profile.ProfileFragment;
 import com.yaratech.yaratube.util.Function;
 

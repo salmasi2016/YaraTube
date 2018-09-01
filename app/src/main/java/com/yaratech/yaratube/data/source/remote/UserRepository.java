@@ -10,7 +10,6 @@ import com.yaratech.yaratube.data.model.Comment;
 import com.yaratech.yaratube.data.model.CommentResponse;
 import com.yaratech.yaratube.data.model.SmsResponse;
 import com.yaratech.yaratube.data.source.local.pref.AppPreferences;
-import com.yaratech.yaratube.util.Constant;
 import com.yaratech.yaratube.util.Device;
 import com.yaratech.yaratube.util.Function;
 
@@ -19,13 +18,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class UserRepository {
-    private APIInterface apiInterface;
+    private ApiInterface apiInterface;
     private Context context;
     private AppPreferences pref;
 
     public UserRepository(Context context) {
         this.context = context;
-        apiInterface = APIClient.getClient().create(APIInterface.class);
+        apiInterface = ApiClient.getClient().create(ApiInterface.class);
         pref = new AppPreferences(context);
     }
 
@@ -52,11 +51,11 @@ public class UserRepository {
                 }
             });
         } else {
-            toastNetworkNotAvailable(context);
+            Function.toastNetworkNotAvailable(context);
         }
     }
 
-    public void sendVerificationCode(final ApiResult<Activation> callback, int verificationCode) {
+    public void sendVerificationCode(int verificationCode, final ApiResult<Activation> callback) {
 
         Call<Activation> call = apiInterface.activateStep2(pref.getPhoneNumber(),
                 Device.getDeviceId(context), verificationCode);
@@ -81,11 +80,11 @@ public class UserRepository {
         }
     }
 
-    public void sendComment(final ApiResult<CommentResponse> callback,
-                            int productId, Comment comment,String token) {
+    public void sendComment(int productId, Comment comment, String token,
+                            final ApiResult<CommentResponse> callback) {
 
-        Call<CommentResponse> call = apiInterface.setComment (productId,
-                comment.getScore(), comment.getCommentText(),comment.getTitle(),token);
+        Call<CommentResponse> call = apiInterface.setComment(productId,
+                comment.getScore(), comment.getCommentText(), comment.getTitle(), token);
 
         if (Function.isNetworkAvailable(context)) {
             call.enqueue(new Callback<CommentResponse>() {
@@ -95,7 +94,7 @@ public class UserRepository {
                     if (response.isSuccessful()) {
                         callback.onSuccess(response.body());
                     } else {
-                        Log.i("sina","code: "+response.code());
+                        Log.i("sina", "code: " + response.code());
                         callback.onFail(response.message());
                     }
                 }
@@ -106,9 +105,5 @@ public class UserRepository {
                 }
             });
         }
-    }
-
-    private void toastNetworkNotAvailable(Context context) {
-        Toast.makeText(context, R.string.internet_error_message, Toast.LENGTH_SHORT).show();
     }
 }

@@ -1,4 +1,4 @@
-package com.yaratech.yaratube.ui.login.verification;
+package com.yaratech.yaratube.ui.login.stepc;
 
 import android.content.Context;
 
@@ -8,6 +8,7 @@ import com.yaratech.yaratube.data.source.local.db.database.AppDataBase;
 import com.yaratech.yaratube.data.source.local.db.entity.User;
 import com.yaratech.yaratube.data.source.remote.ApiResult;
 import com.yaratech.yaratube.data.source.remote.UserRepository;
+import com.yaratech.yaratube.ui.login.stepc.VerificationContract;
 
 public class VerificationPresenter implements VerificationContract.Presenter {
     private VerificationContract.View iaView;
@@ -22,21 +23,22 @@ public class VerificationPresenter implements VerificationContract.Presenter {
 
     @Override
     public void sendVerificationCode(int verificationCode) {
-        repository.sendVerificationCode(new ApiResult<Activation>() {
+        repository.sendVerificationCode(verificationCode,
+                new ApiResult<Activation>() {
 
-            @Override
-            public void onSuccess(Activation result) {
-                User user = new User();
-                user.setToken(result.getToken());
-                localRepository.loginUser(user);
-                iaView.saveUser();
-                iaView.dismissDialog();
-            }
+                    @Override
+                    public void onSuccess(Activation result) {
+                        User user = new User();
+                        user.setToken(result.getToken());
+                        localRepository.loginUser(user);
+                        iaView.saveUser();
+                        iaView.dismissDialog();
+                    }
 
-            @Override
-            public void onFail(String message) {
-                iaView.showErrorMessage(message);
-            }
-        },verificationCode);
+                    @Override
+                    public void onFail(String message) {
+                        iaView.showErrorMessage(message);
+                    }
+                });
     }
 }

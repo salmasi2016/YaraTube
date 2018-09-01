@@ -1,4 +1,6 @@
-package com.yaratech.yaratube.ui.login.login;
+package com.yaratech.yaratube.ui.login.stepa;
+
+import com.yaratech.yaratube.ui.login.stepa.LoginContract;
 
 public class LoginPresenter implements LoginContract.Presenter {
     private LoginContract.View iaView;
