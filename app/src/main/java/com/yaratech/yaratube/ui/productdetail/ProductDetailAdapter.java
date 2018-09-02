@@ -1,5 +1,6 @@
 package com.yaratech.yaratube.ui.productdetail;
 
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,10 @@ import java.util.ArrayList;
 
 public class ProductDetailAdapter extends RecyclerView.Adapter<ProductDetailAdapter.viewHolder> {
     private ArrayList<Comment> comments;
+
+    public ProductDetailAdapter() {
+        comments = new ArrayList<>();
+    }
 
     @Override
     public ProductDetailAdapter.viewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
@@ -49,7 +54,11 @@ public class ProductDetailAdapter extends RecyclerView.Adapter<ProductDetailAdap
     }
 
     public void setComments(ArrayList<Comment> comments) {
-        this.comments = comments;
-        notifyDataSetChanged();
+        ArrayList<Comment> total = new ArrayList<>();
+        total.addAll(this.comments);
+        total.addAll(comments);
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new ProductDetailDiffUtil(this.comments, total));
+        this.comments.addAll(comments);
+        diffResult.dispatchUpdatesTo(this);
     }
 }

@@ -76,7 +76,14 @@ public class VerificationFragment extends Fragment implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.verification_fragment_btn_record:
-                iaPresenter.sendVerificationCode(Integer.parseInt(etCode.getText().toString()));
+                String code=etCode.getText().toString();
+                if (code.length()==5) {
+                    btnRecord.setClickable(false);
+                    btnNumberCorrection.setClickable(false);
+                    iaPresenter.sendVerificationCode(Integer.parseInt(code));
+                }else {
+                    etCode.setText(null);
+                }
                 break;
             case R.id.verification_fragment_btn_number_correction:
                 interaction.goToLoginByPhone();
@@ -95,6 +102,8 @@ public class VerificationFragment extends Fragment implements View.OnClickListen
     @Override
     public void showErrorMessage(String message) {
         Toast.makeText(this.getContext(), message, Toast.LENGTH_SHORT).show();
+        btnRecord.setClickable(true);
+        btnNumberCorrection.setClickable(true);
     }
 
     @Override

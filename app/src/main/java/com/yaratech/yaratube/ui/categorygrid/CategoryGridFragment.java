@@ -22,8 +22,9 @@ import com.yaratech.yaratube.data.model.Product;
 
 import java.util.ArrayList;
 
-public class CategoryGridFragment extends Fragment implements CategoryGridContract.View
-        , CategoryGridAdapter.Interaction {
+public class CategoryGridFragment extends Fragment
+        implements CategoryGridContract.View, CategoryGridAdapter.Interaction {
+
     private CategoryGridContract.Presenter iaPresenter;
     private RecyclerView rvCategoryGrid;
     private CategoryGridAdapter categoryGridAdapter;
@@ -32,6 +33,7 @@ public class CategoryGridFragment extends Fragment implements CategoryGridContra
     private Toolbar toolbar;
     private ProgressBar pbProgress;
     public static final String KEY_CATEGORY = "category";
+    private boolean isLoading = true;
 
     public static CategoryGridFragment newInstance(Category category) {
         CategoryGridFragment fragment = new CategoryGridFragment();
@@ -70,10 +72,24 @@ public class CategoryGridFragment extends Fragment implements CategoryGridContra
         toolbar.setTitle(getCategory().getTitle());
         rvCategoryGrid = view.findViewById(R.id.category_grid_fragment_rv_product);
         pbProgress = view.findViewById(R.id.category_grid_fragment_pb_progress);
-        rvCategoryGrid.setLayoutManager(new GridLayoutManager(getContext(), 2, LinearLayoutManager.VERTICAL, false));
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2, LinearLayoutManager.VERTICAL, false);
+        rvCategoryGrid.setLayoutManager(layoutManager);
         rvCategoryGrid.setItemAnimator(new DefaultItemAnimator());
         rvCategoryGrid.setAdapter(categoryGridAdapter);
-        iaPresenter.loadData(getCategory());
+        iaPresenter.loadData(getCategory(), categoryGridAdapter.getItemCount());
+        rvCategoryGrid.addOnScrollListener(new PaginationScrollListener(layoutManager) {
+
+            @Override
+            protected void loadMoreItems() {
+                iaPresenter.loadData(getCategory(), categoryGridAdapter.getItemCount());
+                isLoading = false;
+            }
+
+            @Override
+            public boolean isLoading() {
+                return isLoading;
+            }
+        });
     }
 
     @Override
@@ -89,11 +105,12 @@ public class CategoryGridFragment extends Fragment implements CategoryGridContra
     @Override
     public void showProducts(ArrayList<Product> products) {
         categoryGridAdapter.setProducts(products);
+        isLoading = true;
     }
 
     @Override
     public void showToast() {
-        Toast.makeText(getActivity(),"Data Not Available",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Data Not Available", Toast.LENGTH_SHORT).show();
     }
 
     public Category getCategory() {

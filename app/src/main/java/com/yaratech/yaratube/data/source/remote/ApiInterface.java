@@ -19,6 +19,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiInterface {
 
@@ -28,11 +29,13 @@ public interface ApiInterface {
     @GET("category/16/463")
     Call<ArrayList<Category>> getCategories();
 
-    @GET("listproducts/{category_id}")
-    Call<ArrayList<Product>> getCategoryGrid(@Path("category_id") int categoryId);
+    @GET("listproducts/{category_id}?limit=10")
+    Call<ArrayList<Product>> getCategoryGrid(@Path("category_id") int categoryId,
+                                             @Query("offset") int offset);
 
-    @GET("comment/{product_id}")
-    Call<ArrayList<Comment>> getComment(@Path("product_id") int productId);
+    @GET("comment/{product_id}?limit=10")
+    Call<ArrayList<Comment>> getComment(@Path("product_id") int productId,
+                                        @Query("offset") int offset);
 
     @GET("product/{product_id}")
     Call<Product> getProduct(@Path("product_id") int productId);

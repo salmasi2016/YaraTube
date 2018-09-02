@@ -18,6 +18,6 @@ public interface CategoryGridContract {
     }
 
     interface Presenter {
-        void loadData(Category category);
+        void loadData(Category category,int offset);
     }
 }

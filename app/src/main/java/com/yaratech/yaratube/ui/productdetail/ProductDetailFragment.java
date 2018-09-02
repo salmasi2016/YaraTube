@@ -23,6 +23,7 @@ import com.yaratech.yaratube.R;
 import com.yaratech.yaratube.data.model.Comment;
 import com.yaratech.yaratube.data.model.Product;
 import com.yaratech.yaratube.data.source.local.db.database.AppDataBase;
+import com.yaratech.yaratube.ui.productdetail.PaginationScrollListener;
 import com.yaratech.yaratube.ui.productdetail.comment.CommentDialogFragment;
 import com.yaratech.yaratube.util.Constant;
 
@@ -44,6 +45,7 @@ public class ProductDetailFragment extends Fragment
     public static final String KEY_PRODUCT_ID = "productId";
     private Interaction interaction;
     private AppDataBase appDataBase;
+    private boolean isLoading = true;
 
     public static ProductDetailFragment newInstance(int productId) {
         ProductDetailFragment fragment = new ProductDetailFragment();
@@ -90,12 +92,26 @@ public class ProductDetailFragment extends Fragment
         pbProgress = view.findViewById(R.id.product_detail_fragment_pb_progress);
         btnComment = view.findViewById(R.id.product_detail_fragment_btn_comment);
         rvComment = view.findViewById(R.id.product_detail_fragment_rv_comment);
-        rvComment.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager layoutManager=new LinearLayoutManager(getContext());
+        rvComment.setLayoutManager(layoutManager);
         rvComment.setItemAnimator(new DefaultItemAnimator());
         rvComment.setAdapter(productDetailAdapter);
         iaPresenter.loadProduct(getProductId());
-        iaPresenter.loadComment(getProductId());
+        iaPresenter.loadComment(getProductId(),productDetailAdapter.getItemCount());
         btnComment.setOnClickListener(this);
+        rvComment.addOnScrollListener(new PaginationScrollListener(layoutManager) {
+            @Override
+            protected void loadMoreItems() {
+                iaPresenter.loadProduct(getProductId());
+                iaPresenter.loadComment(getProductId(),productDetailAdapter.getItemCount());
+                isLoading = false;
+            }
+
+            @Override
+            public boolean isLoading() {
+                return isLoading;
+            }
+        });
     }
 
     public int getProductId() {
@@ -155,6 +171,7 @@ public class ProductDetailFragment extends Fragment
     @Override
     public void showComments(ArrayList<Comment> comments) {
         productDetailAdapter.setComments(comments);
+        isLoading = true;
     }
 
     @Override

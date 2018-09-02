@@ -1,5 +1,6 @@
 package com.yaratech.yaratube.ui.categorygrid;
 
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ public class CategoryGridAdapter extends RecyclerView.Adapter<CategoryGridAdapte
 
     public CategoryGridAdapter(Interaction interaction) {
         this.interaction = interaction;
+        products = new ArrayList<>();
     }
 
     @Override
@@ -34,7 +36,7 @@ public class CategoryGridAdapter extends RecyclerView.Adapter<CategoryGridAdapte
         Product product = products.get(position);
         holder.tvName.setText(product.getName());
         holder.tvShortDescription.setText(product.getShortDescription());
-        Glide.with(holder.itemView.getContext()).load(Constant.BASE_URL+product.getFeatureAvatar().getXxxdpi()).into(holder.ivVideo);
+        Glide.with(holder.itemView.getContext()).load(Constant.BASE_URL + product.getFeatureAvatar().getXxxdpi()).into(holder.ivVideo);
     }
 
     @Override
@@ -53,7 +55,7 @@ public class CategoryGridAdapter extends RecyclerView.Adapter<CategoryGridAdapte
             super(itemView);
             tvName = itemView.findViewById(R.id.list_item_category_grid_tv_name);
             tvShortDescription = itemView.findViewById(R.id.list_item_category_grid_tv_short_description);
-            ivVideo=itemView.findViewById(R.id.list_item_category_grid_iv_video);
+            ivVideo = itemView.findViewById(R.id.list_item_category_grid_iv_video);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -68,8 +70,12 @@ public class CategoryGridAdapter extends RecyclerView.Adapter<CategoryGridAdapte
     }
 
     public void setProducts(ArrayList<Product> products) {
-        this.products = products;
-        notifyDataSetChanged();
+        ArrayList<Product> total = new ArrayList<>();
+        total.addAll(this.products);
+        total.addAll(products);
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new CategoryGridDiffUtil(this.products, total));
+        this.products.addAll(products);
+        diffResult.dispatchUpdatesTo(this);
     }
 
     public interface Interaction {

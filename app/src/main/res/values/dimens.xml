@@ -7,13 +7,14 @@
     <dimen name="product_detail_fragment_cv1_height">200dp</dimen>
     <dimen name="list_item_home_item_width">200dp</dimen>
     <dimen name="main_page_header_adapter_height">180dp</dimen>
-    <dimen name="list_item_category_grid_height">180dp</dimen>
+    <dimen name="list_item_category_grid_height">200dp</dimen>
     <dimen name="product_detail_fragment_cv2_height">150dp</dimen>
     <dimen name="list_item_product_detail_height">80dp</dimen>
     <dimen name="list_item_category_height">60dp</dimen>
     <dimen name="navigation_view_margin_left">30dp</dimen>
     <dimen name="list_item_category_corner_radius">10dp</dimen>
     <dimen name="list_item_category_elevation">3dp</dimen>
+    <dimen name="text_size_12">12sp</dimen>
     <dimen name="text_size_15">15sp</dimen>
     <dimen name="text_size_18">18sp</dimen>
     <dimen name="img_size_20">20dp</dimen>

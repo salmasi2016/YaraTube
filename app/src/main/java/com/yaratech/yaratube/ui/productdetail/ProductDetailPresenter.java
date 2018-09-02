@@ -19,7 +19,7 @@ public class ProductDetailPresenter implements ProductDetailContract.Presenter {
     @Override
     public void loadProduct(int productId) {
         iaView.showProgress();
-        repository.loadProduct(new LoadCallback() {
+        repository.loadProduct(productId,new LoadCallback() {
 
             @Override
             public void onLoadedData(Object data) {
@@ -38,12 +38,12 @@ public class ProductDetailPresenter implements ProductDetailContract.Presenter {
                 iaView.isProductLoaded();
                 iaView.showToast();
             }
-        }, productId);
+        });
     }
 
     @Override
-    public void loadComment(int productId) {
-        repository.loadComment(new LoadCallback() {
+    public void loadComment(int productId,int offset) {
+        repository.loadComment(productId,offset,new LoadCallback() {
             @Override
             public void onLoadedData(Object data) {
                 iaView.isCommentLoaded();
@@ -61,6 +61,6 @@ public class ProductDetailPresenter implements ProductDetailContract.Presenter {
                 iaView.isCommentLoaded();
                 iaView.showToast();
             }
-        }, productId);
+        });
     }
 }

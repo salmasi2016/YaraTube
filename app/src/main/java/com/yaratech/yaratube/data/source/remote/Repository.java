@@ -56,8 +56,8 @@ public class Repository {
         });
     }
 
-    public void loadCategoryGrid(final LoadCallback callback,Category category) {
-        Call<ArrayList<Product>> call = apiInterface.getCategoryGrid(category.getId());
+    public void loadCategoryGrid(Category category,int offset,final LoadCallback callback) {
+        Call<ArrayList<Product>> call = apiInterface.getCategoryGrid(category.getId(),offset);
         call.enqueue(new Callback<ArrayList<Product>>() {
             @Override
             public void onResponse(Call<ArrayList<Product>> call, Response<ArrayList<Product>> response) {
@@ -75,8 +75,8 @@ public class Repository {
         });
     }
 
-    public void loadComment(final LoadCallback callback,int productId) {
-        Call<ArrayList<Comment>> call = apiInterface.getComment(productId);
+    public void loadComment(int productId,int offset,final LoadCallback callback) {
+        Call<ArrayList<Comment>> call = apiInterface.getComment(productId,offset);
         call.enqueue(new Callback<ArrayList<Comment>>() {
             @Override
             public void onResponse(Call<ArrayList<Comment>> call, Response<ArrayList<Comment>> response) {
@@ -94,7 +94,7 @@ public class Repository {
         });
     }
 
-    public void loadProduct(final LoadCallback callback,int productId) {
+    public void loadProduct(int productId,final LoadCallback callback) {
         Call<Product> call = apiInterface.getProduct(productId);
         call.enqueue(new Callback<Product>() {
             @Override

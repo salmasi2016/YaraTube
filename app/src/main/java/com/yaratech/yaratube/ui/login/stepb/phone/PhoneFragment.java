@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,8 +64,14 @@ public class PhoneFragment extends Fragment implements PhoneContract.View, View.
 
     @Override
     public void onClick(View view) {
-        pref.setPhoneNumber(etPhoneNumber.getText().toString());
-        iaPresenter.sendPhoneNumber();
+        String phoneNumber = etPhoneNumber.getText().toString();
+        if (phoneNumber.length() == 11 && phoneNumber.substring(0, 2).equals("09")) {
+            btnRecord.setClickable(false);
+            pref.setPhoneNumber(phoneNumber);
+            iaPresenter.sendPhoneNumber();
+        } else {
+            etPhoneNumber.setText(null);
+        }
     }
 
     @Override
@@ -75,6 +82,7 @@ public class PhoneFragment extends Fragment implements PhoneContract.View, View.
     @Override
     public void showErrorMessage(String message) {
         Toast.makeText(this.getContext(), message, Toast.LENGTH_SHORT).show();
+        btnRecord.setClickable(true);
     }
 
     public interface Interaction {

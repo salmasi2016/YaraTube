@@ -16,9 +16,9 @@ public class CategoryGridPresenter implements CategoryGridContract.Presenter {
     }
 
     @Override
-    public void loadData(Category category) {
+    public void loadData(Category category,int offset) {
         iaView.showProgress();
-        repository.loadCategoryGrid(new LoadCallback() {
+        repository.loadCategoryGrid(category,offset, new LoadCallback() {
             @Override
             public void onLoadedData(Object data) {
                 iaView.hideProgress();
@@ -36,6 +36,6 @@ public class CategoryGridPresenter implements CategoryGridContract.Presenter {
                 iaView.hideProgress();
                 iaView.showToast();
             }
-        }, category);
+        });
     }
 }
