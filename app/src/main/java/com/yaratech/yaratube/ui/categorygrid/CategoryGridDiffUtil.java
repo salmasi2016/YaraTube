@@ -1,12 +1,11 @@
 package com.yaratech.yaratube.ui.categorygrid;
 
+import android.support.annotation.Nullable;
 import android.support.v7.util.DiffUtil;
 
 import com.yaratech.yaratube.data.model.Product;
 
 import java.util.ArrayList;
-
-import io.reactivex.annotations.Nullable;
 
 public class CategoryGridDiffUtil extends DiffUtil.Callback {
 
@@ -41,7 +40,6 @@ public class CategoryGridDiffUtil extends DiffUtil.Callback {
     @Nullable
     @Override
     public Object getChangePayload(int oldItemPosition, int newItemPosition) {
-        //you can return particular field for changed item.
         return super.getChangePayload(oldItemPosition, newItemPosition);
     }
 }

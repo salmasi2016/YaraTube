@@ -75,8 +75,8 @@ public class Repository {
         });
     }
 
-    public void loadComment(int productId,int offset,final LoadCallback callback) {
-        Call<ArrayList<Comment>> call = apiInterface.getComment(productId,offset);
+    public void loadComment(int productId,final LoadCallback callback) {
+        Call<ArrayList<Comment>> call = apiInterface.getComment(productId);
         call.enqueue(new Callback<ArrayList<Comment>>() {
             @Override
             public void onResponse(Call<ArrayList<Comment>> call, Response<ArrayList<Comment>> response) {

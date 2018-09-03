@@ -23,7 +23,7 @@ public interface ProductDetailContract {
 
     interface Presenter {
 
-        void loadComment(int productId, int offset);
+        void loadComment(int productId);
 
         void loadProduct(int productId);
     }

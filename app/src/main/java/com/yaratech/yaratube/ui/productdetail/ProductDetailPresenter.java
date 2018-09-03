@@ -42,8 +42,8 @@ public class ProductDetailPresenter implements ProductDetailContract.Presenter {
     }
 
     @Override
-    public void loadComment(int productId,int offset) {
-        repository.loadComment(productId,offset,new LoadCallback() {
+    public void loadComment(int productId) {
+        repository.loadComment(productId,new LoadCallback() {
             @Override
             public void onLoadedData(Object data) {
                 iaView.isCommentLoaded();

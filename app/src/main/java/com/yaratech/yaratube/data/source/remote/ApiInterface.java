@@ -10,9 +10,7 @@ import com.yaratech.yaratube.data.model.SmsResponse;
 
 import java.util.ArrayList;
 
-import io.reactivex.Single;
 import retrofit2.Call;
-import retrofit2.Response;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -33,9 +31,8 @@ public interface ApiInterface {
     Call<ArrayList<Product>> getCategoryGrid(@Path("category_id") int categoryId,
                                              @Query("offset") int offset);
 
-    @GET("comment/{product_id}?limit=10")
-    Call<ArrayList<Comment>> getComment(@Path("product_id") int productId,
-                                        @Query("offset") int offset);
+    @GET("comment/{product_id}")
+    Call<ArrayList<Comment>> getComment(@Path("product_id") int productId);
 
     @GET("product/{product_id}")
     Call<Product> getProduct(@Path("product_id") int productId);
