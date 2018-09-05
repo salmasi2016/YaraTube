@@ -3,9 +3,10 @@ package com.yaratech.yaratube.data.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class HeaderItem implements Parcelable {
 
@@ -38,7 +39,7 @@ public class HeaderItem implements Parcelable {
     private FeatureAvatar featureAvatar;
     @SerializedName("rank")
     @Expose
-    private int rank;
+    private double rank;
     @SerializedName("short_description")
     @Expose
     private String shortDescription;
@@ -92,7 +93,7 @@ public class HeaderItem implements Parcelable {
         productType = in.readInt();
         producerName = in.readString();
         price = in.readInt();
-        rank = in.readInt();
+        rank = in.readDouble();
         shortDescription = in.readString();
         isPurchased = in.readByte() != 0;
         comments = in.readInt();
@@ -121,200 +122,100 @@ public class HeaderItem implements Parcelable {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getNameEnglish() {
         return nameEnglish;
     }
 
-    public void setNameEnglish(String nameEnglish) {
-        this.nameEnglish = nameEnglish;
-    }
-
     public int getProductType() {
         return productType;
-    }
-
-    public void setProductType(int productType) {
-        this.productType = productType;
     }
 
     public String getProducerName() {
         return producerName;
     }
 
-    public void setProducerName(String producerName) {
-        this.producerName = producerName;
-    }
-
     public List<Object> getPaymentType() {
         return paymentType;
-    }
-
-    public void setPaymentType(List<Object> paymentType) {
-        this.paymentType = paymentType;
     }
 
     public int getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
     public Avatar getAvatar() {
         return avatar;
-    }
-
-    public void setAvatar(Avatar avatar) {
-        this.avatar = avatar;
     }
 
     public FeatureAvatar getFeatureAvatar() {
         return featureAvatar;
     }
 
-    public void setFeatureAvatar(FeatureAvatar featureAvatar) {
-        this.featureAvatar = featureAvatar;
-    }
-
-    public int getRank() {
+    public double getRank() {
         return rank;
-    }
-
-    public void setRank(int rank) {
-        this.rank = rank;
     }
 
     public String getShortDescription() {
         return shortDescription;
     }
 
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
-    }
-
     public boolean isIsPurchased() {
         return isPurchased;
-    }
-
-    public void setIsPurchased(boolean isPurchased) {
-        this.isPurchased = isPurchased;
     }
 
     public int getComments() {
         return comments;
     }
 
-    public void setComments(int comments) {
-        this.comments = comments;
-    }
-
     public boolean isIsBookmarked() {
         return isBookmarked;
-    }
-
-    public void setIsBookmarked(boolean isBookmarked) {
-        this.isBookmarked = isBookmarked;
     }
 
     public String getSku() {
         return sku;
     }
 
-    public void setSku(String sku) {
-        this.sku = sku;
-    }
-
     public String getPriceUnit() {
         return priceUnit;
-    }
-
-    public void setPriceUnit(String priceUnit) {
-        this.priceUnit = priceUnit;
     }
 
     public int getTotalView() {
         return totalView;
     }
 
-    public void setTotalView(int totalView) {
-        this.totalView = totalView;
-    }
-
     public String getDateAdded() {
         return dateAdded;
-    }
-
-    public void setDateAdded(String dateAdded) {
-        this.dateAdded = dateAdded;
     }
 
     public Object getInvestGoal() {
         return investGoal;
     }
 
-    public void setInvestGoal(Object investGoal) {
-        this.investGoal = investGoal;
-    }
-
     public List<Object> getProductStaff() {
         return productStaff;
-    }
-
-    public void setProductStaff(List<Object> productStaff) {
-        this.productStaff = productStaff;
     }
 
     public Support getSupport() {
         return support;
     }
 
-    public void setSupport(Support support) {
-        this.support = support;
-    }
-
     public boolean isIsSpecial() {
         return isSpecial;
-    }
-
-    public void setIsSpecial(boolean isSpecial) {
-        this.isSpecial = isSpecial;
     }
 
     public List<Object> getAdditionalAttributes() {
         return additionalAttributes;
     }
 
-    public void setAdditionalAttributes(List<Object> additionalAttributes) {
-        this.additionalAttributes = additionalAttributes;
-    }
-
     public String getDatePublished() {
         return datePublished;
     }
 
-    public void setDatePublished(String datePublished) {
-        this.datePublished = datePublished;
-    }
-
     public Object getCustomjson() {
         return customjson;
-    }
-
-    public void setCustomjson(Object customjson) {
-        this.customjson = customjson;
     }
 
     @Override
@@ -330,7 +231,7 @@ public class HeaderItem implements Parcelable {
         parcel.writeInt(productType);
         parcel.writeString(producerName);
         parcel.writeInt(price);
-        parcel.writeInt(rank);
+        parcel.writeDouble(rank);
         parcel.writeString(shortDescription);
         parcel.writeByte((byte) (isPurchased ? 1 : 0));
         parcel.writeInt(comments);

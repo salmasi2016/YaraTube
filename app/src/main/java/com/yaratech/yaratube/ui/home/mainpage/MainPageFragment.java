@@ -45,7 +45,7 @@ public class MainPageFragment extends Fragment implements MainPageContract.View
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        iaPresenter = new MainPagePresenter(this, getContext());
+        iaPresenter = new MainPagePresenter(this);
         mainPageAdapter = new MainPageAdapter(getFragmentManager(), MainPageFragment.this);
     }
 

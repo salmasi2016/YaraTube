@@ -1,20 +1,18 @@
 package com.yaratech.yaratube.ui.home.mainpage;
 
-import android.content.Context;
+import android.util.Log;
 
 import com.yaratech.yaratube.data.model.Home;
 import com.yaratech.yaratube.data.source.remote.ApiResult;
 import com.yaratech.yaratube.data.source.remote.Repository;
-import com.yaratech.yaratube.ui.main.Internet;
-import com.yaratech.yaratube.util.Function;
 
 public class MainPagePresenter implements MainPageContract.Presenter {
     private MainPageContract.View iaView;
     private Repository repository;
 
-    public MainPagePresenter(MainPageContract.View iaView, Context context) {
+    public MainPagePresenter(MainPageContract.View iaView) {
         this.iaView = iaView;
-        repository = new Repository(context);
+        repository = new Repository();
     }
 
     @Override

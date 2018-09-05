@@ -13,9 +13,9 @@ public class CategoryGridPresenter implements CategoryGridContract.Presenter {
     private CategoryGridContract.View iaView;
     private Repository repository;
 
-    public CategoryGridPresenter(CategoryGridContract.View iaView, Context context) {
+    public CategoryGridPresenter(CategoryGridContract.View iaView) {
         this.iaView = iaView;
-        repository = new Repository(context);
+        repository = new Repository();
     }
 
     @Override

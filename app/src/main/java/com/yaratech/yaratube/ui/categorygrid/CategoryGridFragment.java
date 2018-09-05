@@ -35,7 +35,7 @@ public class CategoryGridFragment extends Fragment
     private Toolbar toolbar;
     private ProgressBar pbProgress;
     public static final String KEY_CATEGORY = "category";
-    private boolean isLoading = true;
+    private boolean isLoading;
     private Context context;
 
     public static CategoryGridFragment newInstance(Category category) {
@@ -56,7 +56,7 @@ public class CategoryGridFragment extends Fragment
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        iaPresenter = new CategoryGridPresenter(this, getContext());
+        iaPresenter = new CategoryGridPresenter(this);
         categoryGridAdapter = new CategoryGridAdapter(CategoryGridFragment.this);
         Bundle bundle = getArguments();
         if (bundle == null) return;

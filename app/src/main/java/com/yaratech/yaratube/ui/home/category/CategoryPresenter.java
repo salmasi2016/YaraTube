@@ -1,7 +1,5 @@
 package com.yaratech.yaratube.ui.home.category;
 
-import android.content.Context;
-
 import com.yaratech.yaratube.data.model.Category;
 import com.yaratech.yaratube.data.source.remote.ApiResult;
 import com.yaratech.yaratube.data.source.remote.Repository;
@@ -12,9 +10,9 @@ public class CategoryPresenter implements CategoryContract.Presenter {
     private CategoryContract.View iaView;
     private Repository repository;
 
-    public CategoryPresenter(CategoryContract.View iaView, Context context) {
+    public CategoryPresenter(CategoryContract.View iaView) {
         this.iaView = iaView;
-        repository = new Repository(context);
+        repository = new Repository();
     }
 
     @Override

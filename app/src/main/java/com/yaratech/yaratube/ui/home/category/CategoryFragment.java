@@ -42,7 +42,7 @@ public class CategoryFragment extends Fragment implements CategoryContract.View,
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        iaPresenter = new CategoryPresenter(this, getContext());
+        iaPresenter = new CategoryPresenter(this);
         categoryAdapter = new CategoryAdapter(CategoryFragment.this);
     }
 

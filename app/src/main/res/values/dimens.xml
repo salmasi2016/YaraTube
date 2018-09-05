@@ -4,7 +4,7 @@
     <dimen name="dialog_fragment_height">250dp</dimen>
     <dimen name="home_navigation_header_height">200dp</dimen>
     <dimen name="main_page_home_adapter_height">200dp</dimen>
-    <dimen name="product_detail_fragment_cv1_height">200dp</dimen>
+    <dimen name="product_detail_fragment_cv1_height">250dp</dimen>
     <dimen name="list_item_home_item_width">200dp</dimen>
     <dimen name="main_page_header_adapter_height">180dp</dimen>
     <dimen name="list_item_category_grid_height">200dp</dimen>

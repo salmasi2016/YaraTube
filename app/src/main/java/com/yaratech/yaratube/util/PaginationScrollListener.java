@@ -2,7 +2,6 @@ package com.yaratech.yaratube.util;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 public abstract class PaginationScrollListener extends RecyclerView.OnScrollListener {
     LinearLayoutManager layoutManager;

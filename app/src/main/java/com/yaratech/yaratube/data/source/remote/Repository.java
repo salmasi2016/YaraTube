@@ -16,10 +16,8 @@ import retrofit2.Response;
 
 public class Repository {
     private ApiInterface apiInterface;
-    private Context context;
 
-    public Repository(Context context) {
-        this.context = context;
+    public Repository() {
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
     }
 
