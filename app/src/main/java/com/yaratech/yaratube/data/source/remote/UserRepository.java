@@ -2,9 +2,7 @@ package com.yaratech.yaratube.data.source.remote;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.yaratech.yaratube.R;
 import com.yaratech.yaratube.data.model.Activation;
 import com.yaratech.yaratube.data.model.Comment;
 import com.yaratech.yaratube.data.model.CommentResponse;
@@ -33,7 +31,6 @@ public class UserRepository {
         Call<SmsResponse> call = apiInterface.activateStep1(pref.getPhoneNumber(),
                 Device.getDeviceId(context), Device.getDeviceModel(), Device.getDeviceOs());
 
-        if (Function.isNetworkAvailable(context)) {
             call.enqueue(new Callback<SmsResponse>() {
                 @Override
                 public void onResponse(Call<SmsResponse> call, Response<SmsResponse> response) {
@@ -50,9 +47,6 @@ public class UserRepository {
                     callback.onFail(t.getMessage());
                 }
             });
-        } else {
-            Function.toastNetworkNotAvailable(context);
-        }
     }
 
     public void sendVerificationCode(int verificationCode, final ApiResult<Activation> callback) {
@@ -60,7 +54,6 @@ public class UserRepository {
         Call<Activation> call = apiInterface.activateStep2(pref.getPhoneNumber(),
                 Device.getDeviceId(context), verificationCode);
 
-        if (Function.isNetworkAvailable(context)) {
             call.enqueue(new Callback<Activation>() {
 
                 @Override
@@ -77,7 +70,6 @@ public class UserRepository {
                     callback.onFail(t.getMessage());
                 }
             });
-        }
     }
 
     public void sendComment(int productId, Comment comment, String token,
@@ -86,7 +78,6 @@ public class UserRepository {
         Call<CommentResponse> call = apiInterface.setComment(productId,
                 comment.getScore(), comment.getCommentText(), comment.getTitle(), token);
 
-        if (Function.isNetworkAvailable(context)) {
             call.enqueue(new Callback<CommentResponse>() {
 
                 @Override
@@ -104,6 +95,5 @@ public class UserRepository {
                     callback.onFail(t.getMessage());
                 }
             });
-        }
     }
 }

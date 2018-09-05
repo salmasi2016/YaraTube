@@ -14,7 +14,7 @@ public interface MainPageContract {
 
         void showMainPage(ArrayList<HeaderItem> headerItems, ArrayList<HomeItem> homeItems);
 
-        void showToast();
+        void showErrorMessage(String message);
     }
 
     interface Presenter {

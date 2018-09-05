@@ -1,7 +1,5 @@
 package com.yaratech.yaratube.util;
 
-import com.yaratech.yaratube.R;
-
 public class Constant {
 
     private Constant() {
@@ -9,4 +7,5 @@ public class Constant {
     }
 
     public static final String BASE_URL = "https://api.vasapi.click/";
+    public static final String KEY_INTENT_MAIN_TO_PLAYER = "strFile";
 }

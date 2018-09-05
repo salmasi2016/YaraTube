@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public interface ProductDetailContract {
 
     interface View {
+
         void showProgress();
 
         void isProductLoaded();
@@ -18,7 +19,7 @@ public interface ProductDetailContract {
 
         void showProduct(Product product);
 
-        void showToast();
+        void showErrorMessage(String message);
     }
 
     interface Presenter {

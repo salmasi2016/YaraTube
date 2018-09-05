@@ -3,7 +3,6 @@ package com.yaratech.yaratube.ui.productdetail.comment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,8 +54,8 @@ public class CommentDialogFragment extends DialogFragment
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        rbRate = view.findViewById(R.id.comment_dialog_fragment_rb_rate);
-        etComment = view.findViewById(R.id.comment_dialog_fragment_et_comment);
+        rbRate = view.findViewById(R.id.internet_dialog_fragment_iv_icon);
+        etComment = view.findViewById(R.id.internet_dialog_fragment_tv_title);
         btnRecord = view.findViewById(R.id.comment_dialog_fragment_btn_record);
         btnRecord.setOnClickListener(this);
     }

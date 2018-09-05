@@ -14,7 +14,7 @@ public interface CategoryGridContract {
 
         void showProducts(ArrayList<Product> products);
 
-        void showToast();
+        void showErrorMessage(String message);
     }
 
     interface Presenter {

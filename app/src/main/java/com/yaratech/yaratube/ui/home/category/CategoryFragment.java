@@ -42,7 +42,7 @@ public class CategoryFragment extends Fragment implements CategoryContract.View,
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        iaPresenter = new CategoryPresenter(this);
+        iaPresenter = new CategoryPresenter(this, getContext());
         categoryAdapter = new CategoryAdapter(CategoryFragment.this);
     }
 
@@ -79,17 +79,17 @@ public class CategoryFragment extends Fragment implements CategoryContract.View,
     }
 
     @Override
-    public void showToast() {
-        Toast.makeText(getActivity(), "Data Not Available", Toast.LENGTH_SHORT).show();
+    public void showErrorMessage(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void setCategoryToFragmentCategory(Category category) {
-        interaction.goToFragmentCategoryGrid(category);
+        interaction.goToCategoryGrid(category);
     }
 
     public interface Interaction {
 
-        void goToFragmentCategoryGrid(Category category);
+        void goToCategoryGrid(Category category);
     }
 }

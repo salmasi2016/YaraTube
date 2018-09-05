@@ -40,7 +40,7 @@ public class Function {
         return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 
-    public static void toastNetworkNotAvailable(Context context) {
-        Toast.makeText(context, R.string.internet_error_message, Toast.LENGTH_SHORT).show();
-    }
+//    public static void toastNetworkNotAvailable(Context context) {
+//        Toast.makeText(context, R.string.internet_error_message, Toast.LENGTH_SHORT).show();
+//    }
 }

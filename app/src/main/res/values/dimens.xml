@@ -14,6 +14,7 @@
     <dimen name="navigation_view_margin_left">30dp</dimen>
     <dimen name="list_item_category_corner_radius">10dp</dimen>
     <dimen name="list_item_category_elevation">3dp</dimen>
+    <dimen name="line">2dp</dimen>
     <dimen name="text_size_12">12sp</dimen>
     <dimen name="text_size_15">15sp</dimen>
     <dimen name="text_size_18">18sp</dimen>

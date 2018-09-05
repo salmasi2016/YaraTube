@@ -81,12 +81,12 @@
                         android:gravity="right"
                         android:textSize="@dimen/text_size_18"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toRightOf="@id/product_detail_fragment_ib_check"
+                        app:layout_constraintLeft_toRightOf="@id/product_detail_fragment_ib_play"
                         app:layout_constraintRight_toRightOf="@id/product_detail_fragment_cv1_gl_x05"
                         app:layout_constraintTop_toTopOf="@id/product_detail_fragment_cv1_gl_y8" />
 
                     <ImageButton
-                        android:id="@+id/product_detail_fragment_ib_check"
+                        android:id="@+id/product_detail_fragment_ib_play"
                         android:layout_width="@dimen/img_size_32"
                         android:layout_height="@dimen/img_size_32"
                         android:src="@drawable/icon_check_circle_filled"
@@ -251,6 +251,7 @@
     </android.support.v4.widget.NestedScrollView>
 
     <ProgressBar
+        android:visibility="gone"
         android:id="@+id/product_detail_fragment_pb_progress"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"

@@ -1,6 +1,7 @@
 package com.yaratech.yaratube.ui.productdetail;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -23,6 +25,9 @@ import com.yaratech.yaratube.R;
 import com.yaratech.yaratube.data.model.Comment;
 import com.yaratech.yaratube.data.model.Product;
 import com.yaratech.yaratube.data.source.local.db.database.AppDataBase;
+import com.yaratech.yaratube.ui.main.Internet;
+import com.yaratech.yaratube.ui.main.MainActivity;
+import com.yaratech.yaratube.ui.player.PlayerActivity;
 import com.yaratech.yaratube.ui.productdetail.comment.CommentDialogFragment;
 import com.yaratech.yaratube.util.Constant;
 
@@ -37,6 +42,7 @@ public class ProductDetailFragment extends Fragment
     private TextView tvName, tvDescription;
     private RecyclerView rvComment;
     private Button btnComment;
+    private ImageButton ibPlay;
     private ProgressBar pbProgress;
     private ProductDetailContract.Presenter iaPresenter;
     private ProductDetailAdapter productDetailAdapter;
@@ -66,7 +72,7 @@ public class ProductDetailFragment extends Fragment
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        iaPresenter = new ProductDetailPresenter(this);
+        iaPresenter = new ProductDetailPresenter(this, getContext());
         productDetailAdapter = new ProductDetailAdapter();
         appDataBase = AppDataBase.newInstance(getContext());
         Bundle bundle = getArguments();
@@ -89,11 +95,13 @@ public class ProductDetailFragment extends Fragment
         rvComment = view.findViewById(R.id.product_detail_fragment_rv_comment);
         pbProgress = view.findViewById(R.id.product_detail_fragment_pb_progress);
         btnComment = view.findViewById(R.id.product_detail_fragment_btn_comment);
+        ibPlay = view.findViewById(R.id.product_detail_fragment_ib_play);
         rvComment = view.findViewById(R.id.product_detail_fragment_rv_comment);
         rvComment.setLayoutManager(new LinearLayoutManager(getContext()));
         rvComment.setItemAnimator(new DefaultItemAnimator());
         rvComment.setAdapter(productDetailAdapter);
         btnComment.setOnClickListener(this);
+        ibPlay.setOnClickListener(this);
         iaPresenter.loadProduct(getProductId());
         iaPresenter.loadComment(getProductId());
     }
@@ -125,6 +133,11 @@ public class ProductDetailFragment extends Fragment
                     dialogFragment.show(getFragmentManager().beginTransaction(),
                             CommentDialogFragment.class.getName());
                 }
+                break;
+            case R.id.product_detail_fragment_ib_play:
+                Intent intent=new Intent(getContext(), PlayerActivity.class);
+                intent.putExtra(Constant.KEY_INTENT_MAIN_TO_PLAYER,product.getFiles().get(0).getFile());
+                startActivity(intent);
                 break;
         }
     }
@@ -166,8 +179,8 @@ public class ProductDetailFragment extends Fragment
     }
 
     @Override
-    public void showToast() {
-        Toast.makeText(getActivity(), "Data Not Available", Toast.LENGTH_SHORT).show();
+    public void showErrorMessage(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
     public interface Interaction {

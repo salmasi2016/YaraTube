@@ -13,7 +13,7 @@ public interface CategoryContract {
 
         void showCategories(ArrayList<Category> categories);
 
-        void showToast();
+        void showErrorMessage(String message);
     }
 
     interface Presenter {

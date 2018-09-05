@@ -34,7 +34,7 @@ public interface ApiInterface {
     @GET("comment/{product_id}")
     Call<ArrayList<Comment>> getComment(@Path("product_id") int productId);
 
-    @GET("product/{product_id}")
+    @GET("product/{product_id}?device_os=ios")
     Call<Product> getProduct(@Path("product_id") int productId);
 
     @POST("mobile_login_step1/16")

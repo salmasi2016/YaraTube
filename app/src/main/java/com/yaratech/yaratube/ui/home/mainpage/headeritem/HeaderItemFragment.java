@@ -57,7 +57,7 @@ public class HeaderItemFragment extends Fragment {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                interaction.goToFragmentProductDetail(getHeaderItem().getId());
+                interaction.goToProductDetail(getHeaderItem().getId());
             }
         });
     }
@@ -72,6 +72,6 @@ public class HeaderItemFragment extends Fragment {
 
     public interface Interaction {
 
-        void goToFragmentProductDetail(int productId);
+        void goToProductDetail(int productId);
     }
 }

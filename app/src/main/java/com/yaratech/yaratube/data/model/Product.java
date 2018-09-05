@@ -71,7 +71,7 @@ public class Product {
     private String sku;
     @SerializedName("files")
     @Expose
-    private List<Object> files = null;
+    private List<File> files = null;
     @SerializedName("tags")
     @Expose
     private List<Object> tags = null;
@@ -289,11 +289,11 @@ public class Product {
         this.sku = sku;
     }
 
-    public List<Object> getFiles() {
+    public List<File> getFiles() {
         return files;
     }
 
-    public void setFiles(List<Object> files) {
+    public void setFiles(List<File> files) {
         this.files = files;
     }
 

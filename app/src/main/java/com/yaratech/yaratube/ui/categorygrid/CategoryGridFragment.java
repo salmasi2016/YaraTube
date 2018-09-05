@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.yaratech.yaratube.R;
 import com.yaratech.yaratube.data.model.Category;
 import com.yaratech.yaratube.data.model.Product;
+import com.yaratech.yaratube.util.Function;
 import com.yaratech.yaratube.util.PaginationScrollListener;
 
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class CategoryGridFragment extends Fragment
     private ProgressBar pbProgress;
     public static final String KEY_CATEGORY = "category";
     private boolean isLoading = true;
+    private Context context;
 
     public static CategoryGridFragment newInstance(Category category) {
         CategoryGridFragment fragment = new CategoryGridFragment();
@@ -47,13 +49,14 @@ public class CategoryGridFragment extends Fragment
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        interaction = (CategoryGridFragment.Interaction) context;
+        this.context = context;
+        interaction = (Interaction) context;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        iaPresenter = new CategoryGridPresenter(this);
+        iaPresenter = new CategoryGridPresenter(this, getContext());
         categoryGridAdapter = new CategoryGridAdapter(CategoryGridFragment.this);
         Bundle bundle = getArguments();
         if (bundle == null) return;
@@ -82,8 +85,10 @@ public class CategoryGridFragment extends Fragment
 
             @Override
             protected void loadMoreItems() {
-                iaPresenter.loadData(getCategory(), categoryGridAdapter.getItemCount());
-                isLoading = false;
+                if (Function.isNetworkAvailable(context)) {
+                    isLoading = true;
+                    iaPresenter.loadData(getCategory(), categoryGridAdapter.getItemCount());
+                }
             }
 
             @Override
@@ -106,12 +111,12 @@ public class CategoryGridFragment extends Fragment
     @Override
     public void showProducts(ArrayList<Product> products) {
         categoryGridAdapter.setProducts(products);
-        isLoading = true;
+        isLoading = false;
     }
 
     @Override
-    public void showToast() {
-        Toast.makeText(getActivity(), "Data Not Available", Toast.LENGTH_SHORT).show();
+    public void showErrorMessage(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
     public Category getCategory() {
@@ -124,11 +129,11 @@ public class CategoryGridFragment extends Fragment
 
     @Override
     public void setProductToFragmentProductDetail(Product product) {
-        interaction.goToFragmentProductDetail(product.getId());
+        interaction.goToProductDetail(product.getId());
     }
 
     public interface Interaction {
 
-        void goToFragmentProductDetail(int productId);
+        void goToProductDetail(int productId);
     }
 }

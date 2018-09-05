@@ -39,14 +39,14 @@ public class MainPageFragment extends Fragment implements MainPageContract.View
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        interaction = (MainPageFragment.Interaction) context;
+        interaction = (Interaction) context;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        iaPresenter = new MainPagePresenter(this);
-        mainPageAdapter = new MainPageAdapter(getFragmentManager(),MainPageFragment.this);
+        iaPresenter = new MainPagePresenter(this, getContext());
+        mainPageAdapter = new MainPageAdapter(getFragmentManager(), MainPageFragment.this);
     }
 
     @Nullable
@@ -83,17 +83,17 @@ public class MainPageFragment extends Fragment implements MainPageContract.View
     }
 
     @Override
-    public void showToast() {
-        Toast.makeText(getActivity(),"Data Not Available",Toast.LENGTH_SHORT).show();
+    public void showErrorMessage(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void setProductToFragmentProductDetail(int productId) {
-        interaction.goToFragmentProductDetail(productId);
+        interaction.goToProductDetail(productId);
     }
 
     public interface Interaction {
 
-        void goToFragmentProductDetail(int productId);
+        void goToProductDetail(int productId);
     }
 }

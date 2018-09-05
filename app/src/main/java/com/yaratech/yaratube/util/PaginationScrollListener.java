@@ -2,6 +2,7 @@ package com.yaratech.yaratube.util;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 public abstract class PaginationScrollListener extends RecyclerView.OnScrollListener {
     LinearLayoutManager layoutManager;
@@ -17,8 +18,7 @@ public abstract class PaginationScrollListener extends RecyclerView.OnScrollList
             int visibleItemCount = layoutManager.getChildCount();
             int totalItemCount = layoutManager.getItemCount();
             int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
-
-            if (isLoading()) {
+            if (!isLoading()) {
                 if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
                         && firstVisibleItemPosition >= 0) {
                     loadMoreItems();

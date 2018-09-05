@@ -14,8 +14,10 @@ import com.yaratech.yaratube.ui.categorygrid.CategoryGridFragment;
 import com.yaratech.yaratube.ui.contactus.ContactUsFragment;
 import com.yaratech.yaratube.ui.home.HomeFragment;
 import com.yaratech.yaratube.ui.home.category.CategoryFragment;
-import com.yaratech.yaratube.ui.home.mainpage.headeritem.HeaderItemFragment;
+import com.yaratech.yaratube.ui.home.mainpage.MainPageContract;
 import com.yaratech.yaratube.ui.home.mainpage.MainPageFragment;
+import com.yaratech.yaratube.ui.home.mainpage.MainPagePresenter;
+import com.yaratech.yaratube.ui.home.mainpage.headeritem.HeaderItemFragment;
 import com.yaratech.yaratube.ui.login.LoginDialogFragment;
 import com.yaratech.yaratube.ui.productdetail.ProductDetailFragment;
 import com.yaratech.yaratube.ui.profile.ProfileFragment;
@@ -24,10 +26,16 @@ import com.yaratech.yaratube.util.Function;
 public class MainActivity extends AppCompatActivity
         implements HomeFragment.Interaction, CategoryFragment.Interaction,
         CategoryGridFragment.Interaction, MainPageFragment.Interaction,
-        HeaderItemFragment.Interaction,ProductDetailFragment.Interaction {
+        HeaderItemFragment.Interaction, ProductDetailFragment.Interaction,
+        Internet {
 
     private FragmentManager fragmentManager;
+    private DialogFragment dfInternet;
     private Toast toast;
+    private boolean internetDialogIsShowing;
+    private String fragmentName;
+    private Category category;
+    private int productId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +67,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void goToLogin() {
-        DialogFragment dialogFragment = LoginDialogFragment.newInstance();
-        dialogFragment.show(fragmentManager.beginTransaction(), LoginDialogFragment.class.getName());
+        DialogFragment dfLogin = LoginDialogFragment.newInstance();
+        dfLogin.show(fragmentManager.beginTransaction(), LoginDialogFragment.class.getName());
     }
 
     @Override
@@ -101,10 +109,15 @@ public class MainActivity extends AppCompatActivity
         MainPageFragment mainPageFragment = (MainPageFragment) fragmentManager
                 .findFragmentByTag(MainPageFragment.class.getName());
         if (mainPageFragment == null) {
-            mainPageFragment = MainPageFragment.newInstance();
-            fragmentManager.beginTransaction()
-                    .add(R.id.home_fl_layout, mainPageFragment, MainPageFragment.class.getName())
-                    .commit();
+            if (Function.isNetworkAvailable(this)) {
+                mainPageFragment = MainPageFragment.newInstance();
+                fragmentManager.beginTransaction()
+                        .add(R.id.home_fl_layout, mainPageFragment, MainPageFragment.class.getName())
+                        .commit();
+            } else {
+                fragmentName = "MainPage";
+                goToInternetDialog();
+            }
         } else {
             CategoryFragment categoryFragment = (CategoryFragment) fragmentManager
                     .findFragmentByTag(CategoryFragment.class.getName());
@@ -122,10 +135,15 @@ public class MainActivity extends AppCompatActivity
         CategoryFragment categoryFragment = (CategoryFragment) fragmentManager
                 .findFragmentByTag(CategoryFragment.class.getName());
         if (categoryFragment == null) {
-            categoryFragment = CategoryFragment.newInstance();
-            fragmentManager.beginTransaction()
-                    .add(R.id.home_fl_layout, categoryFragment, CategoryFragment.class.getName())
-                    .commit();
+            if (Function.isNetworkAvailable(this)) {
+                categoryFragment = CategoryFragment.newInstance();
+                fragmentManager.beginTransaction()
+                        .add(R.id.home_fl_layout, categoryFragment, CategoryFragment.class.getName())
+                        .commit();
+            } else {
+                fragmentName = "Categories";
+                goToInternetDialog();
+            }
         } else {
             MainPageFragment mainPageFragment = (MainPageFragment) fragmentManager
                     .findFragmentByTag(MainPageFragment.class.getName());
@@ -139,24 +157,69 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void goToFragmentCategoryGrid(Category category) {
+    public void goToCategoryGrid(Category category) {
+        this.category = category;
         CategoryGridFragment categoryGridFragment = (CategoryGridFragment) fragmentManager
                 .findFragmentByTag(CategoryGridFragment.class.getName());
         if (categoryGridFragment == null) {
-            categoryGridFragment = CategoryGridFragment.newInstance(category);
-            Function.setFragment(fragmentManager,
-                    categoryGridFragment, R.id.main_activity_fl_layout, CategoryGridFragment.class.getName());
+            if (Function.isNetworkAvailable(this)) {
+                categoryGridFragment = CategoryGridFragment.newInstance(category);
+                Function.setFragment(fragmentManager,
+                        categoryGridFragment, R.id.main_activity_fl_layout, CategoryGridFragment.class.getName());
+            } else {
+                fragmentName = "CategoryGrid";
+                goToInternetDialog();
+            }
         }
     }
 
     @Override
-    public void goToFragmentProductDetail(int productId) {
+    public void goToProductDetail(int productId) {
+        this.productId = productId;
         ProductDetailFragment productDetailFragment = (ProductDetailFragment) fragmentManager
                 .findFragmentByTag(ProductDetailFragment.class.getName());
         if (productDetailFragment == null) {
-            productDetailFragment = ProductDetailFragment.newInstance(productId);
-            Function.setFragment(fragmentManager,
-                    productDetailFragment, R.id.main_activity_fl_layout, ProductDetailFragment.class.getName());
+            if (Function.isNetworkAvailable(this)) {
+                productDetailFragment = ProductDetailFragment.newInstance(productId);
+                Function.setFragment(fragmentManager,
+                        productDetailFragment, R.id.main_activity_fl_layout, ProductDetailFragment.class.getName());
+            } else {
+                fragmentName = "ProductDetail";
+                goToInternetDialog();
+            }
+        }
+    }
+
+    @Override
+    public void goToInternetDialog() {
+        dfInternet = InternetDialogFragment.newInstance();
+        dfInternet.show(fragmentManager.beginTransaction(), InternetDialogFragment.class.getName());
+        dfInternet.setCancelable(false);
+        internetDialogIsShowing = true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (Function.isNetworkAvailable(this)) {
+            if (internetDialogIsShowing) {
+                dfInternet.dismiss();
+                internetDialogIsShowing = false;
+                switch (fragmentName) {
+                    case "MainPage":
+                        goToMainPage();
+                        break;
+                    case "Categories":
+                        goToCategories();
+                        break;
+                    case "CategoryGrid":
+                        goToCategoryGrid(category);
+                        break;
+                    case "ProductDetail":
+                        goToProductDetail(productId);
+                        break;
+                }
+            }
         }
     }
 }
