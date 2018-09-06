@@ -14,9 +14,7 @@ import com.yaratech.yaratube.ui.categorygrid.CategoryGridFragment;
 import com.yaratech.yaratube.ui.contactus.ContactUsFragment;
 import com.yaratech.yaratube.ui.home.HomeFragment;
 import com.yaratech.yaratube.ui.home.category.CategoryFragment;
-import com.yaratech.yaratube.ui.home.mainpage.MainPageContract;
 import com.yaratech.yaratube.ui.home.mainpage.MainPageFragment;
-import com.yaratech.yaratube.ui.home.mainpage.MainPagePresenter;
 import com.yaratech.yaratube.ui.home.mainpage.headeritem.HeaderItemFragment;
 import com.yaratech.yaratube.ui.login.LoginDialogFragment;
 import com.yaratech.yaratube.ui.productdetail.ProductDetailFragment;
@@ -27,7 +25,7 @@ public class MainActivity extends AppCompatActivity
         implements HomeFragment.Interaction, CategoryFragment.Interaction,
         CategoryGridFragment.Interaction, MainPageFragment.Interaction,
         HeaderItemFragment.Interaction, ProductDetailFragment.Interaction,
-        Internet {
+        NetworkChangeReceiver.Interaction {
 
     private FragmentManager fragmentManager;
     private DialogFragment dfInternet;
@@ -46,6 +44,14 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.replace(R.id.main_activity_fl_layout, HomeFragment.newInstance());
         fragmentTransaction.commit();
         toast = Toast.makeText(this, R.string.toast_click_again_to_exit, Toast.LENGTH_SHORT);
+        new NetworkChangeReceiver(this);
+    }
+
+    public void goToInternetDialog() {
+        dfInternet = InternetDialogFragment.newInstance();
+        dfInternet.show(fragmentManager.beginTransaction(), InternetDialogFragment.class.getName());
+        dfInternet.setCancelable(false);
+        internetDialogIsShowing = true;
     }
 
     @Override
@@ -191,34 +197,23 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void goToInternetDialog() {
-        dfInternet = InternetDialogFragment.newInstance();
-        dfInternet.show(fragmentManager.beginTransaction(), InternetDialogFragment.class.getName());
-        dfInternet.setCancelable(false);
-        internetDialogIsShowing = true;
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (Function.isNetworkAvailable(this)) {
-            if (internetDialogIsShowing) {
-                dfInternet.dismiss();
-                internetDialogIsShowing = false;
-                switch (fragmentName) {
-                    case "MainPage":
-                        goToMainPage();
-                        break;
-                    case "Categories":
-                        goToCategories();
-                        break;
-                    case "CategoryGrid":
-                        goToCategoryGrid(category);
-                        break;
-                    case "ProductDetail":
-                        goToProductDetail(productId);
-                        break;
-                }
+    public void startToConnecting() {
+        if (internetDialogIsShowing) {
+            dfInternet.dismiss();
+            internetDialogIsShowing = false;
+            switch (fragmentName) {
+                case "MainPage":
+                    goToMainPage();
+                    break;
+                case "Categories":
+                    goToCategories();
+                    break;
+                case "CategoryGrid":
+                    goToCategoryGrid(category);
+                    break;
+                case "ProductDetail":
+                    goToProductDetail(productId);
+                    break;
             }
         }
     }
