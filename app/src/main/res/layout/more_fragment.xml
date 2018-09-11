@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:layoutDirection="rtl">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/more_fragment_gl_x05"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/more_fragment_gl_x07"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.07" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/more_fragment_gl_x95"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/more_fragment_gl_y12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.12" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/more_fragment_gl_y24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.24" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/more_fragment_gl_y36"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.36" />
+
+    <Button
+        android:background="@null"
+        android:id="@+id/more_fragment_btn_profile"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="@string/profile"
+        android:textSize="@dimen/text_size_15"
+        android:gravity="right|center"
+        app:layout_constraintBottom_toBottomOf="@id/more_fragment_gl_y12"
+        app:layout_constraintLeft_toLeftOf="@id/more_fragment_gl_x95"
+        app:layout_constraintRight_toRightOf="@id/more_fragment_gl_x07"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="@dimen/line"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="@id/more_fragment_gl_y12"
+        app:layout_constraintLeft_toLeftOf="@id/more_fragment_gl_x95"
+        app:layout_constraintRight_toRightOf="@id/more_fragment_gl_x05"
+        app:layout_constraintTop_toTopOf="@id/more_fragment_gl_y12" />
+
+    <Button
+        android:background="@null"
+        android:id="@+id/more_fragment_btn_about_us"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="@string/about_us"
+        android:textSize="@dimen/text_size_15"
+        android:gravity="right|center"
+        app:layout_constraintBottom_toBottomOf="@id/more_fragment_gl_y24"
+        app:layout_constraintLeft_toLeftOf="@id/more_fragment_gl_x95"
+        app:layout_constraintRight_toRightOf="@id/more_fragment_gl_x07"
+        app:layout_constraintTop_toTopOf="@id/more_fragment_gl_y12" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="@dimen/line"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="@id/more_fragment_gl_y24"
+        app:layout_constraintLeft_toLeftOf="@id/more_fragment_gl_x95"
+        app:layout_constraintRight_toRightOf="@id/more_fragment_gl_x05"
+        app:layout_constraintTop_toTopOf="@id/more_fragment_gl_y24" />
+
+    <Button
+        android:background="@null"
+        android:id="@+id/more_fragment_btn_contact_us"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="@string/contact_us"
+        android:textSize="@dimen/text_size_15"
+        android:gravity="right|center"
+        app:layout_constraintBottom_toBottomOf="@id/more_fragment_gl_y36"
+        app:layout_constraintLeft_toLeftOf="@id/more_fragment_gl_x95"
+        app:layout_constraintRight_toRightOf="@id/more_fragment_gl_x07"
+        app:layout_constraintTop_toTopOf="@id/more_fragment_gl_y24" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="@dimen/line"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="@id/more_fragment_gl_y36"
+        app:layout_constraintLeft_toLeftOf="@id/more_fragment_gl_x95"
+        app:layout_constraintRight_toRightOf="@id/more_fragment_gl_x05"
+        app:layout_constraintTop_toTopOf="@id/more_fragment_gl_y36" />
+
+</android.support.constraint.ConstraintLayout>

@@ -13,4 +13,10 @@
         android:icon="@drawable/__icon"
         android:title="@string/categories"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/home_bottom_navigation_more"
+        android:enabled="true"
+        android:icon="@drawable/ic_more_vert"
+        android:title="@string/more"
+        app:showAsAction="always" />
 </menu>

@@ -3,31 +3,39 @@ package com.yaratech.yaratube.ui.main;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.yaratech.yaratube.R;
 import com.yaratech.yaratube.data.model.Category;
-import com.yaratech.yaratube.ui.aboutus.AboutUsFragment;
 import com.yaratech.yaratube.ui.categorygrid.CategoryGridFragment;
-import com.yaratech.yaratube.ui.contactus.ContactUsFragment;
 import com.yaratech.yaratube.ui.home.HomeFragment;
 import com.yaratech.yaratube.ui.home.category.CategoryFragment;
 import com.yaratech.yaratube.ui.home.mainpage.MainPageFragment;
 import com.yaratech.yaratube.ui.home.mainpage.headeritem.HeaderItemFragment;
+import com.yaratech.yaratube.ui.home.more.MoreFragment;
+import com.yaratech.yaratube.ui.home.more.aboutus.AboutUsFragment;
+import com.yaratech.yaratube.ui.home.more.contactus.ContactUsFragment;
+import com.yaratech.yaratube.ui.home.more.profile.ProfileFragment;
 import com.yaratech.yaratube.ui.login.LoginDialogFragment;
 import com.yaratech.yaratube.ui.productdetail.ProductDetailFragment;
-import com.yaratech.yaratube.ui.profile.ProfileFragment;
 import com.yaratech.yaratube.util.Function;
 
 public class MainActivity extends AppCompatActivity
         implements HomeFragment.Interaction, CategoryFragment.Interaction,
         CategoryGridFragment.Interaction, MainPageFragment.Interaction,
         HeaderItemFragment.Interaction, ProductDetailFragment.Interaction,
-        NetworkReceiver.Interaction {
+        NetworkReceiver.Interaction, MoreFragment.Interaction {
 
     private FragmentManager fragmentManager;
+    private ProfileFragment profileFragment;
+    private AboutUsFragment aboutUsFragment;
+    private ContactUsFragment contactUsFragment;
+    private MainPageFragment mainPageFragment;
+    private CategoryFragment categoryFragment;
+    private MoreFragment moreFragment;
+    private CategoryGridFragment categoryGridFragment;
+    private ProductDetailFragment productDetailFragment;
     private DialogFragment dfInternet;
     private Toast toast;
     private boolean internetDialogIsShowing;
@@ -40,12 +48,28 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
         fragmentManager = getSupportFragmentManager();
-        final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.main_activity_fl_layout, HomeFragment.newInstance());
-        fragmentTransaction.commit();
+
+        profileFragment = (ProfileFragment) fragmentManager
+                .findFragmentByTag(ProfileFragment.class.getName());
+        aboutUsFragment = (AboutUsFragment) fragmentManager
+                .findFragmentByTag(AboutUsFragment.class.getName());
+        contactUsFragment = (ContactUsFragment) fragmentManager
+                .findFragmentByTag(ContactUsFragment.class.getName());
+        mainPageFragment = (MainPageFragment) fragmentManager
+                .findFragmentByTag(MainPageFragment.class.getName());
+        categoryFragment = (CategoryFragment) fragmentManager
+                .findFragmentByTag(CategoryFragment.class.getName());
+        moreFragment = (MoreFragment) fragmentManager
+                .findFragmentByTag(MoreFragment.class.getName());
+        categoryGridFragment = (CategoryGridFragment) fragmentManager
+                .findFragmentByTag(CategoryGridFragment.class.getName());
+        productDetailFragment = (ProductDetailFragment) fragmentManager
+                .findFragmentByTag(ProductDetailFragment.class.getName());
+
+        fragmentManager.beginTransaction()
+                .replace(R.id.main_activity_fl_layout, HomeFragment.newInstance())
+                .commit();
         toast = Toast.makeText(this, R.string.toast_click_again_to_exit, Toast.LENGTH_SHORT);
-//        NetworkReceiver.interaction = this;
-        new NetworkReceiver(){};
     }
 
     public void goToInternetDialog() {
@@ -80,41 +104,27 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void goToProfile() {
-        ProfileFragment profileFragment = (ProfileFragment) fragmentManager
-                .findFragmentByTag(ProfileFragment.class.getName());
-        if (profileFragment == null) {
-            profileFragment = ProfileFragment.newInstance();
-            Function.setFragment(fragmentManager,
-                    profileFragment, R.id.main_activity_fl_layout, ProfileFragment.class.getName());
-        }
+        profileFragment = ProfileFragment.newInstance();
+        Function.setFragment(fragmentManager,
+                profileFragment, R.id.main_activity_fl_layout, ProfileFragment.class.getName());
     }
 
     @Override
     public void goToAboutUs() {
-        AboutUsFragment aboutUsFragment = (AboutUsFragment) fragmentManager
-                .findFragmentByTag(AboutUsFragment.class.getName());
-        if (aboutUsFragment == null) {
-            aboutUsFragment = AboutUsFragment.newInstance();
-            Function.setFragment(fragmentManager,
-                    aboutUsFragment, R.id.main_activity_fl_layout, AboutUsFragment.class.getName());
-        }
+        aboutUsFragment = AboutUsFragment.newInstance();
+        Function.setFragment(fragmentManager,
+                aboutUsFragment, R.id.main_activity_fl_layout, AboutUsFragment.class.getName());
     }
 
     @Override
     public void goToContactUs() {
-        ContactUsFragment contactUsFragment = (ContactUsFragment) fragmentManager
-                .findFragmentByTag(ContactUsFragment.class.getName());
-        if (contactUsFragment == null) {
-            contactUsFragment = ContactUsFragment.newInstance();
-            Function.setFragment(fragmentManager,
-                    contactUsFragment, R.id.main_activity_fl_layout, ContactUsFragment.class.getName());
-        }
+        contactUsFragment = ContactUsFragment.newInstance();
+        Function.setFragment(fragmentManager,
+                contactUsFragment, R.id.main_activity_fl_layout, ContactUsFragment.class.getName());
     }
 
     @Override
     public void goToMainPage() {
-        MainPageFragment mainPageFragment = (MainPageFragment) fragmentManager
-                .findFragmentByTag(MainPageFragment.class.getName());
         if (mainPageFragment == null) {
             if (Function.isNetworkAvailable(this)) {
                 mainPageFragment = MainPageFragment.newInstance();
@@ -126,39 +136,80 @@ public class MainActivity extends AppCompatActivity
                 goToInternetDialog();
             }
         } else {
-            CategoryFragment categoryFragment = (CategoryFragment) fragmentManager
-                    .findFragmentByTag(CategoryFragment.class.getName());
-            if (categoryFragment != null) {
+            if (categoryFragment != null && moreFragment == null) {
                 fragmentManager.beginTransaction()
-                        .hide(fragmentManager.findFragmentByTag(CategoryFragment.class.getName()))
-                        .show(fragmentManager.findFragmentByTag(MainPageFragment.class.getName()))
-                        .commit();
+                        .hide(categoryFragment).show(mainPageFragment).commit();
+            } else if (categoryFragment == null && moreFragment != null) {
+                fragmentManager.beginTransaction()
+                        .hide(moreFragment).show(mainPageFragment).commit();
+            } else if (categoryFragment != null && moreFragment != null) {
+                fragmentManager.beginTransaction()
+                        .hide(categoryFragment).hide(moreFragment).show(mainPageFragment).commit();
             }
         }
     }
 
     @Override
     public void goToCategories() {
-        CategoryFragment categoryFragment = (CategoryFragment) fragmentManager
-                .findFragmentByTag(CategoryFragment.class.getName());
         if (categoryFragment == null) {
             if (Function.isNetworkAvailable(this)) {
                 categoryFragment = CategoryFragment.newInstance();
-                fragmentManager.beginTransaction()
-                        .add(R.id.home_fl_layout, categoryFragment, CategoryFragment.class.getName())
-                        .commit();
+                if (moreFragment == null) {
+                    fragmentManager.beginTransaction()
+                            .add(R.id.home_fl_layout, categoryFragment, CategoryFragment.class.getName())
+                            .hide(mainPageFragment)
+                            .commit();
+                } else {
+                    fragmentManager.beginTransaction()
+                            .add(R.id.home_fl_layout, categoryFragment, CategoryFragment.class.getName())
+                            .hide(mainPageFragment)
+                            .hide(moreFragment)
+                            .commit();
+                }
             } else {
                 fragmentName = "Categories";
                 goToInternetDialog();
             }
         } else {
-            MainPageFragment mainPageFragment = (MainPageFragment) fragmentManager
-                    .findFragmentByTag(MainPageFragment.class.getName());
-            if (mainPageFragment != null) {
+            if (mainPageFragment != null && moreFragment == null) {
                 fragmentManager.beginTransaction()
-                        .hide(fragmentManager.findFragmentByTag(MainPageFragment.class.getName()))
-                        .show(fragmentManager.findFragmentByTag(CategoryFragment.class.getName()))
+                        .hide(mainPageFragment).show(categoryFragment).commit();
+            } else if (mainPageFragment == null && moreFragment != null) {
+                fragmentManager.beginTransaction()
+                        .hide(moreFragment).show(categoryFragment).commit();
+            } else if (mainPageFragment != null && moreFragment != null) {
+                fragmentManager.beginTransaction()
+                        .hide(mainPageFragment).hide(moreFragment).show(categoryFragment).commit();
+            }
+        }
+    }
+
+    @Override
+    public void goToMore() {
+        if (moreFragment == null) {
+            moreFragment = MoreFragment.newInstance();
+            if (categoryFragment == null) {
+                fragmentManager.beginTransaction()
+                        .add(R.id.home_fl_layout, moreFragment, MoreFragment.class.getName())
+                        .hide(mainPageFragment)
                         .commit();
+            } else {
+                fragmentManager.beginTransaction()
+                        .add(R.id.home_fl_layout, moreFragment, MoreFragment.class.getName())
+                        .hide(mainPageFragment)
+                        .hide(categoryFragment)
+                        .commit();
+            }
+        } else {
+            if (mainPageFragment != null && categoryFragment == null) {
+                fragmentManager.beginTransaction()
+                        .hide(mainPageFragment).show(moreFragment).commit();
+            } else if (mainPageFragment == null && categoryFragment != null) {
+                fragmentManager.beginTransaction()
+                        .hide(categoryFragment).show(moreFragment).commit();
+            } else if (mainPageFragment != null && categoryFragment != null) {
+                fragmentManager.beginTransaction()
+                        .hide(mainPageFragment).hide(categoryFragment).show(moreFragment).commit();
             }
         }
     }
@@ -166,8 +217,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void goToCategoryGrid(Category category) {
         this.category = category;
-        CategoryGridFragment categoryGridFragment = (CategoryGridFragment) fragmentManager
-                .findFragmentByTag(CategoryGridFragment.class.getName());
         if (categoryGridFragment == null) {
             if (Function.isNetworkAvailable(this)) {
                 categoryGridFragment = CategoryGridFragment.newInstance(category);
@@ -183,8 +232,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void goToProductDetail(int productId) {
         this.productId = productId;
-        ProductDetailFragment productDetailFragment = (ProductDetailFragment) fragmentManager
-                .findFragmentByTag(ProductDetailFragment.class.getName());
         if (productDetailFragment == null) {
             if (Function.isNetworkAvailable(this)) {
                 productDetailFragment = ProductDetailFragment.newInstance(productId);

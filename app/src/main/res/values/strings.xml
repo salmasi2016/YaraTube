@@ -11,7 +11,7 @@
     <string name="record_changes">ثبت تغییرات</string>
     <string name="full_name">نام و نام خانوادگی</string>
     <string name="sex">جنسیت</string>
-    <string name="date_birth">تاریخ تولد</string>
+    <string name="birth_date">تاریخ تولد</string>
     <string name="man">مرد</string>
     <string name="woman">زن</string>
     <string name="product_detail">جزییات محصول</string>
@@ -36,4 +36,5 @@
     <string name="internet_error_message">اتصال شما به اینترنت برقرار نیست. برای استفاده از برنامه به اینترنت متصل شوید.</string>
     <string name="internet_wi_fi">اینترنت Wi-Fi</string>
     <string name="internet_mobile">اینترنت موبایل</string>
+    <string name="more">بیشتر</string>
 </resources>

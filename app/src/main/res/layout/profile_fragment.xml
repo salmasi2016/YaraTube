@@ -137,11 +137,11 @@
         app:layout_constraintTop_toTopOf="@id/profile_fragment_gl_y5" />
 
     <EditText
-        android:id="@+id/profile_fragment_et_date_birth"
+        android:id="@+id/profile_fragment_et_birth_date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/margin_5"
-        android:hint="@string/date_birth"
+        android:hint="@string/birth_date"
         android:inputType="date"
         android:textSize="@dimen/text_size_15"
         app:layout_constraintBottom_toBottomOf="@id/profile_fragment_gl_y5"
@@ -191,6 +191,7 @@
     </RadioGroup>
 
     <Button
+        android:id="@+id/profile_fragment_btn_cancel"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:backgroundTint="@color/colorPrimary"
@@ -204,6 +205,7 @@
         app:layout_constraintTop_toTopOf="@id/profile_fragment_gl_y85" />
 
     <Button
+        android:id="@+id/profile_fragment_btn_record"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:backgroundTint="@color/colorPrimary"

@@ -4,9 +4,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.widget.Toast;
 
-import com.yaratech.yaratube.R;
 import com.yaratech.yaratube.ui.home.HomeFragment;
 
 import java.util.List;

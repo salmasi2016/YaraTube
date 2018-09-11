@@ -1,4 +1,4 @@
-package com.yaratech.yaratube.ui.contactus;
+package com.yaratech.yaratube.ui.home.more.aboutus;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 
 import com.yaratech.yaratube.R;
 
-public class ContactUsFragment extends Fragment {
+public class AboutUsFragment extends Fragment {
 
-    public static ContactUsFragment newInstance() {
-        ContactUsFragment fragment = new ContactUsFragment();
+    public static AboutUsFragment newInstance() {
+        AboutUsFragment fragment = new AboutUsFragment();
         Bundle bundle = new Bundle();
         fragment.setArguments(bundle);
         return fragment;
@@ -27,7 +27,7 @@ public class ContactUsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.contact_us_fragment, container, false);
+        return inflater.inflate(R.layout.about_us_fragment, container, false);
     }
 
     @Override

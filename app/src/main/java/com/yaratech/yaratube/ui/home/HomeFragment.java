@@ -114,6 +114,9 @@ public class HomeFragment extends Fragment
                             case R.id.home_bottom_navigation_categories:
                                 interaction.goToCategories();
                                 break;
+                            case R.id.home_bottom_navigation_more:
+                                interaction.goToMore();
+                                break;
                         }
                         return true;
                     }
@@ -164,5 +167,7 @@ public class HomeFragment extends Fragment
         void goToMainPage();
 
         void goToCategories();
+
+        void goToMore();
     }
 }

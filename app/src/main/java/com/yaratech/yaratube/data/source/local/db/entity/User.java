@@ -14,6 +14,12 @@ public class User {
     private String nickName;
     @ColumnInfo(name = "token")
     private String token;
+    @ColumnInfo(name = "full_name")
+    private String fullName;
+    @ColumnInfo(name = "birth_date")
+    private String birthDate;
+    @ColumnInfo(name = "sex")
+    private String sex;
 
     public int getId() {
         return id;
@@ -37,5 +43,29 @@ public class User {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 }
