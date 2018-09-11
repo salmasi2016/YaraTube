@@ -1,8 +1,14 @@
-package com.yaratech.yaratube.ui.login.stepc;
+package com.yaratech.yaratube.ui.login.stepc.verification;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,15 +21,18 @@ import android.widget.Toast;
 
 import com.yaratech.yaratube.R;
 import com.yaratech.yaratube.data.source.local.db.database.AppDataBase;
-import com.yaratech.yaratube.data.source.local.pref.AppPreferences;
+import com.yaratech.yaratube.util.Permission;
 
-public class VerificationFragment extends Fragment implements View.OnClickListener, VerificationContract.View {
+public class VerificationFragment extends Fragment
+        implements View.OnClickListener, VerificationContract.View {
+
     private Button btnRecord, btnNumberCorrection;
     private EditText etCode;
     private TextView tvReceive;
     private Interaction interaction;
     private VerificationContract.Presenter iaPresenter;
-    AppPreferences pref;
+    private SmsReceiver smsReceiver;
+    private SmsReceiver.Interaction smsListener;
 
     @Override
     public void onAttach(Context context) {
@@ -49,7 +58,7 @@ public class VerificationFragment extends Fragment implements View.OnClickListen
         if (bundle == null) return;
         final AppDataBase database = AppDataBase.newInstance(getActivity());
         iaPresenter = new VerificationPresenter(this, getContext(), database);
-        pref=new AppPreferences(getContext());
+        smsListener = getSmsListener();
     }
 
     @Nullable
@@ -73,15 +82,56 @@ public class VerificationFragment extends Fragment implements View.OnClickListen
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        if (!Permission.checkSMSPermissions(getContext())) {
+            requestReadAndSendSmsPermission();
+        } else {
+            getMessageFromBroadcast();
+        }
+    }
+
+    private void getMessageFromBroadcast() {
+        smsReceiver = new SmsReceiver();
+        getContext().registerReceiver(smsReceiver,
+                new IntentFilter("android.provider.Telephony.SMS_RECEIVED"));
+        smsReceiver.bindListener(smsListener);
+    }
+
+    private void requestReadAndSendSmsPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_SMS)) {
+        }
+        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_SMS}, 1);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+
+        switch (requestCode) {
+            case 1: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    smsReceiver.bindListener(smsListener);
+                    getMessageFromBroadcast();
+                } else {
+                    Log.i("permission", " denied");
+                }
+                return;
+            }
+        }
+    }
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.verification_fragment_btn_record:
-                String code=etCode.getText().toString();
-                if (code.length()==5) {
+                String code = etCode.getText().toString();
+                if (code.length() == 5) {
                     btnRecord.setClickable(false);
                     btnNumberCorrection.setClickable(false);
                     iaPresenter.sendVerificationCode(Integer.parseInt(code));
-                }else {
+                } else {
                     etCode.setText(null);
                 }
                 break;
@@ -89,9 +139,20 @@ public class VerificationFragment extends Fragment implements View.OnClickListen
                 interaction.goToLoginByPhone();
                 break;
             case R.id.verification_fragment_tv_receive:
-                Log.i("sina", "receive");
+
                 break;
         }
+    }
+
+    public SmsReceiver.Interaction getSmsListener() {
+        return new SmsReceiver.Interaction() {
+
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onReceive(String message) {
+                etCode.setText(message);
+            }
+        };
     }
 
     @Override

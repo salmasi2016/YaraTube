@@ -1,6 +1,4 @@
-package com.yaratech.yaratube.ui.login.stepa;
-
-import com.yaratech.yaratube.ui.login.stepa.LoginContract;
+package com.yaratech.yaratube.ui.login.stepa.login;
 
 public class LoginPresenter implements LoginContract.Presenter {
     private LoginContract.View iaView;
@@ -12,10 +10,5 @@ public class LoginPresenter implements LoginContract.Presenter {
     @Override
     public void dialogPhone() {
         iaView.showDialogPhone();
-    }
-
-    @Override
-    public void dialogGoogle() {
-        iaView.showDialogGoogle();
     }
 }

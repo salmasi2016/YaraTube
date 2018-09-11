@@ -1,4 +1,4 @@
-package com.yaratech.yaratube.ui.login.stepc;
+package com.yaratech.yaratube.ui.login.stepc.verification;
 
 import android.content.Context;
 
@@ -8,7 +8,7 @@ import com.yaratech.yaratube.data.source.local.db.database.AppDataBase;
 import com.yaratech.yaratube.data.source.local.db.entity.User;
 import com.yaratech.yaratube.data.source.remote.ApiResult;
 import com.yaratech.yaratube.data.source.remote.UserRepository;
-import com.yaratech.yaratube.ui.login.stepc.VerificationContract;
+import com.yaratech.yaratube.ui.login.stepc.verification.VerificationContract;
 
 public class VerificationPresenter implements VerificationContract.Presenter {
     private VerificationContract.View iaView;

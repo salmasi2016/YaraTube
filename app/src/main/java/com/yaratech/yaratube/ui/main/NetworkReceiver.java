@@ -7,22 +7,26 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
-public class NetworkChangeReceiver extends BroadcastReceiver {
-    private Interaction interaction;
+import static android.support.constraint.Constraints.TAG;
 
-    public NetworkChangeReceiver(){}
+public class NetworkReceiver extends BroadcastReceiver {
+    public Interaction interaction;
+    private Context context;
 
-    public NetworkChangeReceiver(Context context) {
-        interaction = (Interaction) context;
+    public NetworkReceiver(){}
+
+    public NetworkReceiver(Context context) {
+        Log.d(TAG, "NetworkReceiver() called with: context = [" + context + "]");
+        this.context = context;
+        interaction= (Interaction) context;
     }
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (isOnline(context)){
-            Log.i("sina","yes");
+        if (isOnline(context)) {
             interaction.startToConnecting();
-        }else {
-            Log.i("sina","no");
+        } else {
+            // No Internet
         }
     }
 

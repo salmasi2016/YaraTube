@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 
 import com.yaratech.yaratube.R;
 import com.yaratech.yaratube.data.source.local.pref.AppPreferences;
-import com.yaratech.yaratube.ui.login.stepa.LoginFragment;
+import com.yaratech.yaratube.ui.login.stepa.login.LoginFragment;
 import com.yaratech.yaratube.ui.login.stepb.phone.PhoneFragment;
-import com.yaratech.yaratube.ui.login.stepc.VerificationFragment;
+import com.yaratech.yaratube.ui.login.stepc.verification.VerificationFragment;
 
 public class LoginDialogFragment extends DialogFragment
         implements LoginFragment.Interaction, PhoneFragment.Interaction,
@@ -63,11 +63,6 @@ public class LoginDialogFragment extends DialogFragment
                 .replace(R.id.login_dialog_fragment_fl_layout,
                         PhoneFragment.newInstance(), PhoneFragment.class.getName())
                 .commit();
-    }
-
-    @Override
-    public void goToLoginByGoogle() {
-
     }
 
     @Override

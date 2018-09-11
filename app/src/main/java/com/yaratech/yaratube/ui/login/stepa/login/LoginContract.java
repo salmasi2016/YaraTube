@@ -1,18 +1,14 @@
-package com.yaratech.yaratube.ui.login.stepa;
+package com.yaratech.yaratube.ui.login.stepa.login;
 
 public interface LoginContract {
 
     interface View {
 
         void showDialogPhone();
-
-        void showDialogGoogle();
     }
 
     interface Presenter {
 
         void dialogPhone();
-
-        void dialogGoogle();
     }
 }

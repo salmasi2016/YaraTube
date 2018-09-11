@@ -1,4 +1,4 @@
-package com.yaratech.yaratube.ui.login.stepc;
+package com.yaratech.yaratube.ui.login.stepc.verification;
 
 public interface VerificationContract {
 

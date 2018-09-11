@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity
         implements HomeFragment.Interaction, CategoryFragment.Interaction,
         CategoryGridFragment.Interaction, MainPageFragment.Interaction,
         HeaderItemFragment.Interaction, ProductDetailFragment.Interaction,
-        NetworkChangeReceiver.Interaction {
+        NetworkReceiver.Interaction {
 
     private FragmentManager fragmentManager;
     private DialogFragment dfInternet;
@@ -44,7 +44,8 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.replace(R.id.main_activity_fl_layout, HomeFragment.newInstance());
         fragmentTransaction.commit();
         toast = Toast.makeText(this, R.string.toast_click_again_to_exit, Toast.LENGTH_SHORT);
-        new NetworkChangeReceiver(this);
+//        NetworkReceiver.interaction = this;
+        new NetworkReceiver(){};
     }
 
     public void goToInternetDialog() {

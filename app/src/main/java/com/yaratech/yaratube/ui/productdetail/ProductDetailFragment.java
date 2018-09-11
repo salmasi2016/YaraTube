@@ -45,7 +45,7 @@ public class ProductDetailFragment extends Fragment
     private ProductDetailContract.Presenter iaPresenter;
     private ProductDetailAdapter productDetailAdapter;
     private boolean isProductLoaded, isCommentLoaded;
-    public static final String KEY_PRODUCT_ID = "productId";
+    private static final String KEY_PRODUCT_ID = "productId";
     private Interaction interaction;
     private AppDataBase appDataBase;
 
@@ -100,6 +100,7 @@ public class ProductDetailFragment extends Fragment
         rvComment.setAdapter(productDetailAdapter);
         btnComment.setOnClickListener(this);
         ibPlay.setOnClickListener(this);
+        ivVideo.setOnClickListener(this);
         iaPresenter.loadProduct(getProductId());
         iaPresenter.loadComment(getProductId());
     }
@@ -132,6 +133,7 @@ public class ProductDetailFragment extends Fragment
                             CommentDialogFragment.class.getName());
                 }
                 break;
+            case R.id.product_detail_fragment_iv_video:
             case R.id.product_detail_fragment_ib_play:
                 Intent intent = new Intent(getContext(), PlayerActivity.class);
                 intent.putExtra(Constant.KEY_INTENT_MAIN_TO_PLAYER, product.getFiles().get(0).getFile());
