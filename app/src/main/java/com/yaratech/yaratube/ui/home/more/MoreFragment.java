@@ -12,10 +12,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.yaratech.yaratube.R;
+import com.yaratech.yaratube.data.source.local.db.database.AppDataBase;
 
 public class MoreFragment extends Fragment implements View.OnClickListener {
     private Button btnProfile, btnAboutUs, btnContactUs;
     private Interaction interaction;
+    private AppDataBase appDataBase;
 
     public static MoreFragment newInstance() {
         MoreFragment fragment = new MoreFragment();
@@ -37,6 +39,7 @@ public class MoreFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        appDataBase = AppDataBase.newInstance(getActivity());
     }
 
     @Nullable
@@ -62,7 +65,11 @@ public class MoreFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.more_fragment_btn_profile:
-                interaction.goToProfile();
+                if (appDataBase.userDao().getToken() == null) {
+                    interaction.goToLogin();
+                } else {
+                    interaction.goToProfile();
+                }
                 break;
             case R.id.more_fragment_btn_about_us:
                 interaction.goToAboutUs();
@@ -80,5 +87,7 @@ public class MoreFragment extends Fragment implements View.OnClickListener {
         void goToAboutUs();
 
         void goToContactUs();
+
+        void goToLogin();
     }
 }

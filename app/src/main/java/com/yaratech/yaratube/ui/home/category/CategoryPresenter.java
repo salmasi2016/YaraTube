@@ -19,6 +19,7 @@ public class CategoryPresenter implements CategoryContract.Presenter {
     public void loadData() {
         iaView.showProgress();
         repository.loadCategory(new ApiResult<ArrayList<Category>>() {
+
             @Override
             public void onSuccess(ArrayList<Category> result) {
                 iaView.hideProgress();

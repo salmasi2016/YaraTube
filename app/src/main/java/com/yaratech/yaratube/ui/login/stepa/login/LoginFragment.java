@@ -25,9 +25,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.tasks.Task;
 import com.yaratech.yaratube.R;
-import com.yaratech.yaratube.data.source.local.db.LocalRepository;
 import com.yaratech.yaratube.data.source.local.db.database.AppDataBase;
-import com.yaratech.yaratube.data.source.local.db.entity.User;
 
 import static android.support.constraint.Constraints.TAG;
 
@@ -39,7 +37,6 @@ public class LoginFragment extends Fragment implements LoginContract.View, View.
     private LoginContract.Presenter iaPresenter;
     private GoogleSignInClient googleSignInClient;
     private GoogleApiClient googleApiClient;
-    private LocalRepository localRepository;
     private static final int RC_SIGN_IN = 0;
 
     @Override
@@ -62,9 +59,8 @@ public class LoginFragment extends Fragment implements LoginContract.View, View.
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        iaPresenter = new LoginPresenter(this);
         final AppDataBase database = AppDataBase.newInstance(getActivity());
-        localRepository = new LocalRepository(database);
+        iaPresenter = new LoginPresenter(this, getContext(), database);
         GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions
                 .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -103,10 +99,6 @@ public class LoginFragment extends Fragment implements LoginContract.View, View.
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
-            User user = new User();
-            user.setToken("ok");
-            localRepository.loginUser(user);
-            interaction.dissmissDialog();
         }
     }
 
@@ -114,6 +106,7 @@ public class LoginFragment extends Fragment implements LoginContract.View, View.
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             account.getServerAuthCode();
+            iaPresenter.getTokenIdUser(account.getIdToken());
         } catch (ApiException e) {
             Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
         }
@@ -123,9 +116,13 @@ public class LoginFragment extends Fragment implements LoginContract.View, View.
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.login_fragment_btn_phone:
+                btnPhone.setClickable(false);
+                btnGoogle.setClickable(false);
                 iaPresenter.dialogPhone();
                 break;
             case R.id.login_fragment_btn_google:
+                btnPhone.setClickable(false);
+                btnGoogle.setClickable(false);
                 Intent signInIntent = googleSignInClient.getSignInIntent();
                 startActivityForResult(signInIntent, RC_SIGN_IN);
                 break;
@@ -135,6 +132,16 @@ public class LoginFragment extends Fragment implements LoginContract.View, View.
     @Override
     public void showDialogPhone() {
         interaction.goToLoginByPhone();
+    }
+
+    @Override
+    public void showErrorMessage(String message) {
+        Toast.makeText(this.getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void dissmissDialog() {
+        interaction.dissmissDialog();
     }
 
     @Override

@@ -8,7 +8,6 @@ import com.yaratech.yaratube.data.source.local.db.database.AppDataBase;
 import com.yaratech.yaratube.data.source.local.db.entity.User;
 import com.yaratech.yaratube.data.source.remote.ApiResult;
 import com.yaratech.yaratube.data.source.remote.UserRepository;
-import com.yaratech.yaratube.ui.login.stepc.verification.VerificationContract;
 
 public class VerificationPresenter implements VerificationContract.Presenter {
     private VerificationContract.View iaView;
@@ -30,7 +29,7 @@ public class VerificationPresenter implements VerificationContract.Presenter {
                     public void onSuccess(Activation result) {
                         User user = new User();
                         user.setToken(result.getToken());
-                        localRepository.loginUser(user);
+                        localRepository.InsertUser(user);
                         iaView.saveUser();
                         iaView.dismissDialog();
                     }

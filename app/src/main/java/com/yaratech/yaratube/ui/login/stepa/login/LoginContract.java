@@ -5,10 +5,16 @@ public interface LoginContract {
     interface View {
 
         void showDialogPhone();
+
+        void showErrorMessage(String message);
+
+        void dissmissDialog();
     }
 
     interface Presenter {
 
         void dialogPhone();
+
+        void getTokenIdUser(String tokenIdGoogle);
     }
 }

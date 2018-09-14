@@ -1,5 +1,9 @@
 package com.yaratech.yaratube.ui.main;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
@@ -25,7 +29,7 @@ public class MainActivity extends AppCompatActivity
         implements HomeFragment.Interaction, CategoryFragment.Interaction,
         CategoryGridFragment.Interaction, MainPageFragment.Interaction,
         HeaderItemFragment.Interaction, ProductDetailFragment.Interaction,
-        NetworkReceiver.Interaction, MoreFragment.Interaction {
+        MoreFragment.Interaction {
 
     private FragmentManager fragmentManager;
     private ProfileFragment profileFragment;
@@ -36,17 +40,21 @@ public class MainActivity extends AppCompatActivity
     private MoreFragment moreFragment;
     private CategoryGridFragment categoryGridFragment;
     private ProductDetailFragment productDetailFragment;
-    private DialogFragment dfInternet;
+    private DialogFragment dialogFragmentNetwork;
     private Toast toast;
-    private boolean internetDialogIsShowing;
+    private boolean networkDialogIsShowing;
     private String fragmentName;
     private Category category;
     private int productId;
+    private InternalNetworkChangeReceiver internalNetworkChangeReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
+
+        internalNetworkChangeReceiver = new InternalNetworkChangeReceiver();
+
         fragmentManager = getSupportFragmentManager();
 
         profileFragment = (ProfileFragment) fragmentManager
@@ -70,13 +78,25 @@ public class MainActivity extends AppCompatActivity
                 .replace(R.id.main_activity_fl_layout, HomeFragment.newInstance())
                 .commit();
         toast = Toast.makeText(this, R.string.toast_click_again_to_exit, Toast.LENGTH_SHORT);
+
+        registerReceiver();
+    }
+
+    private void registerReceiver() {
+        try {
+            IntentFilter intentFilter = new IntentFilter();
+            intentFilter.addAction(NetworkChangeReceiver.NETWORK_CHANGE_ACTION);
+            registerReceiver(internalNetworkChangeReceiver, intentFilter);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     public void goToInternetDialog() {
-        dfInternet = InternetDialogFragment.newInstance();
-        dfInternet.show(fragmentManager.beginTransaction(), InternetDialogFragment.class.getName());
-        dfInternet.setCancelable(false);
-        internetDialogIsShowing = true;
+        dialogFragmentNetwork = InternetDialogFragment.newInstance();
+        dialogFragmentNetwork.show(fragmentManager.beginTransaction(), InternetDialogFragment.class.getName());
+        dialogFragmentNetwork.setCancelable(false);
+        networkDialogIsShowing = true;
     }
 
     @Override
@@ -245,23 +265,35 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void startToConnecting() {
-        if (internetDialogIsShowing) {
-            dfInternet.dismiss();
-            internetDialogIsShowing = false;
-            switch (fragmentName) {
-                case "MainPage":
-                    goToMainPage();
-                    break;
-                case "Categories":
-                    goToCategories();
-                    break;
-                case "CategoryGrid":
-                    goToCategoryGrid(category);
-                    break;
-                case "ProductDetail":
-                    goToProductDetail(productId);
-                    break;
+    protected void onDestroy() {
+        try {
+            unregisterReceiver(internalNetworkChangeReceiver);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        super.onDestroy();
+    }
+
+    class InternalNetworkChangeReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getBooleanExtra("status", false) && networkDialogIsShowing) {
+                dialogFragmentNetwork.dismiss();
+                networkDialogIsShowing = false;
+                switch (fragmentName) {
+                    case "MainPage":
+                        goToMainPage();
+                        break;
+                    case "Categories":
+                        goToCategories();
+                        break;
+                    case "CategoryGrid":
+                        goToCategoryGrid(category);
+                        break;
+                    case "ProductDetail":
+                        goToProductDetail(productId);
+                        break;
+                }
             }
         }
     }

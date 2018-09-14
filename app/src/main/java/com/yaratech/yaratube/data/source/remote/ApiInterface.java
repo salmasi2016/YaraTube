@@ -4,11 +4,14 @@ import com.yaratech.yaratube.data.model.Activation;
 import com.yaratech.yaratube.data.model.Category;
 import com.yaratech.yaratube.data.model.Comment;
 import com.yaratech.yaratube.data.model.CommentResponse;
+import com.yaratech.yaratube.data.model.GoogleResponse;
 import com.yaratech.yaratube.data.model.Home;
 import com.yaratech.yaratube.data.model.Product;
 import com.yaratech.yaratube.data.model.SmsResponse;
+import com.yaratech.yaratube.data.model.UserResponse;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -57,4 +60,22 @@ public interface ApiInterface {
                                      @Field("comment_text") String commentText,
                                      @Field("title") String title,
                                      @Header("Authorization") String token);
+
+    @POST("login_google/16")
+    @FormUrlEncoded
+    Call<GoogleResponse> setTokenGoogle(
+            @Field("token_id") String tokenIdGoogle,
+            @Field("device_id") String deviceId,
+            @Field("device_model") String deviceModel,
+            @Field("device_os") String deviceOs);
+
+    @POST("profile")
+    @FormUrlEncoded
+    Call<UserResponse> sendUser(
+            @Field("nickname") String nickname,
+            @Field("date_of_birth") String dateOfBirth,
+            @Field("device_id") String deviceId,
+            @Field("device_model") String deviceModel,
+            @Field("device_os") String deviceOs
+    );
 }

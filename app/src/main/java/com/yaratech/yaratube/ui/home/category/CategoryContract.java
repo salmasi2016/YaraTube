@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public interface CategoryContract {
 
     interface View {
+
         void showProgress();
 
         void hideProgress();
@@ -17,6 +18,7 @@ public interface CategoryContract {
     }
 
     interface Presenter {
+
         void loadData();
     }
 }

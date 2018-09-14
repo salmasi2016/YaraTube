@@ -11,12 +11,16 @@ public class LocalRepository {
         this.database = database;
     }
 
-    public void loginUser(User user) {
+    public void InsertUser(User user) {
         database.userDao().insert(user);
     }
 
     public void updateUser(User user) {
         database.userDao().update(user);
+    }
+
+    public User getUser() {
+        return database.userDao().getUser();
     }
 
     public String getToken() {

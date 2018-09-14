@@ -6,10 +6,12 @@ import android.util.Log;
 import com.yaratech.yaratube.data.model.Activation;
 import com.yaratech.yaratube.data.model.Comment;
 import com.yaratech.yaratube.data.model.CommentResponse;
+import com.yaratech.yaratube.data.model.GoogleResponse;
 import com.yaratech.yaratube.data.model.SmsResponse;
+import com.yaratech.yaratube.data.model.UserResponse;
+import com.yaratech.yaratube.data.source.local.db.entity.User;
 import com.yaratech.yaratube.data.source.local.pref.AppPreferences;
 import com.yaratech.yaratube.util.Device;
-import com.yaratech.yaratube.util.Function;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,22 +33,22 @@ public class UserRepository {
         Call<SmsResponse> call = apiInterface.activateStep1(pref.getPhoneNumber(),
                 Device.getDeviceId(context), Device.getDeviceModel(), Device.getDeviceOs());
 
-            call.enqueue(new Callback<SmsResponse>() {
-                @Override
-                public void onResponse(Call<SmsResponse> call, Response<SmsResponse> response) {
-                    if (response.isSuccessful()) {
-                        callback.onSuccess(response.body());
-                    } else {
-                        callback.onFail(response.message());
-                    }
+        call.enqueue(new Callback<SmsResponse>() {
+            @Override
+            public void onResponse(Call<SmsResponse> call, Response<SmsResponse> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess(response.body());
+                } else {
+                    callback.onFail(response.message());
                 }
+            }
 
-                @Override
-                public void onFailure(Call<SmsResponse> call, Throwable t) {
+            @Override
+            public void onFailure(Call<SmsResponse> call, Throwable t) {
 
-                    callback.onFail(t.getMessage());
-                }
-            });
+                callback.onFail(t.getMessage());
+            }
+        });
     }
 
     public void sendVerificationCode(int verificationCode, final ApiResult<Activation> callback) {
@@ -54,22 +56,22 @@ public class UserRepository {
         Call<Activation> call = apiInterface.activateStep2(pref.getPhoneNumber(),
                 Device.getDeviceId(context), verificationCode);
 
-            call.enqueue(new Callback<Activation>() {
+        call.enqueue(new Callback<Activation>() {
 
-                @Override
-                public void onResponse(Call<Activation> call, Response<Activation> response) {
-                    if (response.isSuccessful()) {
-                        callback.onSuccess(response.body());
-                    } else {
-                        callback.onFail(response.message());
-                    }
+            @Override
+            public void onResponse(Call<Activation> call, Response<Activation> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess(response.body());
+                } else {
+                    callback.onFail(response.message());
                 }
+            }
 
-                @Override
-                public void onFailure(Call<Activation> call, Throwable t) {
-                    callback.onFail(t.getMessage());
-                }
-            });
+            @Override
+            public void onFailure(Call<Activation> call, Throwable t) {
+                callback.onFail(t.getMessage());
+            }
+        });
     }
 
     public void sendComment(int productId, Comment comment, String token,
@@ -78,22 +80,74 @@ public class UserRepository {
         Call<CommentResponse> call = apiInterface.setComment(productId,
                 comment.getScore(), comment.getCommentText(), comment.getTitle(), token);
 
-            call.enqueue(new Callback<CommentResponse>() {
+        call.enqueue(new Callback<CommentResponse>() {
 
-                @Override
-                public void onResponse(Call<CommentResponse> call, Response<CommentResponse> response) {
-                    if (response.isSuccessful()) {
-                        callback.onSuccess(response.body());
-                    } else {
-                        Log.i("sina", "code: " + response.code());
-                        callback.onFail(response.message());
-                    }
+            @Override
+            public void onResponse(Call<CommentResponse> call, Response<CommentResponse> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess(response.body());
+                } else {
+                    Log.i("sina", "code: " + response.code());
+                    callback.onFail(response.message());
                 }
+            }
 
-                @Override
-                public void onFailure(Call<CommentResponse> call, Throwable t) {
-                    callback.onFail(t.getMessage());
+            @Override
+            public void onFailure(Call<CommentResponse> call, Throwable t) {
+                callback.onFail(t.getMessage());
+            }
+        });
+    }
+
+    public void sendGoogleLogin(String tokenIdGoogle, final ApiResult<GoogleResponse> callback) {
+
+        Call<GoogleResponse> call = apiInterface.setTokenGoogle(tokenIdGoogle,
+                Device.getDeviceId(context), Device.getDeviceModel(), Device.getDeviceOs());
+
+        call.enqueue(new Callback<GoogleResponse>() {
+
+            @Override
+            public void onResponse(Call<GoogleResponse> call, Response<GoogleResponse> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess(response.body());
+                    Log.i("sina", "1");
+                } else {
+                    callback.onFail(response.message());
+                    Log.i("sina", "body: " + response.body());
+                    Log.i("sina", "code: " + response.code());
+                    Log.i("sina", "message: " + response.message());
                 }
-            });
+            }
+
+            @Override
+            public void onFailure(Call<GoogleResponse> call, Throwable t) {
+                callback.onFail(t.getMessage());
+                Log.i("sina", "3");
+            }
+        });
+    }
+
+    public void sendUser(User user, final ApiResult<UserResponse> callback) {
+
+        Call<UserResponse> call = apiInterface.sendUser(
+                user.getFullName(), user.getBirthDate(),
+                Device.getDeviceId(context), Device.getDeviceModel(), Device.getDeviceOs());
+
+        call.enqueue(new Callback<UserResponse>() {
+
+            @Override
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess(response.body());
+                } else {
+                    callback.onFail(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserResponse> call, Throwable t) {
+                callback.onFail(t.getMessage());
+            }
+        });
     }
 }

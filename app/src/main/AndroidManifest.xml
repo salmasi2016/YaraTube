@@ -30,13 +30,13 @@
             android:name=".ui.player.PlayerActivity"
             android:screenOrientation="landscape" />
 
-        <receiver android:name=".ui.main.NetworkReceiver">
+        <receiver android:name=".ui.main.NetworkChangeReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".ui.login.stepc.verification.SmsReceiver"/>
+        <receiver android:name=".ui.login.stepc.verification.SmsReceiver" />
 
     </application>
 
