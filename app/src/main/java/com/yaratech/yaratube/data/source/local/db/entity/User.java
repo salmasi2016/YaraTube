@@ -20,6 +20,8 @@ public class User {
     private String birthDate;
     @ColumnInfo(name = "sex")
     private String sex;
+    @ColumnInfo(name = "photo_url")
+    private String photoUrl;
 
     public int getId() {
         return id;
@@ -67,5 +69,13 @@ public class User {
 
     public void setSex(String sex) {
         this.sex = sex;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 }

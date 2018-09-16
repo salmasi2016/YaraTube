@@ -6,6 +6,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera2" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
 
     <application
         android:allowBackup="true"
@@ -30,13 +34,9 @@
             android:name=".ui.player.PlayerActivity"
             android:screenOrientation="landscape" />
 
-        <receiver android:name=".ui.main.NetworkChangeReceiver">
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-            </intent-filter>
-        </receiver>
-
         <receiver android:name=".ui.login.stepc.verification.SmsReceiver" />
+
+        <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
 
     </application>
 

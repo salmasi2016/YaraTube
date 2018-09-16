@@ -37,4 +37,6 @@
     <string name="internet_wi_fi">اینترنت Wi-Fi</string>
     <string name="internet_mobile">اینترنت موبایل</string>
     <string name="more">بیشتر</string>
+    <string name="galery">گالری</string>
+    <string name="camera">دوربین</string>
 </resources>

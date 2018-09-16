@@ -63,6 +63,7 @@ public class LoginFragment extends Fragment implements LoginContract.View, View.
         iaPresenter = new LoginPresenter(this, getContext(), database);
         GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions
                 .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
         googleApiClient = new GoogleApiClient
@@ -106,6 +107,7 @@ public class LoginFragment extends Fragment implements LoginContract.View, View.
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             account.getServerAuthCode();
+            Log.d(TAG, "handleSignInResult:<<<< account token id = [" + account.getIdToken() + "]");
             iaPresenter.getTokenIdUser(account.getIdToken());
         } catch (ApiException e) {
             Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
@@ -127,6 +129,11 @@ public class LoginFragment extends Fragment implements LoginContract.View, View.
                 startActivityForResult(signInIntent, RC_SIGN_IN);
                 break;
         }
+    }
+
+    @Override
+    public void saveUser() {
+        Toast.makeText(this.getContext(), R.string.your_login_did_successfully, Toast.LENGTH_SHORT).show();
     }
 
     @Override

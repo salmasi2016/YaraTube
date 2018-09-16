@@ -64,7 +64,7 @@ public interface ApiInterface {
     @POST("login_google/16")
     @FormUrlEncoded
     Call<GoogleResponse> setTokenGoogle(
-            @Field("token_id") String tokenIdGoogle,
+            @Field("token_id") String googleToken,
             @Field("device_id") String deviceId,
             @Field("device_model") String deviceModel,
             @Field("device_os") String deviceOs);
@@ -72,8 +72,9 @@ public interface ApiInterface {
     @POST("profile")
     @FormUrlEncoded
     Call<UserResponse> sendUser(
-            @Field("nickname") String nickname,
+            @Field("nickname") String nickName,
             @Field("date_of_birth") String dateOfBirth,
+            @Header("Authorization") String token,
             @Field("device_id") String deviceId,
             @Field("device_model") String deviceModel,
             @Field("device_os") String deviceOs

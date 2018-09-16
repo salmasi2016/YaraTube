@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.yaratech.yaratube.R;
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity
     private MoreFragment moreFragment;
     private CategoryGridFragment categoryGridFragment;
     private ProductDetailFragment productDetailFragment;
-    private DialogFragment dialogFragmentNetwork;
+    private InternetDialogFragment dialogFragmentNetwork;
     private Toast toast;
     private boolean networkDialogIsShowing;
     private String fragmentName;
@@ -125,8 +127,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void goToProfile() {
         profileFragment = ProfileFragment.newInstance();
-        Function.setFragment(fragmentManager,
-                profileFragment, R.id.main_activity_fl_layout, ProfileFragment.class.getName());
+        fragmentManager.beginTransaction()
+                .add(R.id.main_activity_fl_layout, profileFragment, ProfileFragment.class.getName())
+                .hide(moreFragment)
+                .addToBackStack(ProfileFragment.class.getName())
+                .commit();
     }
 
     @Override
@@ -278,22 +283,34 @@ public class MainActivity extends AppCompatActivity
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getBooleanExtra("status", false) && networkDialogIsShowing) {
-                dialogFragmentNetwork.dismiss();
-                networkDialogIsShowing = false;
-                switch (fragmentName) {
-                    case "MainPage":
-                        goToMainPage();
-                        break;
-                    case "Categories":
-                        goToCategories();
-                        break;
-                    case "CategoryGrid":
-                        goToCategoryGrid(category);
-                        break;
-                    case "ProductDetail":
-                        goToProductDetail(productId);
-                        break;
+                Fragment fragmentByTag = getSupportFragmentManager().findFragmentByTag(InternetDialogFragment.class.getName());
+                if (fragmentByTag != null) {
+                    dialogFragmentNetwork.dismiss();
+                    networkDialogIsShowing = false;
+                    navigateAmongFragments();
                 }
+            }
+        }
+    }
+
+    private void navigateAmongFragments() {
+        Fragment fragmentByTag = getSupportFragmentManager().findFragmentByTag(InternetDialogFragment.class.getName());
+        if (fragmentByTag != null) {
+            dialogFragmentNetwork.dismiss();
+            networkDialogIsShowing = false;
+            switch (fragmentName) {
+                case "MainPage":
+                    goToMainPage();
+                    break;
+                case "Categories":
+                    goToCategories();
+                    break;
+                case "CategoryGrid":
+                    goToCategoryGrid(category);
+                    break;
+                case "ProductDetail":
+                    goToProductDetail(productId);
+                    break;
             }
         }
     }

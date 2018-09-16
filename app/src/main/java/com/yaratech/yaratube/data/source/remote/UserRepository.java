@@ -18,6 +18,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class UserRepository {
+    private static final String TAG = "UserRepository";
     private ApiInterface apiInterface;
     private Context context;
     private AppPreferences pref;
@@ -108,21 +109,18 @@ public class UserRepository {
 
             @Override
             public void onResponse(Call<GoogleResponse> call, Response<GoogleResponse> response) {
+                Log.d(TAG, "<<<<onResponse() called with: call = [" + call + "], response = [" + response.isSuccessful() + "]");
                 if (response.isSuccessful()) {
                     callback.onSuccess(response.body());
-                    Log.i("sina", "1");
                 } else {
                     callback.onFail(response.message());
-                    Log.i("sina", "body: " + response.body());
-                    Log.i("sina", "code: " + response.code());
-                    Log.i("sina", "message: " + response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<GoogleResponse> call, Throwable t) {
+                Log.e(TAG, "onFailure: ", t);
                 callback.onFail(t.getMessage());
-                Log.i("sina", "3");
             }
         });
     }
@@ -130,7 +128,7 @@ public class UserRepository {
     public void sendUser(User user, final ApiResult<UserResponse> callback) {
 
         Call<UserResponse> call = apiInterface.sendUser(
-                user.getFullName(), user.getBirthDate(),
+                user.getFullName(), user.getBirthDate(), user.getToken(),
                 Device.getDeviceId(context), Device.getDeviceModel(), Device.getDeviceOs());
 
         call.enqueue(new Callback<UserResponse>() {

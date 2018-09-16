@@ -1,6 +1,7 @@
 package com.yaratech.yaratube.ui.login.stepa.login;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.yaratech.yaratube.data.model.GoogleResponse;
 import com.yaratech.yaratube.data.source.local.db.LocalRepository;
@@ -10,6 +11,7 @@ import com.yaratech.yaratube.data.source.remote.ApiResult;
 import com.yaratech.yaratube.data.source.remote.UserRepository;
 
 public class LoginPresenter implements LoginContract.Presenter {
+    private static final String TAG = "LoginPresenter";
     private LoginContract.View iaView;
     private UserRepository repository;
     private LocalRepository localRepository;
@@ -32,14 +34,16 @@ public class LoginPresenter implements LoginContract.Presenter {
 
                     @Override
                     public void onSuccess(GoogleResponse result) {
-                        User user = new User();
-                        user.setToken(result.getToken());
-                        localRepository.InsertUser(user);
-                        iaView.dissmissDialog();
+                            User user = new User();
+                            user.setToken("Token " + result.getToken());
+                            localRepository.InsertUser(user);
+                            iaView.dissmissDialog();
+                            iaView.saveUser();
                     }
 
                     @Override
                     public void onFail(String message) {
+                        Log.d(TAG, "onFail() called with: message = [" + message + "]");
                         iaView.showErrorMessage(message);
                     }
                 });

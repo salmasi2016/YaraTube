@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="dialog_fragment_width">300dp</dimen>
+    <dimen name="dialog_fragment_width">280dp</dimen>
     <dimen name="dialog_fragment_height">250dp</dimen>
     <dimen name="home_navigation_header_height">200dp</dimen>
     <dimen name="main_page_home_adapter_height">200dp</dimen>
@@ -21,6 +21,7 @@
     <dimen name="img_size_20">20dp</dimen>
     <dimen name="img_size_32">32dp</dimen>
     <dimen name="img_size_64">64dp</dimen>
+    <dimen name="img_size_90">90dp</dimen>
     <dimen name="margin_5">5dp</dimen>
     <dimen name="margin_8">8dp</dimen>
     <dimen name="margin_10">10dp</dimen>

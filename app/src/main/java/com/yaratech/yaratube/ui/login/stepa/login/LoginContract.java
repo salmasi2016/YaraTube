@@ -4,6 +4,8 @@ public interface LoginContract {
 
     interface View {
 
+        void saveUser();
+
         void showDialogPhone();
 
         void showErrorMessage(String message);

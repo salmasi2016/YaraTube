@@ -28,7 +28,7 @@ public class VerificationPresenter implements VerificationContract.Presenter {
                     @Override
                     public void onSuccess(Activation result) {
                         User user = new User();
-                        user.setToken(result.getToken());
+                        user.setToken("Token "+result.getToken());
                         localRepository.InsertUser(user);
                         iaView.saveUser();
                         iaView.dismissDialog();
